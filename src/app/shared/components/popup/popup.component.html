@@ -1,0 +1,15 @@
+<div class="popup">
+    <h2 mat-dialog-title *ngIf="title">{{title}}</h2>
+    <mat-dialog-content class="mat-typography">
+    <div class="confirmation-content">
+        <div *ngIf="successIcon" class="icon">
+            <img src="assets/images/tick-violet.png" alt="">
+        </div>
+        {{content}}
+    </div>
+    </mat-dialog-content>
+    <mat-dialog-actions class="btn-wrap">
+        <button mat-stroked-button color="primary" [mat-dialog-close]="false" *ngIf="!isAlert"> {{ cancel }}</button>
+        <button mat-flat-button color="primary" [mat-dialog-close]="true" > {{ accept }} </button>
+    </mat-dialog-actions>
+</div>

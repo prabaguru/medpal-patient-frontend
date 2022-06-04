@@ -1,0 +1,107 @@
+<div class="patient-profile-wrapper">
+    <div class="loader" [hidden]="!enableLoader"></div>
+    <div class="patient-profile-icon">
+        <img [src]="displayImgData.image" class="user-img">
+        <img src="assets/images/edit-icon.png" alt="" (click)="fileInput.click()" class="edit-icon">
+        <input #fileInput type="file" (change)="onImageSelected($event)" accept="image/*" style="display:none;">
+    </div>
+    <form [formGroup]="profileForm" class='profile-form' autocomplete="off">
+        <div class="profiles row">
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" floatLabel=never>
+                    <mat-icon matPrefix class="form-icon">face</mat-icon>
+                    <input type="text" matInput placeholder="Full Name" formControlName="firstName" autocomplete="off">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 email-wrapper">
+                <mat-form-field appearance="outline" floatLabel=never>
+                    <mat-icon matPrefix class="form-icon">email</mat-icon>
+                    <input type="email" matInput placeholder="Email" formControlName="email" autocomplete="off">
+                </mat-form-field>
+                <small class="custom-error" *ngIf="profileForm.controls['email'].errors?.pattern">Email address is invalid</small> 
+            </div>
+            <div class="col-md-6 radio" >
+                <mat-form-field appearance="outline">
+                    <mat-icon matPrefix class="form-icon">transgender</mat-icon>
+                    <mat-select formControlName="gender" placeholder="Gender" [(ngModel)]="gender">
+                      <mat-option value="Male">Male</mat-option>
+                      <mat-option value="Female">Female</mat-option>
+                      <mat-option value="Other">Other</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" floatLabel=never>
+                    <mat-icon matPrefix class="form-icon">cake</mat-icon>
+                    <input matInput [matDatepicker]="datepicker" placeholder="Date of Birth" formControlName="dob" autocomplete="off">
+                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                        <mat-datepicker-actions>
+                        <button mat-button matDatepickerCancel>Cancel</button>
+                        <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+                        </mat-datepicker-actions>
+                    </mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 flag-mobile" >
+                <ngx-intl-tel-input [cssClass]="'custom-flag-input'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                    [enablePlaceholder]="true" [searchCountryFlag]="true" customPlaceholder="Mobile No"
+                    [searchCountryField]="[ SearchCountryField.Iso2, SearchCountryField.Name ]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.India" [maxLength]="15" [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                    [numberFormat]="PhoneNumberFormat.National" name="mobile" formControlName="mobile"
+                    [ngClass]="{ 'is-invalid': profileForm.controls['mobile'].errors }" (countryChange)="resetmobilefield()" >
+              </ngx-intl-tel-input>
+            </div>
+            <div class="col-md-6 flag-mobile" >
+                <ngx-intl-tel-input [cssClass]="'custom-flag-input'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
+                    [enablePlaceholder]="true" [searchCountryFlag]="true" customPlaceholder="Emergency Contact No"
+                    [searchCountryField]="[ SearchCountryField.Iso2, SearchCountryField.Name ]" [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.India" [maxLength]="15" [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                    [numberFormat]="PhoneNumberFormat.National" name="EmergencyContactNo" formControlName="EmergencyContactNo"
+                    [ngClass]="{ 'is-invalid': profileForm.controls['EmergencyContactNo'].errors }" (countryChange)="resetmobilefield1()" >
+              </ngx-intl-tel-input>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" floatLabel=never>
+                    <mat-icon matPrefix class="form-icon">volunteer_activism</mat-icon>
+                    <mat-select formControlName="Maritalstatus" placeholder="Marital Status" [(ngModel)]="maritalStatus">
+                      <mat-option value="Married">Married</mat-option>
+                      <mat-option value="UnMarried">UnMarried</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" floatLabel=never>
+                    <mat-icon matPrefix class="form-icon">bloodtype</mat-icon>
+                    <mat-select formControlName="bloodGroup" placeholder="Blood Group" [(ngModel)]="bloodGroup">
+                        <mat-option value="a">A</mat-option>
+                        <mat-option value="b">B</mat-option>
+                        <mat-option value="ab">AB</mat-option>
+                        <mat-option value="o">O</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" floatLabel=never>
+                    <mat-icon matPrefix class="form-icon">person</mat-icon>
+                    <input type="text" matInput placeholder="Aadhar No" formControlName="AadhaarNo" autocomplete="off">
+                </mat-form-field>
+            </div>
+            <div class="col-md-6">
+                <mat-form-field appearance="outline" floatLabel=never>
+                    <mat-icon matPrefix class="form-icon">my_location</mat-icon>
+                    <input type="text" matInput placeholder="Pin Code" formControlName="pinCode" autocomplete="off">
+                </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <!-- <label class="control-label">Address</label> -->
+              <mat-form-field appearance="outline" style="width: 90%;">
+                <textarea matInput name="address" placeholder="Address" formControlName="address" rows="6"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="action-button">
+                <button mat-raised-button (click)="saveChanges()">Update Profile</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+@import "src/assets/styles/variables";
+
+.example-spacer {
+  flex: 1 1 auto;
+} 
+.medpal-wrapper {
+  padding-top: 55px;
+  .top-toolbar {
+    position: fixed;
+    top: 0;
+    z-index: 1001;
+    .pointer {
+      top: 3px;
+      position: relative;
+    }
+    .title {
+      font-size: 22px;
+    }      
+  } 
+  .med-content {
+    background: $grey-color;
+    min-height: 93vh !important;
+  }
+}
+::ng-deep {
+  .top-toolbar span.mat-button-wrapper {
+    font-size: 16px;
+  }
+  .mob-menu {
+    .mob-text-wrapper > a,
+    .mob-text-wrapper > button {
+      margin: 10px 35px;
+    }
+    .mat-button {
+      text-align: left;
+    }
+  }
+}

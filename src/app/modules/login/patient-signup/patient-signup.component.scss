@@ -1,0 +1,27 @@
+@import "../../../shared/styles/login-styles.scss";
+
+::ng-deep .loginForm {
+    mat-form-field {
+        width: 80%;
+    }
+    .custom-flag-input {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-radius: 5px;
+        border-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+        padding-left: 90px !important;
+    }
+    .flag-mobile {
+        margin-bottom: 20px;
+        .iti {
+            width: 80%;
+        }
+    }
+    .iti input#country-search-box {
+        padding: 6px;
+    }
+    .country-dropdown, .iti__flag-container {
+        width: 100% !important;
+    }
+}

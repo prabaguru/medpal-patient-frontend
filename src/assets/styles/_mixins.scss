@@ -1,0 +1,107 @@
+@mixin padding-all($top, $right, $bottom, $left) {
+    padding-top: $top;
+    padding-right: $right;
+    padding-bottom: $bottom;
+    padding-left: $left;
+}
+
+@mixin padding($padding) {
+    padding: $padding;
+}
+
+@mixin margin-all($top, $right, $bottom, $left) {
+    margin-top: $top;
+    margin-right: $right;
+    margin-bottom: $bottom;
+    margin-left: $left;
+}
+
+@mixin border($border) {
+    border: $border;
+}
+
+@mixin border-all ($border, $place) {
+    border-bottom: $border;
+}
+
+@mixin button($color, $textcolor) {
+    color: $textcolor;
+    background-color: $color;
+    cursor: pointer;
+}
+
+@mixin tab($color, $color-text-hover: $color-light) {
+    color: $color;
+    border-color: $color;
+    background-color: transparent;
+    &:hover {
+        color: $color-text-hover;
+        background-color: $color;
+    }
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+    @if $inset {
+        -webkit-box-shadow: inset $top $left $blur $color;
+        -moz-box-shadow: inset $top $left $blur $color;
+        box-shadow: inset $top $left $blur $color;
+    }
+    @else {
+        -webkit-box-shadow: $top $left $blur $color;
+        -moz-box-shadow: $top $left $blur $color;
+        box-shadow: $top $left $blur $color;
+    }
+}
+
+@mixin panelborder() {
+    -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+@mixin padding($padding) {
+    padding: $padding;
+}
+
+@mixin padding-all($top: null, $right: null, $bottom: null, $left: null) {
+    @if ($top != null) { padding-top: $top; }
+    @if ($right != null) { padding-right: $right; }
+    @if ($bottom != null) { padding-bottom: $bottom; }
+    @if ($left != null) { padding-left: $left; }
+}
+
+@mixin margin($margin) {
+    margin: $margin;
+}
+
+@mixin margin-all($top: null, $right: null, $bottom: null, $left: null) {
+    @if ($top != null) { margin-top: $top; }
+    @if ($right != null) { margin-right: $right; }
+    @if ($bottom != null) { margin-bottom: $bottom; }
+    @if ($left != null) { margin-left: $left; }
+}
+
+/* Example: @include border(1px solid, #22222, bottom right); */
+@mixin border($style, $color, $sides) {
+    @if ($style != "") {
+        @if ($sides == "") {
+            border: $style $color;
+        } @else {
+            @each $side in $sides {
+               @if ($side == 'top' or
+                    $side == 'right' or
+                    $side == 'bottom' or
+                    $side == 'left') {
+                    border-#{$side}: $style $color;
+                }
+            }
+        }
+    }
+}
+

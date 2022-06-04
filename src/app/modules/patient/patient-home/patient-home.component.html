@@ -1,0 +1,79 @@
+<div class="patient-wrapper"> 
+    <mat-toolbar color="primary" class="top-toolbar">  
+      <div fxShow="true" fxHide.gt-sm="true">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <div class="head-title" [routerLink]="['/medpal']">
+        <mat-icon class="pointer" aria-hidden="false">medical_services</mat-icon>
+        <span class="title" >Medpal.Live</span>
+      </div>
+      <span class="example-spacer"></span>
+      <div class="header-patient">
+        <span class="notification icon"><mat-icon>notifications_none</mat-icon></span>
+        <span class="message icon"><mat-icon>message</mat-icon></span>
+        <img [src]="imageSrc" class="user-icon">
+        <!-- <div class="user" [matMenuTriggerFor]="login" #menuTrigger="matMenuTrigger" (mouseover)="openMenu()" (mouseleave)="buttonLeave()">
+            <div class="username" > {{userName | titlecase}}
+                <img class="down-arrow" src="assets/images/downarrow.png"  alt="">
+            </div>
+            <mat-menu #login="matMenu" xPosition="after">
+                <span (mouseleave)="closeMenu()" (mouseenter)="menuenter()">
+                    <button mat-menu-item (click)="logOut()"> <mat-icon>logout</mat-icon> Logout</button>
+                </span>
+            </mat-menu>
+            <div class="country">{{country}}</div>
+        </div>   -->
+      </div>
+    </mat-toolbar>
+    <mat-sidenav-container fxFlexEnd class="mob-menu">
+    <div class="row patient-details" >
+        <div class="col-md-3 col-lg-3" fxShow="true" fxHide.lt-md="true">
+            <div class="profile-head-details">
+              <img [src]="imageSrc" class="profile-icon">
+              <div class="user-name">{{ userName | titlecase }}</div>
+              <div class="id"> {{ memberId }}</div>
+            </div>
+            <ul class="list-wrapper">
+                <li *ngFor="let tab of sideNavMenu" role="presentation" routerLinkActive="active" class="accordion">
+                    <span routerLink="{{tab.state}}"> <mat-icon>{{tab.icon}}</mat-icon> {{tab.name}}</span>
+                </li>
+            </ul>
+            <ul class="list-wrapper" >
+                <li routerLinkActive="active" class="accordion" [routerLink]="['/medpal/home']">
+                    <span> <mat-icon>logout</mat-icon> Sign Out</span>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-9 col-lg-9 left-side-page">
+            
+            <router-outlet></router-outlet>
+        </div>
+      </div>
+      
+    <mat-sidenav color="primary" #sidenav fxLayout="column" fxFlexAlign="start" opened="false" fxHide.gt-sm="true" >
+      <div fxLayout="column" class="mob-text-wrapper patient-details">
+        <ul class="list-wrapper">
+            <li *ngFor="let tab of sideNavMenu" role="presentation" routerLinkActive="active" class="accordion">
+                <span routerLink="{{tab.state}}"> <mat-icon>{{tab.icon}}</mat-icon> {{tab.name}}</span>
+            </li>
+        </ul>
+        <ul class="list-wrapper">
+            <li routerLinkActive="active" class="accordion" [routerLink]="['/medpal/home']">
+                <span> <mat-icon>logout</mat-icon> Sign Out</span>
+            </li>
+        </ul>
+      </div>
+    </mat-sidenav>
+  </mat-sidenav-container>
+      <!-- <mat-sidenav-content fxFlexFill class="med-content">
+        
+        <router-outlet></router-outlet>
+  
+  
+      </mat-sidenav-content>
+  
+    </mat-sidenav-container> -->
+  
+  </div>
