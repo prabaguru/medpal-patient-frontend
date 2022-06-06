@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "medpal-initial": {
+    "medpal": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/medpal-initial",
+            "outputPath": "dist/medpal",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -44,8 +44,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -75,16 +75,16 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
 					"options": {
-						"browserTarget": "medpal-initial:build",
+						"browserTarget": "medpal:build",
 						"port": 5050,
 						"publicHost": "http://localhost:5050"
 					},
           "configurations": {
             "production": {
-              "browserTarget": "medpal-initial:build:production"
+              "browserTarget": "medpal:build:production"
             },
             "development": {
-              "browserTarget": "medpal-initial:build:development"
+              "browserTarget": "medpal:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -92,7 +92,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "medpal-initial:build"
+            "browserTarget": "medpal:build"
           }
         },
         "test": {
@@ -116,5 +116,5 @@
       }
     }
   },
-  "defaultProject": "medpal-initial"
+  "defaultProject": "medpal"
 }
