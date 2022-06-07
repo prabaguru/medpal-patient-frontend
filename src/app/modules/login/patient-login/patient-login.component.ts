@@ -27,15 +27,12 @@ export class PatientLoginComponent implements OnInit {
   }
 
   login(): void {
-    if (this.loginForm.invalid) {
-      return;
-    }
+    if (this.loginForm.invalid) { return; }
     this.enableLoader = true;
     this.healthService.patientLogin(this.loginForm.value).subscribe({
       next: (data: any) => {
         this.enableLoader = false;
-        this.commonService.currentUserData = data;
-        sessionStorage.setItem('loggedInUserData', JSON.stringify(data));
+        this.commonService.updateCurrentUser(data);
         this.router.navigate(['medpal-patient']);
         this.commonService.showNotification(`Welcome ${data.firstName}!`);
       }, error: (err) => {

@@ -23,6 +23,11 @@ export class CommonService {
     this.imgUpdate.next();
   }
 
+  public updateCurrentUser(user: any) {    
+    this.currentUserData = user;
+    sessionStorage.setItem('loggedInUserData', JSON.stringify(user));
+  }
+
   // Show notification on top of the screen
   public showNotification(message: any, duaration = 5000) {
     this.notification.open(message, 'Dismiss', {
