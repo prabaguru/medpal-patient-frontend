@@ -7,6 +7,7 @@ import { PatientSignupComponent } from './modules/login/patient-signup/patient-s
 import { ResetPasswordComponent } from './modules/login/reset-password/reset-password.component';
 import { PatientHomeComponent } from './modules/patient/patient-home/patient-home.component';
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'medpal', pathMatch: 'full'},
@@ -50,20 +51,9 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        component: PatientProfileComponent
-      },
-      {
-        path: 'patient/login',
-        component: PatientLoginComponent
-      },
-      {
-        path: 'patient/signup',
-        component: PatientSignupComponent
-      },
-      {
-        path: 'forget-password',
-        component: ResetPasswordComponent
-      },
+        component: PatientProfileComponent,
+        // canActivate: [AuthGuard]
+      }
     ]
   },
   

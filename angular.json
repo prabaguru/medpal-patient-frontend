@@ -76,8 +76,8 @@
           "builder": "@angular-devkit/build-angular:dev-server",
 					"options": {
 						"browserTarget": "medpal:build",
-						"port": 5050,
-						"publicHost": "http://localhost:5050"
+						"port": 4200,
+						"publicHost": "http://localhost:4200"
 					},
           "configurations": {
             "production": {

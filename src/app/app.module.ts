@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 import { HeaderComponent } from './modules/home/header/header.component';
@@ -20,6 +20,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
 import { PatientHomeComponent } from './modules/patient/patient-home/patient-home.component';
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
+import { MedPalHttpInterceptor } from './services/medPalHttp.interceptor';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,9 @@ import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.comp
     AppRoutingModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [DatePipe],
+  providers: [ DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: MedPalHttpInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
