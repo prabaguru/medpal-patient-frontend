@@ -1,37 +1,37 @@
 .patient-initial {
-    margin-top: 50px;
-    position: relative;
-    .docImg {
-        margin-right: 10%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        img {
-            width: 100%;
-        }
+  margin-top: 50px;
+  position: relative;
+  .docImg {
+    margin-right: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 50%;
     }
-    .docImg.reset img {
-        width: 80%;
+  }
+  .docImg.reset img {
+    width: 30%;
+  }
+  .signUp-form {
+    text-align: center;
+    background: #fff;
+  }
+  .logo {
+    margin-bottom: 25px;
+    img {
+      width: 70px;
+      margin: auto;
     }
-    .signUp-form {
-        text-align: center;
-        background: #FFF;
-    }
-    .logo {
-        margin-bottom: 25px;
-        img {
-            width: 70px;
-            margin: auto;
-        }
-    }
-    .sub-actions {
-        margin: 15px 0;
-    }
-    .end {
-        margin: 15px 0 30px;
-    }
-    span.baseColor:hover {
-        text-decoration: underline;
-        cursor: pointer;
-    }
+  }
+  .sub-actions {
+    margin: 15px 0;
+  }
+  .end {
+    margin: 15px 0 30px;
+  }
+  span.baseColor:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
