@@ -17,13 +17,11 @@ export class MedPalHttpInterceptor implements HttpInterceptor {
     // Get the Authentication token
     const token = this.commonService.currentUserData ? this.commonService.currentUserData.token : ''; 
     const baseUrl = environment.apiUrl;
-
-    request = request.clone({ headers:
-      request.headers.set('X-Content-Type-Options', 'nosniff')
-        .set('Set-Cookie', 'SameSite=Lax')
-      });
+    // adding headers
+    (request.headers as any).headers.set('X-Content-Type-Options', 'nosniff')
+    .set('Set-Cookie', 'SameSite=Lax');
     if (token) {
-      request = request.clone({ headers: request.headers.set('X-AUTH-TOKEN', token) });
+      (request.headers as any).headers.set('X-AUTH-TOKEN', token);
     } else {
       //only for testing purpose
       (request.headers as any).headers.set('Access-Control-Allow-Origin', "*");
