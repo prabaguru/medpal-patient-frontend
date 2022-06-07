@@ -41,7 +41,7 @@
                 </li>
             </ul>
             <ul class="list-wrapper" >
-                <li routerLinkActive="active" class="accordion" [routerLink]="['/medpal/home']">
+                <li routerLinkActive="active" class="accordion" [routerLink]="['/medpal/home']" (click)="logOut()">
                     <span> <mat-icon>logout</mat-icon> Sign Out</span>
                 </li>
             </ul>
@@ -60,7 +60,7 @@
             </li>
         </ul>
         <ul class="list-wrapper">
-            <li routerLinkActive="active" class="accordion" [routerLink]="['/medpal/home']">
+            <li routerLinkActive="active" class="accordion" [routerLink]="['/medpal/home']" (click)="logOut()">
                 <span> <mat-icon>logout</mat-icon> Sign Out</span>
             </li>
         </ul>

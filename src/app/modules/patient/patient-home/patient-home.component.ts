@@ -40,7 +40,7 @@ export class PatientHomeComponent implements OnInit {
   }
 
   logOut() {
-    //
+    this.commonService.currentUserData = null;
   }
 
 }
