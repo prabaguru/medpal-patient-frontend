@@ -1,22 +1,27 @@
-
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @import "./_mixins.scss";
 @import "./_variables.scss";
-@import '@angular/material/theming';
+@import "./_themestyle.scss";
+@import "@angular/material/theming";
 
 // @font-face {
 //     font-family: 'system-ui';
 //     src: url('~assets/fonts/test.otf') format('opentype');
 // }
 
- /** Define a custom typography config that overrides the font-family as well as the `headlines` and `body-1` levels. **/
+/** Define a custom typography config that overrides the font-family as well as the `headlines` and `body-1` levels. **/
 $custom-typography: mat.define-typography-config(
-  $font-family: 'system-ui',
+  $font-family: "system-ui",
   $headline: mat.define-typography-level(32px, 48px, 700),
-  $body-1: mat.define-typography-level($font-size-base, $line-height-base, $font-medium)
+  $body-1:
+    mat.define-typography-level(
+      $font-size-base,
+      $line-height-base,
+      $font-medium
+    ),
 );
 
-/** Override the typography in the core CSS.*/ 
+/** Override the typography in the core CSS.*/
 @include mat.core($custom-typography);
 
 // Hiding scrollbar
@@ -25,7 +30,7 @@ $custom-typography: mat.define-typography-config(
 }
 // Global font family
 body {
-  font-family: 'system-ui';
+  font-family: "system-ui";
   margin: 0;
 }
 // Violet theme color
@@ -33,14 +38,14 @@ body {
   color: $med-core;
 }
 //loader styles
-.loader{
+.loader {
   position: absolute;
   left: 0px;
   top: 0px;
   width: 100%;
   height: 100%;
   z-index: 9999;
-  background: url('~assets/images/loader.gif') 50% 50% no-repeat transparent;
+  background: url("~assets/images/loader.gif") 50% 50% no-repeat transparent;
   // background-size: 200px 100px;
 }
 
@@ -58,6 +63,9 @@ button.mat-raised-button {
   letter-spacing: 2px;
   text-transform: uppercase;
 }
+.mat-icon {
+  color: $med-core;
+}
 // Form material icon position
 .form-icon {
   opacity: 0.7 !important;
@@ -65,15 +73,14 @@ button.mat-raised-button {
 }
 // email error message
 .email-wrapper {
+  .custom-error {
     position: relative;
-    .custom-error {
-        font-size: 13px;
-        color: #f44336;
-        display: inline-block;
-        position: absolute;
-        top: 65px;
-        left: 25px;
-    }
+    text-align: left !important;
+    font-size: 13px;
+    color: #f44336;
+    display: inline-block;
+    top: -25px !important;
+  }
 }
 // mobile number with country code
 .custom-flag-input {
@@ -87,19 +94,23 @@ button.mat-raised-button {
 .flag-mobile {
   margin-bottom: 20px;
   .iti {
-      width: 80%;
+    width: 80%;
   }
+}
+.iti input:visited {
+  border: 1px solid #ccc !important;
 }
 .iti input#country-search-box {
   padding: 6px;
 }
-.country-dropdown, .iti__flag-container {
+.country-dropdown,
+.iti__flag-container {
   width: 100% !important;
 }
 // country styles end here
 // Mobile side nav styles
 .mat-drawer-container {
-  background-color: #FFF;
+  background-color: #fff;
 }
 .mat-drawer {
   width: 80%;
@@ -108,42 +119,52 @@ button.mat-raised-button {
 // ends here
 .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
 .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: #333333;
+  background-color: #333333;
 }
 .mat-button.cdk-keyboard-focused .mat-button-focus-overlay {
   opacity: 0 !important;
 }
-.mat-tab-group.mat-primary .mat-tab-label.cdk-keyboard-focused:not(.mat-tab-disabled) {
+.mat-tab-group.mat-primary
+  .mat-tab-label.cdk-keyboard-focused:not(.mat-tab-disabled) {
   background-color: transparent !important;
 }
 .mat-form-field {
-    display: block;
-    width: 90%;
+  display: block;
+  width: 90%;
 }
 .custom-error {
-    .mat-form-field-outline-thick {
-        .mat-form-field-outline-start {
-            border: 2px solid red;
-            border-right: 0;
-        }
-        .mat-form-field-outline-end {
-            border: 2px solid red;
-            border-left: 0;
-        }
+  .mat-form-field-outline-thick {
+    .mat-form-field-outline-start {
+      border: 1px solid red;
+      border-right: 0;
     }
+    .mat-form-field-outline-end {
+      border: 1px solid red;
+      border-left: 0;
+    }
+  }
+}
+.mat-form-field-appearance-outline
+  .mat-form-field-outline-thick
+  .mat-form-field-outline-start,
+.mat-form-field-appearance-outline
+  .mat-form-field-outline-thick
+  .mat-form-field-outline-end,
+.mat-form-field-appearance-outline
+  .mat-form-field-outline-thick
+  .mat-form-field-outline-gap {
+  border-width: 1px !important;
 }
 .mat-checkbox-layout .mat-checkbox-label {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 /* Firefox */
-input[type=number] {
-    -moz-appearance: textfield;
-} 
-// }
-
+input[type="number"] {
+  -moz-appearance: textfield;
+}

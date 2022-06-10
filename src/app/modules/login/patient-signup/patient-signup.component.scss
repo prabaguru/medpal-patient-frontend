@@ -1,27 +1,41 @@
 @import "../../../shared/styles/login-styles.scss";
-
+.logo {
+  text-align: center;
+}
+.spanitalics {
+  font-size: 12px;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+.custom-error {
+  color: red;
+}
 ::ng-deep .loginForm {
-    mat-form-field {
-        width: 80%;
+  mat-form-field {
+    width: 100%;
+  }
+  .iti:focus-visible {
+    border: 1px solid #ccc !important;
+  }
+  .custom-flag-input {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc !important;
+    width: 100%;
+    padding-left: 90px !important;
+  }
+  .flag-mobile {
+    margin-bottom: 20px;
+    .iti {
+      width: 100%;
     }
-    .custom-flag-input {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        border-radius: 5px;
-        border-color: rgba(0, 0, 0, 0.1);
-        width: 100%;
-        padding-left: 90px !important;
-    }
-    .flag-mobile {
-        margin-bottom: 20px;
-        .iti {
-            width: 80%;
-        }
-    }
-    .iti input#country-search-box {
-        padding: 6px;
-    }
-    .country-dropdown, .iti__flag-container {
-        width: 100% !important;
-    }
+  }
+  .iti input#country-search-box {
+    padding: 6px;
+  }
+  .country-dropdown,
+  .iti__flag-container {
+    width: 100% !important;
+  }
 }

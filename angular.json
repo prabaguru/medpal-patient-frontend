@@ -26,18 +26,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-							"./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
-							"src/styles.scss"
+              "./node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "src/styles.scss"
             ],
-            "scripts": [
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ]
+            "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.min.js"]
           },
           "configurations": {
             "production": {
@@ -74,11 +71,11 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-					"options": {
-						"browserTarget": "medpal:build",
-						"port": 4200,
-						"publicHost": "http://localhost:4200"
-					},
+          "options": {
+            "browserTarget": "medpal:build",
+            "port": 4200,
+            "publicHost": "http://localhost:4200"
+          },
           "configurations": {
             "production": {
               "browserTarget": "medpal:build:production"
@@ -103,13 +100,8 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         }

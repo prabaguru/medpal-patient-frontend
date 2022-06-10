@@ -2,3 +2,9 @@
 @import "@angular/material/prebuilt-themes/deeppurple-amber.css";
 @import "bootstrap/dist/css/bootstrap-grid.css";
 @import "./assets/styles/global";
+//homepage
+
+.maincolor,
+.text-med {
+  color: $med-core;
+}

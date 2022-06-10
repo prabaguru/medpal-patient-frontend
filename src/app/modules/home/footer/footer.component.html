@@ -1,70 +1,82 @@
 <footer class="footer-wrapper baseColor">
+  <div class="container">
+    <div class="row">
+      <!-- COLUMNS 1 -->
+      <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="foot-link footer-link">
+          <h4 class="foot-title">About</h4>
+          <p>
+            The printing and typesetting industry Ipsum has been the industry's
+            thanks to your passion, hard work creativity
+          </p>
+          <ul class="aon-socila-icon d-flex">
+            <li>
+              <a href="javascript:void(0)">
+                <mat-icon aria-hidden="false" aria-label="Example home icon"
+                  >facebook</mat-icon
+                >
+              </a>
+            </li>
+            &nbsp;&nbsp;&nbsp;
+            <li>
+              <a href="javascript:void(0)">
+                <mat-icon aria-hidden="false" aria-label="Example home icon"
+                  >whatsapp</mat-icon
+                >
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- COLUMNS 2 -->
+      <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="foot-link footer-cities">
+          <h4 class="foot-title">Quick Links</h4>
+          <ul>
+            <li><a href="javascript:void();">About</a></li>
+            <li><a href="javascript:void();">Appointments</a></li>
+            <li><a href="javascript:void();">Lab Test</a></li>
+            <li><a href="javascript:void();">Pharmacy</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- COLUMNS 3 -->
+      <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="foot-link footer-categories">
+          <h4 class="foot-title">Links</h4>
+          <ul>
+            <li><a href="javascript:void();">Terms & Conditions</a></li>
+            <li><a href="javascript:void();">Privacy Policy</a></li>
+            <li><a href="javascript:void();">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- COLUMNS 4 -->
+      <div class="col-md-3 col-sm-6 col-xs-6">
+        <div class="foot-link footer-contact">
+          <h4 class="foot-title">Address</h4>
+          <p class="footeraddress">
+            Weisermanner Healthcare Pvt Ltd,<br />
+            No.3137, 7th main, HAL, 2nd Stage,<br />
+            Indiranagar, Bengaluru,<br />
+            Karnataka 560 008.<br />
+            Phone: +91 81055 50944.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FOOTER COPYRIGHT -->
+  <div class="footer-bottom">
     <div class="container">
-        <div class="row">
-            <!-- COLUMNS 1 -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="foot-link footer-link">
-                    <h4 class="foot-title">About</h4>
-                    <p >The printing and typesetting industry Ipsum has been the industry's thanks to your passion, hard work creativity </p>
-                    <ul class="aon-socila-icon d-flex">
-                        <li>
-                            <a href="javascript:void(0);">
-                                <mat-icon aria-hidden="false" aria-label="Example home icon">facebook</mat-icon>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">
-                                <mat-icon aria-hidden="false" aria-label="Example home icon">whatsapp</mat-icon>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- COLUMNS 2 -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="foot-link footer-cities">
-                    <h4 class="foot-title">Quick Links</h4>
-                    <ul>
-                        <li><a href="javascript:void();">About</a></li>
-                        <li><a href="javascript:void();">Appointments</a></li>
-                        <li><a href="javascript:void();">Lab Test</a></li>
-                        <li><a href="javascript:void();">Pharmacy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- COLUMNS 3 -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="foot-link footer-categories">
-                    <h4 class="foot-title">Links</h4>
-                    <ul>
-                        <li><a href="javascript:void();">Terms & Conditions</a></li>
-                        <li><a href="javascript:void();">Privacy Policy</a></li>
-                        <li><a href="javascript:void();">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <!-- COLUMNS 4 -->
-            <div class="col-md-3 col-sm-6 col-xs-6">
-                <div class="foot-link footer-contact">
-                    <h4 class="foot-title">Community</h4>
-                    <p class="footeraddress">
-                        Weisermanner Healthcare Pvt Ltd,<br />
-                        No.3137, 7th main, HAL, 2nd Stage,<br />
-                        Indiranagar, Bengaluru, Karnataka 560 008.<br />
-                        Phone: +91 81055 50944.
-                    </p>
-                </div>
-            </div>
+      <div class="footer-bottom-line">
+        <div class="aon-foo-copyright">
+          <span>&copy; {{ year }} - Weisermanner. All Rights Reserved</span>
         </div>
+      </div>
     </div>
-    <!-- FOOTER COPYRIGHT -->
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="footer-bottom-line">
-                <div class="aon-foo-copyright">
-                    <span>&copy; {{ year }} | Weisermanner. All Rights Reserved</span>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </footer>
+<button class="scroltop" style="display: inline-block" (click)="onActivate()">
+  <span class="fa fa-angle-up relative" id="btn-vibrate"></span>
+</button>

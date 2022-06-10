@@ -1,8 +1,31 @@
 @import "src/assets/styles/variables";
-
+.bg-light {
+  background-color: $med-core;
+}
 .example-spacer {
   flex: 1 1 auto;
-} 
+}
+.navbar-brand {
+  font-weight: $font-medium;
+}
+.head-title {
+  cursor: pointer !important;
+}
+.profiledropdown {
+  margin-right: 100px !important;
+}
+
+.navbar-light .navbar-toggler-icon {
+  background-color: $white;
+  border-radius: 2px;
+}
+.navbar-brand,
+.navbar li a {
+  color: $white;
+}
+.dropdown-menu li a {
+  color: $link-color;
+}
 .medpal-wrapper {
   padding-top: 55px;
   .top-toolbar {
@@ -15,8 +38,8 @@
     }
     .title {
       font-size: 22px;
-    }      
-  } 
+    }
+  }
   .med-content {
     background: $grey-color;
     min-height: 93vh !important;
@@ -34,5 +57,10 @@
     .mat-button {
       text-align: left;
     }
+  }
+}
+@media only screen and (max-width: 600px) {
+  .bg-light {
+    padding: 0 !important;
   }
 }

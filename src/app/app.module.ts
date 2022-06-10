@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -21,7 +21,6 @@ import { PatientProfileComponent } from './modules/patient/patient-profile/patie
 import { PatientHomeComponent } from './modules/patient/patient-home/patient-home.component';
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
 import { MedPalHttpInterceptor } from './services/medPalHttp.interceptor';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +33,7 @@ import { MedPalHttpInterceptor } from './services/medPalHttp.interceptor';
     PopupComponent,
     PatientProfileComponent,
     PatientHomeComponent,
-    MedpalHomeComponent
+    MedpalHomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,12 +44,17 @@ import { MedPalHttpInterceptor } from './services/medPalHttp.interceptor';
     AngularMaterialModule,
     FlexLayoutModule,
     NgxIntlTelInputModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-  providers: [ DatePipe,
-    { provide: HTTP_INTERCEPTORS, useClass: MedPalHttpInterceptor, multi: true }
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MedPalHttpInterceptor,
+      multi: true,
+    },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

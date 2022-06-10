@@ -1,14 +1,136 @@
-<div class="medpal-wrapper"> 
-  <mat-toolbar color="primary" class="top-toolbar">  
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="head-title" [routerLink]="['/medpal']">
+      <img
+        src="assets/images/medpallogowhite.png"
+        class="img-fluid py-1"
+        width="50"
+      />
+      <div class="navbar-brand float-end">Medpal.Live</div>
+    </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item" [routerLink]="['/medpal']">
+          <a class="nav-link active" aria-current="page" href="#"
+            >Book Appointments</a
+          >
+        </li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown1"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Register
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+            <li>
+              <a
+                class="dropdown-item"
+                href="javascript:void(0)"
+                [routerLink]="['patient/signup']"
+                >Patient</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)">Doctor</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)">Hospital</a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdownlogin"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Login
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownlogin">
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)"
+                >Patient Login</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)"
+                >Doctor Login</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" href="javascript:void(0)"
+                >Hospital Doctor Login</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" href="javascript:void">Hospital Login</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto me-5 profiledropdown">
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- <div class="medpal-wrapper">
+  <mat-toolbar color="primary" class="top-toolbar">
     <div fxShow="true" fxHide.gt-xs="true">
       <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-    </div>   
+    </div>
     <span class="example-spacer" fxShow="true" fxHide.gt-xs="true"></span>
     <div class="head-title" [routerLink]="['/medpal']">
-      <mat-icon class="pointer" aria-hidden="false">medical_services</mat-icon>
-      <span class="title" >Medpal.Live</span>
+      <img
+        src="assets/images/medpallogowhite.png"
+        class="img-fluid"
+        width="50"
+      />
+      <span class="title">Medpal.Live</span>
     </div>
     <span class="example-spacer"></span>
     <div fxShow="true" fxHide.lt-sm="true">
@@ -17,48 +139,72 @@
         Register <mat-icon>expand_more</mat-icon>
       </button>
       <mat-menu #register="matMenu">
-        <button mat-menu-item [routerLink]="['patient/signup']">Care Seeker</button>
-        <button mat-menu-item> Doctor </button>
-        <button mat-menu-item> Hospital </button>
+        <button mat-menu-item [routerLink]="['patient/signup']">
+          Care Seeker
+        </button>
+        <button mat-menu-item>Doctor</button>
+        <button mat-menu-item>Hospital</button>
       </mat-menu>
-      <button mat-button [matMenuTriggerFor]="login"> Login <mat-icon>expand_more</mat-icon> </button>
+      <button mat-button [matMenuTriggerFor]="login">
+        Login <mat-icon>expand_more</mat-icon>
+      </button>
       <mat-menu #login="matMenu">
-        <button mat-menu-item [routerLink]="['patient/login']">Care Seeker Login</button>
-        <button mat-menu-item> Doctor Login </button>
-        <button mat-menu-item> Hospital Doctor Login </button>
-        <button mat-menu-item> Hospital Login </button>
+        <button mat-menu-item [routerLink]="['patient/login']">
+          Care Seeker Login
+        </button>
+        <button mat-menu-item>Doctor Login</button>
+        <button mat-menu-item>Hospital Doctor Login</button>
+        <button mat-menu-item>Hospital Login</button>
       </mat-menu>
-    </div> 
+    </div>
   </mat-toolbar>
   <mat-sidenav-container fxFlexEnd class="mob-menu">
-    <mat-sidenav color="primary" #sidenav fxLayout="column" fxFlexAlign="start" opened="false" fxHide.gt-xs="true" >
+    <mat-sidenav
+      color="primary"
+      #sidenav
+      fxLayout="column"
+      fxFlexAlign="start"
+      opened="false"
+      fxHide.gt-xs="true"
+    >
       <div fxLayout="column" class="mob-text-wrapper">
-          <a href="javascript:void();" mat-button>Book Appointments</a>
-          <button mat-button [matMenuTriggerFor]="register">
-            Register <mat-icon>expand_more</mat-icon>
+        <a href="javascript:void();" mat-button>Book Appointments</a>
+        <button mat-button [matMenuTriggerFor]="register">
+          Register <mat-icon>expand_more</mat-icon>
+        </button>
+        <mat-menu #register="matMenu" xPosition="after">
+          <button
+            mat-menu-item
+            (click)="sidenav.toggle()"
+            [routerLink]="['patient/signup']"
+          >
+            Care Seeker
           </button>
-          <mat-menu #register="matMenu" xPosition="after">
-            <button mat-menu-item (click)="sidenav.toggle()" [routerLink]="['patient/signup']">Care Seeker</button>
-            <button mat-menu-item> Doctor </button>
-            <button mat-menu-item> Hospital </button>
-          </mat-menu>
-          <button mat-button [matMenuTriggerFor]="login"> Login <mat-icon>expand_more</mat-icon> </button>
-          <mat-menu #login="matMenu" xPosition="after">
-            <button mat-menu-item (click)="sidenav.toggle()" [routerLink]="['patient/login']">Care Seeker Login</button>
-            <button mat-menu-item> Doctor Login </button>
-            <button mat-menu-item> Hospital Doctor Login </button>
-            <button mat-menu-item> Hospital Login </button>
-          </mat-menu>
+          <button mat-menu-item>Doctor</button>
+          <button mat-menu-item>Hospital</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="login">
+          Login <mat-icon>expand_more</mat-icon>
+        </button>
+        <mat-menu #login="matMenu" xPosition="after">
+          <button
+            mat-menu-item
+            (click)="sidenav.toggle()"
+            [routerLink]="['patient/login']"
+          >
+            Care Seeker Login
+          </button>
+          <button mat-menu-item>Doctor Login</button>
+          <button mat-menu-item>Hospital Doctor Login</button>
+          <button mat-menu-item>Hospital Login</button>
+        </mat-menu>
       </div>
     </mat-sidenav>
     <mat-sidenav-content fxFlexFill class="med-content">
       
-      <router-outlet></router-outlet>
-
-      <app-footer></app-footer>
-
     </mat-sidenav-content>
-
   </mat-sidenav-container>
+</div> -->
+<router-outlet></router-outlet>
 
-</div>
+<app-footer></app-footer>
