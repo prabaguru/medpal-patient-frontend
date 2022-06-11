@@ -1,41 +1,77 @@
 <div class="patient-initial container">
-    <div class="loader" [hidden]="!enableLoader"></div>
-    <div class="row">
-        <div class="docImg col-lg-6" fxHide.lt-md="true">
-            <img src="assets/images/login-form-img.png" alt="patient">
-        </div>
-        <div class="col-lg-4 col-sm-10 signUp-form">
-            <div class="logo">
-                <img src="assets/images/medpallogo.png" alt="">
-                <h1 class="baseColor">Medpal.Live</h1>
-            </div>
-            <form [formGroup]="loginForm" class='loginForm' autocomplete="off">
-                <div class="login">
-                    <div class="col-md-12 email-wrapper">
-                        <mat-form-field appearance="outline" floatLabel=never>
-                            <mat-icon matPrefix class="form-icon">email</mat-icon>
-                            <input type="email" matInput placeholder="Email" formControlName="email" autocomplete="off"> 
-                        </mat-form-field>
-                        <small class="custom-error" *ngIf="loginForm.controls['email'].errors?.pattern">Email address is invalid</small>
-                    </div>
-                    <div class="col-md-12">
-                        <mat-form-field appearance="outline" floatLabel=never>
-                            <mat-icon matPrefix class="form-icon">vpn_key</mat-icon>
-                            <input type="password" matInput placeholder="Password" formControlName="password">
-                        </mat-form-field>
-                    </div>
-                    <div class="sub-actions col-md-12">
-                        <mat-checkbox color="primary" (change)="rememberMe()"> Remember Me</mat-checkbox>
-                        <div class="forget-password"> <span class="baseColor" [routerLink]="['/medpal/forget-password']"> Forget password? </span> </div>
-                    </div>
-                    <div class="col-md-12 loginButton">
-                        <button mat-raised-button (click)='login()'>Login</button>
-                    </div>
-                    <div class="end">
-                        <p >Don't have an account? <span class="baseColor" [routerLink]="['/medpal/patient/signup']">Register here</span>.</p>
-                    </div>
-                </div>
-            </form>
-        </div>
+  <div class="loader" [hidden]="!enableLoader"></div>
+  <div class="row">
+    <div class="docImg col-lg-6" fxHide.lt-md="true">
+      <img
+        src="assets/images/login-form-img.png"
+        alt="Medpal"
+        width="400"
+        class="img-fluid"
+      />
     </div>
+    <div class="col-lg-4 col-sm-10 signUp-form pt-3">
+      <div class="logo">
+        <p><img src="assets/images/medpallogo.png" alt="Medpal" /></p>
+        <h4 class="baseColor">Medpal.Live-Login</h4>
+      </div>
+      <form [formGroup]="loginForm" class="loginForm" autocomplete="off">
+        <div class="login">
+          <div class="col-md-12 email-wrapper">
+            <mat-form-field appearance="outline">
+              <mat-label>Email</mat-label>
+              <mat-icon matPrefix class="form-icon">email</mat-icon>
+              <input
+                type="email"
+                matInput
+                formControlName="email"
+                autocomplete="off"
+                maxlength="200"
+              />
+            </mat-form-field>
+            <small
+              class="custom-error"
+              *ngIf="loginForm.controls['email'].errors?.pattern"
+              >Email address is invalid</small
+            >
+          </div>
+          <div class="col-md-12">
+            <mat-form-field appearance="outline">
+              <mat-label>Password</mat-label>
+              <mat-icon matPrefix class="form-icon">vpn_key</mat-icon>
+              <input
+                type="password"
+                matInput
+                formControlName="password"
+                maxlength="20"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-12">
+            <mat-checkbox color="primary" (change)="rememberMe()">
+              Remember Me</mat-checkbox
+            >
+            <span
+              class="baseColor float-end"
+              [routerLink]="['/medpal/forget-password']"
+            >
+              Forget password?
+            </span>
+          </div>
+          <div class="col-md-12 ButtonFull">
+            <button mat-raised-button (click)="login()" class="ButtonFull">
+              Login
+            </button>
+          </div>
+          <div class="end">
+            <p>
+              Don't have an account?
+              <span class="baseColor" [routerLink]="['/medpal/patient/signup']"
+                >Register here</span
+              >.
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

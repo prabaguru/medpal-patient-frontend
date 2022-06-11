@@ -2,7 +2,12 @@
   <div class="loader" [hidden]="!enableLoader"></div>
   <div class="row">
     <div class="docImg col-lg-6" fxHide.lt-md="true">
-      <img src="assets/images/doctorloginimg.png" alt="patient" />
+      <img
+        src="assets/images/doctorloginimg.png"
+        alt="Medpal"
+        width="500"
+        class="img-fluid"
+      />
     </div>
     <div class="col-lg-4 col-sm-10 signUp-form pt-3">
       <div class="logo">
@@ -136,7 +141,9 @@
             >
           </div>
           <div class="col-md-12 loginButton">
-            <button mat-raised-button (click)="register()">Register</button>
+            <button mat-raised-button (click)="register()" class="ButtonFull">
+              Register
+            </button>
           </div>
           <div class="end">
             <p>
