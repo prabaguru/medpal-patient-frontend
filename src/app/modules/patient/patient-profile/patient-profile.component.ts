@@ -7,8 +7,7 @@ import {
   CountryISO,
   PhoneNumberFormat,
 } from 'ngx-intl-tel-input';
-import { CommonService } from 'src/app/services/common.service';
-import { MedpalService } from 'src/app/services/medpal.service';
+import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import { PopupComponent } from 'src/app/shared/components/popup/popup.component';
 
 @Component({
@@ -39,18 +38,27 @@ export class PatientProfileComponent implements OnInit {
     public commonService: CommonService,
     public healthService: MedpalService,
     private dialog: MatDialog,
-    public datePipe: DatePipe
+    public datePipe: DatePipe,
+    public authService: AuthService
   ) {
-    this.currentUser = this.commonService.currentUserData;
+    this.currentUser = this.authService.currentUserValue;
     console.log(this.currentUser);
     this.profileForm = new FormGroup({
       id: new FormControl(this.currentUser._id ? this.currentUser._id : ''),
-      firstName: new FormControl( this.currentUser.firstName ? this.currentUser.firstName : ''),
-      email: new FormControl(this.currentUser.email, [ Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')]),
+      firstName: new FormControl(
+        this.currentUser.firstName ? this.currentUser.firstName : ''
+      ),
+      email: new FormControl(this.currentUser.email, [
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+      ]),
       gender: new FormControl(this.currentUser.gender),
       dob: new FormControl(this.currentUser.dob),
-      mobile: new FormControl(this.currentUser.mobile, [ Validators.maxLength(10)]),
-      EmergencyContactNo: new FormControl(this.currentUser.EmergencyContactNo, [ Validators.maxLength(10)]),
+      mobile: new FormControl(this.currentUser.mobile, [
+        Validators.maxLength(10),
+      ]),
+      EmergencyContactNo: new FormControl(this.currentUser.EmergencyContactNo, [
+        Validators.maxLength(10),
+      ]),
       Maritalstatus: new FormControl(this.currentUser.Maritalstatus),
       bloodGroup: new FormControl(this.currentUser.bloodGroup),
       AadhaarNo: new FormControl(this.currentUser.AadhaarNo),
@@ -63,7 +71,8 @@ export class PatientProfileComponent implements OnInit {
     this.gender = this.currentUser.gender;
     this.bloodGroup = this.currentUser.bloodGroup;
     this.maritalStatus = this.currentUser.Maritalstatus;
-    this.displayImgData.image = this.currentUser.image.imageUrl ? this.currentUser.image.imageUrl
+    this.displayImgData.image = this.currentUser.image.imageUrl
+      ? this.currentUser.image.imageUrl
       : 'assets/images/dummy.jpg';
   }
   resetmobilefield() {
@@ -108,8 +117,8 @@ export class PatientProfileComponent implements OnInit {
           autoFocus: false,
         });
         this.updateCurrentUserData(this.profileForm.value);
-        this.commonService.updateCurrentUser(this.currentUser);
-        this.commonService.updateProfileImg();
+        //this.commonService.updateCurrentUser(this.currentUser);
+        //this.commonService.updateProfileImg();
       },
       error: (err) => {
         this.enableLoader = false;

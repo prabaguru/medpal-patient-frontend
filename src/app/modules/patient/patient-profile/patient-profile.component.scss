@@ -1,42 +1,41 @@
 // @import '../../../shared/styles/login-styles.scss';
 
 .patient-profile-wrapper {
-    
-    .patient-profile-icon {
-        text-align: center;
-        margin: auto;
-        padding: 10px;
-        .user-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            border: 1px solid lightgray;
-        }
-        .edit-icon {
-            margin-left: -35px;
-            cursor: pointer;
-            height: 40px;
-            margin-top: 70px;
-            border-radius: 50%;
-        }
+  .patient-profile-icon {
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+    .user-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 1px solid lightgray;
     }
-    .action-button {
-        margin: auto;
-        text-align: center;
-        button {
-            width: auto;
-            padding: 5px 15px;
-            margin-bottom: 25px;
-        }
+    .edit-icon {
+      margin-left: -35px;
+      cursor: pointer;
+      height: 40px;
+      margin-top: 70px;
+      border-radius: 50%;
     }
+  }
+  .action-button {
+    margin: auto;
+    text-align: center;
+    button {
+      width: auto;
+      padding: 5px 15px;
+      margin-bottom: 25px;
+    }
+  }
 }
 
 ::ng-deep .profile-form {
-    text-align: center;
-    mat-form-field {
-        width: 80%;
-    }
-    .mat-form-field-appearance-outline .mat-form-field-outline {
-        background: #FFF;
-    }
+  text-align: center;
+  mat-form-field {
+    width: 80%;
+  }
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    background: #fff;
+  }
 }

@@ -1,4 +1,10 @@
 @import "src/assets/styles/variables";
+.proName {
+  text-transform: capitalize;
+}
+.proImgFont {
+  font-size: 20px !important;
+}
 .bg-light {
   background-color: $med-core;
 }

@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
   SearchCountryField,
   CountryISO,
   PhoneNumberFormat,
 } from 'ngx-intl-tel-input';
-import { CommonService } from 'src/app/services/common.service';
-import { MedpalService } from 'src/app/services/medpal.service';
+import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import { OtpVerifyComponent } from 'src/app/shared/components/otp-verify/otp-verify.component';
 import { PopupComponent } from 'src/app/shared/components/popup/popup.component';
 
@@ -51,14 +50,24 @@ export class PatientSignupComponent implements OnInit {
     confirmPwd: new FormControl('', [Validators.required]),
   });
   matchPassword = false;
+  returnUrl: any;
   constructor(
     private healthService: MedpalService,
-    public router: Router,
+    private route: Router,
+    private router: ActivatedRoute,
     private dialog: MatDialog,
-    public commonService: CommonService
+    public commonService: CommonService,
+    public authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || '/';
+    if (this.authService.currentUserValue) {
+      this.route.navigate(['/medpal'], {
+        queryParams: { returnUrl: this.returnUrl },
+      });
+    }
+  }
 
   resetmobilefield() {
     if (this.signupForm.controls.mobile.value) {
@@ -109,7 +118,7 @@ export class PatientSignupComponent implements OnInit {
               autoFocus: false,
             });
             dialogRef2.afterClosed().subscribe(() => {
-              this.router.navigate(['/medpal/patient/login']);
+              this.route.navigate(['/medpal/patient/login']);
             });
             this.submitted = false;
           },

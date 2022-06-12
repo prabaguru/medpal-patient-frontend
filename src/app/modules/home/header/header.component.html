@@ -70,13 +70,19 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownlogin">
             <li>
-              <a class="dropdown-item" href="javascript:void(0)"
+              <a
+                class="dropdown-item"
+                href="javascript:void(0)"
+                [routerLink]="['patient/login']"
                 >Patient Login</a
               >
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" href="javascript:void(0)"
+              <a
+                class="dropdown-item"
+                href="javascript:void(0)"
+                [routerLink]="['patient/login']"
                 >Doctor Login</a
               >
             </li>
@@ -93,7 +99,7 @@
           </ul>
         </li>
       </ul>
-      <ul class="navbar-nav ms-auto me-5 profiledropdown">
+      <ul class="navbar-nav ms-auto me-5 profiledropdown" *ngIf="currentUser">
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -102,14 +108,29 @@
             role="button"
             data-bs-toggle="dropdown"
             aria-expanded="false"
-          >
-            Dropdown
+            ><i class="fa fa-user-plus proImgFont"></i>&nbsp; Hi -
+            <span class="proName">{{
+              currentUser.firstName | slice: 0:20
+            }}</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="javascript:void(0)"
+                [routerLink]="['patient/profile']"
+                ><i class="fa fa-user"></i>&nbsp;Profile Settings</a
+              >
+            </li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="javascript:void(0)"
+                (click)="logout()"
+                ><i class="fa fa-sign-out"></i>&nbsp;Logout</a
+              >
+            </li>
           </ul>
         </li>
       </ul>

@@ -1,25 +1,26 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
-import { CommonService } from './common.service';
-import { MedpalService } from './medpal.service';
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
+
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor( public router: Router, private commonService: CommonService) {
-  }
-
-  canActivate(
-    route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.commonService.currentUserData) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (this.authService.currentUserValue) {
       return true;
-    } else {
-      this.commonService.showNotification('Please login to visit the page');
-      return false;
     }
+    this.router.navigate(['/medpal'], {
+      queryParams: { returnUrl: state.url },
+    });
+    return false;
   }
-  
 }

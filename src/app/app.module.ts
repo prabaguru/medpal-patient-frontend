@@ -18,9 +18,13 @@ import { OtpVerifyComponent } from './shared/components/otp-verify/otp-verify.co
 import { PopupComponent } from './shared/components/popup/popup.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
-import { PatientHomeComponent } from './modules/patient/patient-home/patient-home.component';
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
-import { MedPalHttpInterceptor } from './services/medPalHttp.interceptor';
+import {
+  MedPalHttpInterceptor,
+  ErrorInterceptor,
+  AuthGuard,
+} from './services/';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +36,6 @@ import { MedPalHttpInterceptor } from './services/medPalHttp.interceptor';
     OtpVerifyComponent,
     PopupComponent,
     PatientProfileComponent,
-    PatientHomeComponent,
     MedpalHomeComponent,
   ],
   imports: [
@@ -49,11 +52,14 @@ import { MedPalHttpInterceptor } from './services/medPalHttp.interceptor';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     DatePipe,
+    AuthGuard,
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: MedPalHttpInterceptor,
       multi: true,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

@@ -12,12 +12,12 @@ export class MedpalService {
 
   /* API call started from here */
   public patientRegister(data: any) {
-    return this.http.post(`${this.baseUrl}api/patients/register`, data);
+    return this.http.post(`${this.baseUrl}/patients/register`, data);
   }
   public patientLogin(data: any) {
-    return this.http.post(`${this.baseUrl}api/patients/authenticate`, data);
+    return this.http.post(`${this.baseUrl}/patients/authenticate`, data);
   }
   public updatePatientProfile(data: any) {
-    return this.http.put(`${this.baseUrl}api/patients/update`, data, {});
+    return this.http.put(`${this.baseUrl}/patients/update`, data, {});
   }
 }
