@@ -101,7 +101,7 @@ button.mat-raised-button {
 .flag-mobile {
   margin-bottom: 20px;
   .iti {
-    width: 80%;
+    width: 100%;
   }
 }
 .iti input:visited {
@@ -136,7 +136,6 @@ button.mat-raised-button {
   background-color: transparent !important;
 }
 .mat-form-field {
-  display: block;
   width: 100%;
 }
 .custom-error {
@@ -161,6 +160,7 @@ button.mat-raised-button {
   .mat-form-field-outline-thick
   .mat-form-field-outline-gap {
   border-width: 1px !important;
+  border-color: rgba(0, 0, 0, 0.12);
 }
 .mat-checkbox-layout .mat-checkbox-label {
   opacity: 0.8;

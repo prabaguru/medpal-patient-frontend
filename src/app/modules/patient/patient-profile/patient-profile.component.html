@@ -1,347 +1,245 @@
-<div class="cus-top-nav">
-  <div class="container">
-    <ul class="cus-nav row">
-      <li class="col active">
-        <a href="#">Appointments</a>
-      </li>
-      <li class="col">
-        <a href="#">Medical Records</a>
-      </li>
-      <li class="col"><a href="#">My Feedback</a></li>
-      <li class="col">
-        <a href="#">View/Edit Profile</a>
-      </li>
-      <li class="col"><a href="#">Change Password</a></li>
-    </ul>
-  </div>
-</div>
+<app-patient-menu></app-patient-menu>
 <div class="container">
   <div class="content-admin-main">
     <div class="aon-admin-heading">
-      <h3>Appointments</h3>
+      <h3>Edit Profile</h3>
     </div>
 
-    <div class="sf-appoi-row">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="sf-appoi-first d-flex align-items-center">
-          <div class="sf-appoi-user">
-            <img src="images/testimonial-img/img1.png" alt="" />
+    <div class="card aon-card">
+      <div class="card-body aon-card-body">
+        <div class="cus-pai-regis-form row">
+          <div class="cus-pai-regis-left col">
+            <div class="aon-pro-avtar-pic">
+              <div class="aon-proAvtar-media">
+                <img src="images/team/pic1.jpg" alt="" />
+              </div>
+              <button class="admin-button aon-proAvtar-btn has-toltip">
+                <i class="fa fa-camera"></i>
+                <span class="header-toltip">Upload Avtar</span>
+              </button>
+            </div>
           </div>
-          <div class="sf-appoi-info">
-            <h4><a href="appointments-detail.html">Lussa Smith</a></h4>
-          </div>
-          <div class="aon-date-box">
-            <strong>21</strong>
-            <span>MAR</span>
-          </div>
-        </div>
-        <div class="sf-appoi-second">
-          <i class="fa fa-calendar-o"></i> Tuesday,
-          <i class="fa fa-clock-o"></i> 05:40 PM
-        </div>
-        <div class="sf-appoi-second">
-          <span class="btn-pending">Pending</span>
-        </div>
-
-        <div class="sf-appoi-third">
-          <div class="dropdown action-dropdown dropdown-left">
-            <button
-              type="button"
-              class="action-button btn btn-primary dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+          <div class="cus-pai-regis-right col">
+            <form
+              [formGroup]="profileForm"
+              class="profile-form"
+              autocomplete="off"
             >
-              <i class="fa fa-ellipsis-v"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-calendar"></i> Book Agian</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="appointments-detail.html"
-                  ><i class="feather-eye"></i> View Detail</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-trash"></i> Cancelled</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="sf-appoi-row">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="sf-appoi-first d-flex align-items-center">
-          <div class="sf-appoi-user">
-            <img src="images/testimonial-img/img2.png" alt="" />
-          </div>
-          <div class="sf-appoi-info">
-            <h4><a href="appointments-detail.html"> Zulliya Smith</a></h4>
-          </div>
-          <div class="aon-date-box">
-            <strong>24</strong>
-            <span>MAR</span>
-          </div>
-        </div>
-        <div class="sf-appoi-second">
-          <i class="fa fa-calendar-o"></i> Tuesday,
-          <i class="fa fa-clock-o"></i> 05:40 PM
-        </div>
-        <div class="sf-appoi-second">
-          <span class="btn-cancelled">Cancelled</span>
-        </div>
+              <div class="row">
+                <div class="col-xl-4 col-lg-6 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Firstname</mat-label>
+                    <mat-icon matPrefix class="form-icon">face</mat-icon>
 
-        <div class="sf-appoi-third">
-          <div class="dropdown action-dropdown dropdown-left">
-            <button
-              type="button"
-              class="action-button btn btn-primary dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="fa fa-ellipsis-v"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-calendar"></i> Book Agian</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="appointments-detail.html"
-                  ><i class="feather-eye"></i> View Detail</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-trash"></i> Cancelled</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="sf-appoi-row">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="sf-appoi-first d-flex align-items-center">
-          <div class="sf-appoi-user">
-            <img src="images/testimonial-img/img3.png" alt="" />
-          </div>
-          <div class="sf-appoi-info">
-            <h4><a href="appointments-detail.html"> Devid Wood</a></h4>
-          </div>
-          <div class="aon-date-box">
-            <strong>26</strong>
-            <span>MAR</span>
-          </div>
-        </div>
-        <div class="sf-appoi-second">
-          <i class="fa fa-calendar-o"></i> Tuesday,
-          <i class="fa fa-clock-o"></i> 05:40 PM
-        </div>
-        <div class="sf-appoi-second">
-          <span class="btn-complete">complete</span>
-        </div>
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="firstName"
+                      autocomplete="off"
+                      maxlength="100"
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6 email-wrapper">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <mat-icon matPrefix class="form-icon">email</mat-icon>
+                    <input
+                      type="email"
+                      matInput
+                      formControlName="email"
+                      autocomplete="off"
+                      readonly
+                    />
+                    <mat-icon
+                      matSuffix
+                      matTooltip="Email is not editable..."
+                      matTooltipPosition="above"
+                      >info</mat-icon
+                    >
+                  </mat-form-field>
+                  <small
+                    class="custom-error"
+                    *ngIf="profileForm.controls['email'].errors?.pattern"
+                    >Email address is invalid</small
+                  >
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Gender</mat-label>
+                    <mat-icon matPrefix class="form-icon">transgender</mat-icon>
+                    <mat-select formControlName="gender">
+                      <mat-option value="Male">Male</mat-option>
+                      <mat-option value="Female">Female</mat-option>
+                      <mat-option value="Other">Other</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>DOB</mat-label>
+                    <mat-icon matPrefix class="form-icon">cake</mat-icon>
+                    <input
+                      matInput
+                      [matDatepicker]="datepicker"
+                      placeholder="Date of Birth"
+                      formControlName="dob"
+                      autocomplete="off"
+                      readonly
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="datepicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #datepicker>
+                      <mat-datepicker-actions>
+                        <button mat-button matDatepickerCancel>Cancel</button>
+                        <button
+                          mat-raised-button
+                          color="primary"
+                          matDatepickerApply
+                        >
+                          Apply
+                        </button>
+                      </mat-datepicker-actions>
+                    </mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6 flag-mobile text-start">
+                  <ngx-intl-tel-input
+                    [cssClass]="'custom-flag-input'"
+                    [preferredCountries]="preferredCountries"
+                    [enableAutoCountrySelect]="true"
+                    [enablePlaceholder]="true"
+                    [searchCountryFlag]="true"
+                    customPlaceholder="Mobile No"
+                    [searchCountryField]="[
+                      SearchCountryField.Iso2,
+                      SearchCountryField.Name
+                    ]"
+                    [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.India"
+                    [maxLength]="15"
+                    [phoneValidation]="true"
+                    [separateDialCode]="separateDialCode"
+                    [numberFormat]="PhoneNumberFormat.National"
+                    name="mobile"
+                    formControlName="mobile"
+                    [ngClass]="{
+                      'is-invalid': profileForm.controls['mobile'].errors
+                    }"
+                    (countryChange)="resetmobilefield()"
+                  >
+                  </ngx-intl-tel-input>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6 flag-mobile text-start">
+                  <ngx-intl-tel-input
+                    [cssClass]="'custom-flag-input'"
+                    [preferredCountries]="preferredCountries"
+                    [enableAutoCountrySelect]="true"
+                    [enablePlaceholder]="true"
+                    [searchCountryFlag]="true"
+                    customPlaceholder="Emergency Contact No"
+                    [searchCountryField]="[
+                      SearchCountryField.Iso2,
+                      SearchCountryField.Name
+                    ]"
+                    [selectFirstCountry]="false"
+                    [selectedCountryISO]="CountryISO.India"
+                    [maxLength]="15"
+                    [phoneValidation]="true"
+                    [separateDialCode]="separateDialCode"
+                    [numberFormat]="PhoneNumberFormat.National"
+                    name="EmergencyContactNo"
+                    formControlName="EmergencyContactNo"
+                    [ngClass]="{
+                      'is-invalid':
+                        profileForm.controls['EmergencyContactNo'].errors
+                    }"
+                    (countryChange)="resetmobilefield1()"
+                  >
+                  </ngx-intl-tel-input>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Marital Status</mat-label>
+                    <mat-icon matPrefix class="form-icon"
+                      >volunteer_activism</mat-icon
+                    >
+                    <mat-select formControlName="Maritalstatus">
+                      <mat-option value="Married">Married</mat-option>
+                      <mat-option value="UnMarried">UnMarried</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Blood Group</mat-label>
+                    <mat-icon matPrefix class="form-icon">bloodtype</mat-icon>
+                    <mat-select formControlName="bloodGroup">
+                      <mat-option value="A">A</mat-option>
+                      <mat-option value="B">B</mat-option>
+                      <mat-option value="AB">AB</mat-option>
+                      <mat-option value="O">O</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>AadhaarNo</mat-label>
+                    <mat-icon matPrefix class="form-icon">person</mat-icon>
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="AadhaarNo"
+                      autocomplete="off"
+                      maxlength="12"
+                    />
+                  </mat-form-field>
+                </div>
 
-        <div class="sf-appoi-third">
-          <div class="dropdown action-dropdown dropdown-left">
-            <button
-              type="button"
-              class="action-button btn btn-primary dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="fa fa-ellipsis-v"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-calendar"></i> Book Agian</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="appointments-detail.html"
-                  ><i class="feather-eye"></i> View Detail</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-trash"></i> Cancelled</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="sf-appoi-row">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="sf-appoi-first d-flex align-items-center">
-          <div class="sf-appoi-user">
-            <img src="images/testimonial-img/img1.png" alt="" />
-          </div>
-          <div class="sf-appoi-info">
-            <h4><a href="appointments-detail.html"> Recha Wood</a></h4>
-          </div>
-          <div class="aon-date-box">
-            <strong>28</strong>
-            <span>MAR</span>
-          </div>
-        </div>
-        <div class="sf-appoi-second">
-          <i class="fa fa-calendar-o"></i> Tuesday,
-          <i class="fa fa-clock-o"></i> 05:40 PM
-        </div>
-        <div class="sf-appoi-second">
-          <span class="btn-pending">Pending</span>
-        </div>
-
-        <div class="sf-appoi-third">
-          <div class="dropdown action-dropdown dropdown-left">
-            <button
-              type="button"
-              class="action-button btn btn-primary dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="fa fa-ellipsis-v"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-calendar"></i> Book Agian</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="appointments-detail.html"
-                  ><i class="feather-eye"></i> View Detail</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-trash"></i> Cancelled</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="sf-appoi-row">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="sf-appoi-first d-flex align-items-center">
-          <div class="sf-appoi-user">
-            <img src="images/testimonial-img/img2.png" alt="" />
-          </div>
-          <div class="sf-appoi-info">
-            <h4><a href="appointments-detail.html"> Johan Corner</a></h4>
-          </div>
-          <div class="aon-date-box">
-            <strong>30</strong>
-            <span>MAR</span>
-          </div>
-        </div>
-        <div class="sf-appoi-second">
-          <i class="fa fa-calendar-o"></i> Tuesday,
-          <i class="fa fa-clock-o"></i> 05:40 PM
-        </div>
-        <div class="sf-appoi-second">
-          <span class="btn-cancelled">Cancelled</span>
-        </div>
-
-        <div class="sf-appoi-third">
-          <div class="dropdown action-dropdown dropdown-left">
-            <button
-              type="button"
-              class="action-button btn btn-primary dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="fa fa-ellipsis-v"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-calendar"></i> Book Agian</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="appointments-detail.html"
-                  ><i class="feather-eye"></i> View Detail</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-trash"></i> Cancelled</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="sf-appoi-row">
-      <div class="d-flex justify-content-between align-items-center">
-        <div class="sf-appoi-first d-flex align-items-center">
-          <div class="sf-appoi-user">
-            <img src="images/testimonial-img/img3.png" alt="" />
-          </div>
-          <div class="sf-appoi-info">
-            <h4><a href="appointments-detail.html">krisha Smith</a></h4>
-          </div>
-          <div class="aon-date-box">
-            <strong>31</strong>
-            <span>MAR</span>
-          </div>
-        </div>
-        <div class="sf-appoi-second">
-          <i class="fa fa-calendar-o"></i> Tuesday,
-          <i class="fa fa-clock-o"></i> 05:40 PM
-        </div>
-        <div class="sf-appoi-second">
-          <span class="btn-complete">Complete</span>
-        </div>
-
-        <div class="sf-appoi-third">
-          <div class="dropdown action-dropdown dropdown-left">
-            <button
-              type="button"
-              class="action-button btn btn-primary dropdown-toggle"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <i class="fa fa-ellipsis-v"></i>
-            </button>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-calendar"></i> Book Agian</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="appointments-detail.html"
-                  ><i class="feather-eye"></i> View Detail</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="javascript:;"
-                  ><i class="feather-trash"></i> Cancelled</a
-                >
-              </li>
-            </ul>
+                <div class="col-xl-8 col-lg-12 col-sm-12">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Address</mat-label>
+                    <textarea
+                      matInput
+                      name="address"
+                      placeholder="Address"
+                      formControlName="address"
+                      rows="6"
+                    ></textarea>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Pincode</mat-label>
+                    <mat-icon matPrefix class="form-icon">my_location</mat-icon>
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="pinCode"
+                      autocomplete="off"
+                      maxlength="10"
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-sm-6 text-start">
+                  <button
+                    mat-raised-button
+                    class="matbutton"
+                    (click)="saveChanges()"
+                  >
+                    Update Profile
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
 <!-- <div class="patient-profile-wrapper">
     <div class="loader" [hidden]="!enableLoader"></div>
     <div class="patient-profile-icon">
@@ -352,100 +250,40 @@
     <form [formGroup]="profileForm" class='profile-form' autocomplete="off">
         <div class="profiles row">
             <div class="col-md-6">
-                <mat-form-field appearance="outline" floatLabel=never>
-                    <mat-icon matPrefix class="form-icon">face</mat-icon>
-                    <input type="text" matInput placeholder="Full Name" formControlName="firstName" autocomplete="off">
-                </mat-form-field>
+                
             </div>
             <div class="col-md-6 email-wrapper">
-                <mat-form-field appearance="outline" floatLabel=never>
-                    <mat-icon matPrefix class="form-icon">email</mat-icon>
-                    <input type="email" matInput placeholder="Email" formControlName="email" autocomplete="off">
-                </mat-form-field>
-                <small class="custom-error" *ngIf="profileForm.controls['email'].errors?.pattern">Email address is invalid</small> 
+               
             </div>
             <div class="col-md-6 radio" >
-                <mat-form-field appearance="outline">
-                    <mat-icon matPrefix class="form-icon">transgender</mat-icon>
-                    <mat-select formControlName="gender" placeholder="Gender" [(ngModel)]="gender">
-                      <mat-option value="Male">Male</mat-option>
-                      <mat-option value="Female">Female</mat-option>
-                      <mat-option value="Other">Other</mat-option>
-                    </mat-select>
-                </mat-form-field>
+                
             </div>
             <div class="col-md-6">
-                <mat-form-field appearance="outline" floatLabel=never>
-                    <mat-icon matPrefix class="form-icon">cake</mat-icon>
-                    <input matInput [matDatepicker]="datepicker" placeholder="Date of Birth" formControlName="dob" autocomplete="off">
-                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
-                    <mat-datepicker #datepicker>
-                        <mat-datepicker-actions>
-                        <button mat-button matDatepickerCancel>Cancel</button>
-                        <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
-                        </mat-datepicker-actions>
-                    </mat-datepicker>
-                </mat-form-field>
+                
             </div>
             <div class="col-md-6 flag-mobile" >
-                <ngx-intl-tel-input [cssClass]="'custom-flag-input'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
-                    [enablePlaceholder]="true" [searchCountryFlag]="true" customPlaceholder="Mobile No"
-                    [searchCountryField]="[ SearchCountryField.Iso2, SearchCountryField.Name ]" [selectFirstCountry]="false"
-                    [selectedCountryISO]="CountryISO.India" [maxLength]="15" [phoneValidation]="true" [separateDialCode]="separateDialCode"
-                    [numberFormat]="PhoneNumberFormat.National" name="mobile" formControlName="mobile"
-                    [ngClass]="{ 'is-invalid': profileForm.controls['mobile'].errors }" (countryChange)="resetmobilefield()" >
-              </ngx-intl-tel-input>
+                
             </div>
             <div class="col-md-6 flag-mobile" >
-                <ngx-intl-tel-input [cssClass]="'custom-flag-input'" [preferredCountries]="preferredCountries" [enableAutoCountrySelect]="true"
-                    [enablePlaceholder]="true" [searchCountryFlag]="true" customPlaceholder="Emergency Contact No"
-                    [searchCountryField]="[ SearchCountryField.Iso2, SearchCountryField.Name ]" [selectFirstCountry]="false"
-                    [selectedCountryISO]="CountryISO.India" [maxLength]="15" [phoneValidation]="true" [separateDialCode]="separateDialCode"
-                    [numberFormat]="PhoneNumberFormat.National" name="EmergencyContactNo" formControlName="EmergencyContactNo"
-                    [ngClass]="{ 'is-invalid': profileForm.controls['EmergencyContactNo'].errors }" (countryChange)="resetmobilefield1()" >
-              </ngx-intl-tel-input>
+               
             </div>
             <div class="col-md-6">
-                <mat-form-field appearance="outline" floatLabel=never>
-                    <mat-icon matPrefix class="form-icon">volunteer_activism</mat-icon>
-                    <mat-select formControlName="Maritalstatus" placeholder="Marital Status" [(ngModel)]="maritalStatus">
-                      <mat-option value="Married">Married</mat-option>
-                      <mat-option value="UnMarried">UnMarried</mat-option>
-                    </mat-select>
-                </mat-form-field>
+               
             </div>
             <div class="col-md-6">
-                <mat-form-field appearance="outline" floatLabel=never>
-                    <mat-icon matPrefix class="form-icon">bloodtype</mat-icon>
-                    <mat-select formControlName="bloodGroup" placeholder="Blood Group" [(ngModel)]="bloodGroup">
-                        <mat-option value="A">A</mat-option>
-                        <mat-option value="B">B</mat-option>
-                        <mat-option value="AB">AB</mat-option>
-                        <mat-option value="O">O</mat-option>
-                    </mat-select>
-                </mat-form-field>
+               
             </div>
             <div class="col-md-6">
-                <mat-form-field appearance="outline" floatLabel=never>
-                    <mat-icon matPrefix class="form-icon">person</mat-icon>
-                    <input type="text" matInput placeholder="Aadhar No" formControlName="AadhaarNo" autocomplete="off">
-                </mat-form-field>
+               
             </div>
             <div class="col-md-6">
-                <mat-form-field appearance="outline" floatLabel=never>
-                    <mat-icon matPrefix class="form-icon">my_location</mat-icon>
-                    <input type="text" matInput placeholder="Pin Code" formControlName="pinCode" autocomplete="off">
-                </mat-form-field>
+                
             </div>
             <div class="col-md-12">
              
-              <mat-form-field appearance="outline" style="width: 90%;">
-                <textarea matInput name="address" placeholder="Address" formControlName="address" rows="6"></textarea>
-              </mat-form-field>
+              
             </div>
-            <div class="action-button">
-                <button mat-raised-button (click)="saveChanges()">Update Profile</button>
-            </div>
+            
         </div>
     </form>
 </div> -->

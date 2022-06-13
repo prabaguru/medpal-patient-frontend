@@ -17,6 +17,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { OtpVerifyComponent } from './shared/components/otp-verify/otp-verify.component';
 import { PopupComponent } from './shared/components/popup/popup.component';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+import { PatientHomeComponent } from './modules/patient/patient-home/patient-home.component';
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
 import {
@@ -35,6 +36,7 @@ import {
     ResetPasswordComponent,
     OtpVerifyComponent,
     PopupComponent,
+    PatientHomeComponent,
     PatientProfileComponent,
     MedpalHomeComponent,
   ],
