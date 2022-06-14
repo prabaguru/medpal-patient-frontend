@@ -33,7 +33,8 @@ export class PatientProfileComponent implements OnInit {
   public bloodGroup = '';
   public profileForm: FormGroup = new FormGroup({});
   currentUser: any;
-
+  bloodGroupObj = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
+  submitted = false;
   constructor(
     public commonService: CommonService,
     public healthService: MedpalService,
@@ -44,29 +45,59 @@ export class PatientProfileComponent implements OnInit {
     this.currentUser = this.authService.currentUserValue;
     console.log(this.currentUser);
     this.profileForm = new FormGroup({
-      id: new FormControl(this.currentUser._id ? this.currentUser._id : ''),
+      id: new FormControl(this.currentUser._id ? this.currentUser._id : '', [
+        Validators.required,
+      ]),
       firstName: new FormControl(
-        this.currentUser.firstName ? this.currentUser.firstName : ''
+        this.currentUser.firstName ? this.currentUser.firstName : '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+          Validators.pattern("^[a-zA-Z '-]+$"),
+        ]
+      ),
+      lastName: new FormControl(
+        this.currentUser.lastName ? this.currentUser.lastName : '',
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+          Validators.pattern("^[a-zA-Z '-]+$"),
+        ]
       ),
       email: new FormControl(this.currentUser.email, [
-        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+        Validators.required,
+        Validators.email,
       ]),
       gender: new FormControl(this.currentUser.gender),
       dob: new FormControl(this.currentUser.dob),
       mobile: new FormControl(this.currentUser.mobile, [
-        Validators.maxLength(10),
+        Validators.required,
+        Validators.maxLength(15),
       ]),
       EmergencyContactNo: new FormControl(this.currentUser.EmergencyContactNo, [
-        Validators.maxLength(10),
+        Validators.required,
+        Validators.maxLength(15),
       ]),
       Maritalstatus: new FormControl(this.currentUser.Maritalstatus),
       bloodGroup: new FormControl(this.currentUser.bloodGroup),
-      AadhaarNo: new FormControl(this.currentUser.AadhaarNo),
-      pinCode: new FormControl(this.currentUser.pinCode),
-      address: new FormControl(this.currentUser.address),
+      AadhaarNo: new FormControl(this.currentUser.AadhaarNo, [
+        Validators.minLength(12),
+        Validators.pattern('^[0-9]*$'),
+        Validators.maxLength(12),
+      ]),
+      pinCode: new FormControl(this.currentUser.pinCode, [
+        Validators.maxLength(10),
+      ]),
+      address: new FormControl(this.currentUser.address, [
+        Validators.maxLength(200),
+      ]),
     });
   }
-
+  get f() {
+    return this.profileForm.controls;
+  }
   ngOnInit(): void {
     this.gender = this.currentUser.gender;
     this.bloodGroup = this.currentUser.bloodGroup;
@@ -102,8 +133,10 @@ export class PatientProfileComponent implements OnInit {
   saveChanges() {
     this.enableLoader = true;
     const postData = this.profileForm.value;
-    // postData.dob = this.datePipe.transform(this.currentUser.dob, 'MM/dd/YYYY');
-    // postData.image = { imageUrl: this.displayImgData.image };
+    this.submitted = true;
+    if (this.profileForm.invalid) {
+      return;
+    }
     this.healthService.updatePatientProfile(postData).subscribe({
       next: (data: any) => {
         this.enableLoader = false;
@@ -116,20 +149,29 @@ export class PatientProfileComponent implements OnInit {
           },
           autoFocus: false,
         });
+        this.submitted = false;
         this.updateCurrentUserData(this.profileForm.value);
         //this.commonService.updateCurrentUser(this.currentUser);
         //this.commonService.updateProfileImg();
       },
       error: (err) => {
         this.enableLoader = false;
-        this.commonService.showNotification(err.message);
+        this.submitted = false;
+        this.commonService.showNotification(err);
       },
     });
   }
-  updateCurrentUserData(data: any) {
-    const postDatas = Object.entries(data);
-    postDatas.forEach((attribute: any) => {
-      this.currentUser[attribute[0]] = attribute[1];
-    });
+
+  updateCurrentUserData(obj: any) {
+    const oldInfo = JSON.parse(
+      localStorage.getItem('loggedInUserData') as string
+    );
+    localStorage.setItem(
+      'loggedInUserData',
+      JSON.stringify({ ...oldInfo, ...obj })
+    );
+    this.authService.updateUserObjOnSave(
+      JSON.parse(localStorage.getItem('loggedInUserData') as string)
+    );
   }
 }

@@ -19,11 +19,14 @@
     "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {
+    "enableIvy": true,
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictPropertyInitialization": false,
     "strictTemplates": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "allowEmptyCodegenFiles": true,
+    "strictNullChecks": false
   }
 }

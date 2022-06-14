@@ -38,7 +38,10 @@ export class PatientSignupComponent implements OnInit {
       Validators.pattern("^[a-zA-Z '-]+$"),
       Validators.minLength(3),
     ]),
-    mobile: new FormControl('', [Validators.required]),
+    mobile: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[0-9]*$'),
+    ]),
     email: new FormControl('', [
       Validators.required,
       Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
@@ -59,7 +62,9 @@ export class PatientSignupComponent implements OnInit {
     public commonService: CommonService,
     public authService: AuthService
   ) {}
-
+  get f() {
+    return this.signupForm.controls;
+  }
   ngOnInit(): void {
     this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || '/';
     if (this.authService.currentUserValue) {

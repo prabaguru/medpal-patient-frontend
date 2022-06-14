@@ -28,11 +28,16 @@
                 autocomplete="off"
               />
             </mat-form-field>
-            <div
-              class="custom-error"
-              *ngIf="signupForm.controls['firstName'].errors?.pattern"
-            >
-              Nos & Special characters is not allowed
+            <div *ngIf="submitted && f.firstName.errors" class="custom-error">
+              <div *ngIf="f.firstName.errors.required">
+                First name is required.
+              </div>
+              <div *ngIf="f.firstName.errors.pattern">
+                Nos & special characters is not allowed.
+              </div>
+              <div *ngIf="f.firstName.errors.minlength">
+                First name requires 3 characters.
+              </div>
             </div>
           </div>
           <div class="col-md-12 email-wrapper">
