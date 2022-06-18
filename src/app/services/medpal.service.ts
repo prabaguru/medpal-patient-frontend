@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-
+import { Observable, of, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,12 +13,39 @@ export class MedpalService {
 
   /* API call started from here */
   public patientRegister(data: any) {
-    return this.http.post(`${this.baseUrl}/patients/register`, data);
+    return this.http
+      .post(`${this.baseUrl}/patients/register`, data)
+      .pipe(catchError(this.handleError));
   }
   public patientLogin(data: any) {
-    return this.http.post(`${this.baseUrl}/patients/authenticate`, data);
+    return this.http
+      .post(`${this.baseUrl}/patients/authenticate`, data)
+      .pipe(catchError(this.handleError));
   }
   public updatePatientProfile(data: any) {
-    return this.http.put(`${this.baseUrl}/patients/update`, data, {});
+    return this.http
+      .put(`${this.baseUrl}/patients/update`, data, {})
+      .pipe(catchError(this.handleError));
+  }
+  public uploadImage(
+    id: any,
+    profileImage: File,
+    imgUnlink: any
+  ): Observable<any> {
+    var formData: any = new FormData();
+    formData.append('id', id);
+    formData.append('file', profileImage);
+    formData.append('imgUnlink', imgUnlink);
+    return this.http.put(`${this.baseUrl}/patients/uploadPatientDP`, formData, {
+      reportProgress: true,
+      observe: 'events',
+    });
+  }
+
+  private handleError(err: any) {
+    //console.log("error caught in service");
+    //console.error(err);
+    //Handle the error here
+    return throwError(err);
   }
 }

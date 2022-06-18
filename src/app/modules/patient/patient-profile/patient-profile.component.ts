@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import {
@@ -9,7 +9,7 @@ import {
 } from 'ngx-intl-tel-input';
 import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import { PopupComponent } from 'src/app/shared/components/popup/popup.component';
-
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 @Component({
   selector: 'app-patient-profile',
   templateUrl: './patient-profile.component.html',
@@ -35,6 +35,8 @@ export class PatientProfileComponent implements OnInit {
   currentUser: any;
   bloodGroupObj = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
   submitted = false;
+  percentDone?: any = 0;
+
   constructor(
     public commonService: CommonService,
     public healthService: MedpalService,
@@ -44,6 +46,7 @@ export class PatientProfileComponent implements OnInit {
   ) {
     this.currentUser = this.authService.currentUserValue;
     console.log(this.currentUser);
+
     this.profileForm = new FormGroup({
       id: new FormControl(this.currentUser._id ? this.currentUser._id : '', [
         Validators.required,
@@ -72,10 +75,10 @@ export class PatientProfileComponent implements OnInit {
       ]),
       gender: new FormControl(this.currentUser.gender),
       dob: new FormControl(this.currentUser.dob),
-      mobile: new FormControl(this.currentUser.mobile, [
-        Validators.required,
-        Validators.maxLength(15),
-      ]),
+      mobile: new FormControl(
+        { value: this.currentUser.mobile, disabled: true },
+        [Validators.required, Validators.maxLength(15)]
+      ),
       EmergencyContactNo: new FormControl(this.currentUser.EmergencyContactNo, [
         Validators.required,
         Validators.maxLength(15),
@@ -99,12 +102,14 @@ export class PatientProfileComponent implements OnInit {
     return this.profileForm.controls;
   }
   ngOnInit(): void {
-    this.gender = this.currentUser.gender;
-    this.bloodGroup = this.currentUser.bloodGroup;
-    this.maritalStatus = this.currentUser.Maritalstatus;
-    this.displayImgData.image = this.currentUser.image.imageUrl
-      ? this.currentUser.image.imageUrl
-      : 'assets/images/dummy.jpg';
+    this.displayImgData = {
+      image: this.currentUser.image.imageUrl
+        ? this.currentUser.image.imageUrl
+        : null,
+      imageFileName: this.currentUser.image.imageName
+        ? this.currentUser.image.imageName
+        : null,
+    };
   }
   resetmobilefield() {
     if (this.profileForm.controls.mobile.value) {
@@ -117,26 +122,66 @@ export class PatientProfileComponent implements OnInit {
     }
   }
   onImageSelected(event: any) {
+    if (event.target.files[0].size / 1024 / 1024 > 1) {
+      this.commonService.showNotification('Image size must be less than 1MB.');
+      return;
+    }
     const reader = new FileReader();
     reader.onload = (e: any) => {
-      if (event.target.files[0].size / 1024 / 1024 > 1) {
-        alert('Image size must not be more than 1MB.');
-        return;
-      }
       this.displayImgData = {
         image: e.target.result,
         imageFileName: event.target.files[0].name,
       };
     };
     reader.readAsDataURL(event.target.files[0]);
+    this.UploadImage(this.currentUser._id, event.target.files[0]);
   }
+  UploadImage(id: any, img: any) {
+    let imgUnlink = this.currentUser.image.imageName
+      ? this.currentUser.image.imageName
+      : null;
+
+    this.healthService.uploadImage(id, img, imgUnlink).subscribe(
+      (event: HttpEvent<any>) => {
+        switch (event.type) {
+          case HttpEventType.Sent:
+            //console.log("Request has been made!");
+            break;
+          case HttpEventType.ResponseHeader:
+            //console.log("Response header has been received!");
+            break;
+          case HttpEventType.UploadProgress:
+            if (event.total) {
+              this.percentDone = Math.round((event.loaded / event.total) * 100);
+            }
+            //console.log(`Uploaded! ${this.percentDone}%`);
+            break;
+          case HttpEventType.Response:
+            //console.log("Upload successfull!", event.body.result);
+            this.commonService.showNotification(
+              'Image uploaded successfully...'
+            );
+            let image = {};
+            image = { image: event.body.result };
+            this.percentDone = false;
+            this.updateCurrentUserData(image);
+        }
+      },
+      (error) => {
+        this.percentDone = false;
+        this.commonService.showNotification(error);
+      }
+    );
+  }
+
   saveChanges() {
-    this.enableLoader = true;
-    const postData = this.profileForm.value;
     this.submitted = true;
     if (this.profileForm.invalid) {
       return;
     }
+    this.enableLoader = true;
+    const postData = this.profileForm.value;
+
     this.healthService.updatePatientProfile(postData).subscribe({
       next: (data: any) => {
         this.enableLoader = false;
@@ -173,5 +218,7 @@ export class PatientProfileComponent implements OnInit {
     this.authService.updateUserObjOnSave(
       JSON.parse(localStorage.getItem('loggedInUserData') as string)
     );
+    this.currentUser = [];
+    this.currentUser = this.authService.currentUserValue;
   }
 }

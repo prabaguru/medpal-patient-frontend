@@ -1,5 +1,9 @@
 // @import '../../../shared/styles/login-styles.scss';
 
+.infomargin {
+  position: absolute !important;
+  margin: 17px 0 0 -35px !important;
+}
 .patient-profile-wrapper {
   .patient-profile-icon {
     text-align: center;
@@ -29,7 +33,9 @@
     }
   }
 }
-
+.phonevalidMT {
+  color: red !important;
+}
 ::ng-deep .profile-form {
   text-align: center;
   mat-form-field {

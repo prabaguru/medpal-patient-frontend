@@ -1,5 +1,6 @@
 <app-patient-menu></app-patient-menu>
 <div class="container">
+  <div class="loader" [hidden]="!enableLoader"></div>
   <div class="content-admin-main">
     <div class="aon-admin-heading">
       <h3>Edit Profile</h3>
@@ -11,12 +12,39 @@
           <div class="cus-pai-regis-left col">
             <div class="aon-pro-avtar-pic">
               <div class="aon-proAvtar-media">
-                <img src="assets/images/dummy.jpg" alt="Medpal" />
+                <img
+                  src="assets/images/dummy.jpg"
+                  alt="Medpal"
+                  *ngIf="!displayImgData.image"
+                />
+                <img
+                  [src]="displayImgData.image"
+                  class="user-img"
+                  alt="Medpal"
+                  *ngIf="displayImgData.image"
+                />
+                <input
+                  #fileInput
+                  type="file"
+                  (change)="onImageSelected($event)"
+                  accept="image/*"
+                  style="display: none"
+                />
               </div>
-              <button class="admin-button aon-proAvtar-btn has-toltip">
+              <button
+                class="admin-button aon-proAvtar-btn has-toltip"
+                (click)="fileInput.click()"
+              >
                 <i class="fa fa-camera"></i>
-                <span class="header-toltip">Upload Avtar</span>
+                <span class="header-toltip">Upload DP</span>
               </button>
+            </div>
+            <div class="progress form-group mt-5" *ngIf="percentDone">
+              <div
+                class="progress-bar progress-bar-striped bg-success uploadProgress"
+                role="progressbar"
+                [style.width.%]="percentDone"
+              ></div>
             </div>
           </div>
           <div class="cus-pai-regis-right col">
@@ -154,7 +182,7 @@
                     [enableAutoCountrySelect]="true"
                     [enablePlaceholder]="true"
                     [searchCountryFlag]="true"
-                    customPlaceholder="Mobile No"
+                    [enablePlaceholder]="true"
                     [searchCountryField]="[
                       SearchCountryField.Iso2,
                       SearchCountryField.Name
@@ -173,6 +201,19 @@
                     (countryChange)="resetmobilefield()"
                   >
                   </ngx-intl-tel-input>
+                  <mat-icon
+                    matSuffix
+                    matTooltip="Primary Mob no is not editable..."
+                    matTooltipPosition="above"
+                    class="infomargin"
+                    >info</mat-icon
+                  >
+                  <div
+                    class="custom-error phonevalidMT"
+                    *ngIf="submitted && f.mobile.errors"
+                  >
+                    Invalid phone no...
+                  </div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-sm-6 flag-mobile text-start">
                   <ngx-intl-tel-input
@@ -181,7 +222,7 @@
                     [enableAutoCountrySelect]="true"
                     [enablePlaceholder]="true"
                     [searchCountryFlag]="true"
-                    customPlaceholder="Emergency Contact No"
+                    [enablePlaceholder]="true"
                     [searchCountryField]="[
                       SearchCountryField.Iso2,
                       SearchCountryField.Name
@@ -201,6 +242,19 @@
                     (countryChange)="resetmobilefield1()"
                   >
                   </ngx-intl-tel-input>
+                  <mat-icon
+                    matSuffix
+                    matTooltip="Emergency Contact No"
+                    matTooltipPosition="above"
+                    class="infomargin"
+                    >info</mat-icon
+                  >
+                  <div
+                    class="custom-error phonevalidMT"
+                    *ngIf="submitted && f.EmergencyContactNo.errors"
+                  >
+                    Invalid phone no...
+                  </div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-sm-6">
                   <mat-form-field appearance="outline">
