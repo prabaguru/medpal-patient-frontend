@@ -66,7 +66,7 @@ export class PatientLoginComponent implements OnInit {
         },
         error: (error) => {
           this.enableLoader = false;
-          this.commonService.showNotification(error.message);
+          this.commonService.showNotification(error);
         },
         complete: () => {},
       });

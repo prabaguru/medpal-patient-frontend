@@ -20,6 +20,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { PatientHomeComponent } from './modules/patient/patient-home/patient-home.component';
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
+import { PatientProfileResetPasswordComponent } from './modules/patient/patient-reset-password/patient-reset-password.component';
 import {
   MedPalHttpInterceptor,
   ErrorInterceptor,
@@ -39,6 +40,7 @@ import {
     PatientHomeComponent,
     PatientProfileComponent,
     MedpalHomeComponent,
+    PatientProfileResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

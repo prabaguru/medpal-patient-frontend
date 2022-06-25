@@ -1,10 +1,12 @@
 <div class="cus-top-nav">
   <div class="container">
     <ul class="cus-nav row">
-      <li class="col active">
-        <a href="javascript:void(0)">View/Edit Profile</a>
+      <li class="col" [routerLinkActive]="['active']">
+        <a href="javascript:void(0)" [routerLink]="['/medpal/patient/profile']"
+          >View/Edit Profile</a
+        >
       </li>
-      <li class="col">
+      <li class="col" [routerLinkActive]="['active']">
         <a href="javascript:void(0)">Appointments</a>
       </li>
       <!-- <li class="col">
@@ -12,7 +14,13 @@
       </li>
       <li class="col"><a href="#">My Feedback</a></li> -->
 
-      <li class="col"><a href="javascript:void(0)">Change Password</a></li>
+      <li class="col" [routerLinkActive]="['active']">
+        <a
+          href="javascript:void(0)"
+          [routerLink]="['/medpal/patient/reset-password']"
+          >Change Password</a
+        >
+      </li>
     </ul>
   </div>
 </div>
