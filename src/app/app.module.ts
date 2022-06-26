@@ -12,6 +12,7 @@ import { FooterComponent } from './modules/home/footer/footer.component';
 import { PatientLoginComponent } from './modules/login/patient-login/patient-login.component';
 import { PatientSignupComponent } from './modules/login/patient-signup/patient-signup.component';
 import { ResetPasswordComponent } from './modules/login/reset-password/reset-password.component';
+import { ResetPasswordEmailComponent } from './modules/login/reset-password-email/reset-password-email.component';
 import { AngularMaterialModule } from './shared/angular-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { OtpVerifyComponent } from './shared/components/otp-verify/otp-verify.component';
@@ -35,6 +36,7 @@ import {
     PatientLoginComponent,
     PatientSignupComponent,
     ResetPasswordComponent,
+    ResetPasswordEmailComponent,
     OtpVerifyComponent,
     PopupComponent,
     PatientHomeComponent,

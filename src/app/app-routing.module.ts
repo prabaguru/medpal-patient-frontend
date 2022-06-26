@@ -6,6 +6,7 @@ import { PatientLoginComponent } from './modules/login/patient-login/patient-log
 import { PatientSignupComponent } from './modules/login/patient-signup/patient-signup.component';
 import { ResetPasswordComponent } from './modules/login/reset-password/reset-password.component';
 import { PatientProfileResetPasswordComponent } from './modules/patient/patient-reset-password/patient-reset-password.component';
+import { ResetPasswordEmailComponent } from './modules/login/reset-password-email/reset-password-email.component';
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
 import { AuthGuard } from './services';
 
@@ -34,7 +35,11 @@ const routes: Routes = [
         component: PatientSignupComponent,
       },
       {
-        path: 'forget-password',
+        path: 'patient/forget-password',
+        component: ResetPasswordEmailComponent,
+      },
+      {
+        path: 'reset-password',
         component: ResetPasswordComponent,
       },
       {
