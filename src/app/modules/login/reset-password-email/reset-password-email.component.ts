@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { MedpalService } from 'src/app/services/medpal.service';
+import { MedpalService, CommonService } from 'src/app/services';
 import { PopupComponent } from 'src/app/shared/components/popup/popup.component';
 
 @Component({
@@ -13,11 +13,13 @@ import { PopupComponent } from 'src/app/shared/components/popup/popup.component'
 export class ResetPasswordEmailComponent implements OnInit {
   isDoctor = false;
   submitted = false;
+  enableLoader = false;
   public resetForm: FormGroup = new FormGroup({});
   constructor(
-    private router: Router,
+    private route: Router,
     private healthService: MedpalService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    public commonService: CommonService
   ) {}
 
   ngOnInit(): void {
@@ -37,5 +39,33 @@ export class ResetPasswordEmailComponent implements OnInit {
     if (this.resetForm.invalid) {
       return;
     }
+    this.enableLoader = true;
+    const postData = this.resetForm.value;
+    this.healthService.forgotPassWordSendEmail(postData).subscribe({
+      next: (data: any) => {
+        this.enableLoader = false;
+        this.submitted = false;
+        const dialogRef = this.dialog.open(PopupComponent, {
+          minWidth: '20vw',
+          data: {
+            title: 'Email Sent',
+            successIcon: true,
+            content:
+              'Password reset link sent to your registered email... Check your email to reset your password...!',
+            isAlert: true,
+          },
+          autoFocus: false,
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this.route.navigate(['medpal/home']);
+        });
+        this.resetForm.reset();
+      },
+      error: (err) => {
+        this.enableLoader = false;
+        this.submitted = false;
+        this.commonService.showNotification(err);
+      },
+    });
   }
 }

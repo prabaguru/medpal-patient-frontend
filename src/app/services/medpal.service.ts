@@ -27,6 +27,14 @@ export class MedpalService {
       .put(`${this.baseUrl}/patients/update`, data, {})
       .pipe(catchError(this.handleError));
   }
+  forgotPassWordSendEmail(data: any) {
+    return this.http
+      .post(`${this.baseUrl}/patients/forgotPasswordEmail`, data)
+      .pipe(catchError(this.handleError));
+  }
+  updatePassword(data: any) {
+    return this.http.put(`${this.baseUrl}/patients/changePassWord`, data);
+  }
   public uploadImage(
     id: any,
     profileImage: File,

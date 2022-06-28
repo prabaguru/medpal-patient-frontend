@@ -38,10 +38,7 @@ export class PatientSignupComponent implements OnInit {
       Validators.pattern("^[a-zA-Z '-]+$"),
       Validators.minLength(3),
     ]),
-    mobile: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[0-9]*$'),
-    ]),
+    mobile: new FormControl('', [Validators.required]),
     email: new FormControl('', [
       Validators.required,
       Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
@@ -96,46 +93,48 @@ export class PatientSignupComponent implements OnInit {
 
   register(): void {
     this.submitted = true;
-    if (!this.signupForm.valid && this.matchPassword) {
+    if (this.signupForm.invalid && this.matchPassword) {
       return;
     }
-    const dialogRef = this.dialog.open(OtpVerifyComponent, {
-      minWidth: '30vw',
-      data: {
-        title: 'OTP Verification',
-        isOtpVerify: true,
-        mobileNo: this.signupForm.value.mobile,
-      },
-      autoFocus: false,
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        this.enableLoader = true;
-        this.healthService.patientRegister(this.signupForm.value).subscribe({
-          next: (data) => {
-            this.enableLoader = false;
-            const dialogRef2 = this.dialog.open(PopupComponent, {
-              minWidth: '20vw',
-              data: {
-                successIcon: true,
-                content: 'Registration Done!',
-                isAlert: true,
-              },
-              autoFocus: false,
-            });
-            dialogRef2.afterClosed().subscribe(() => {
-              this.route.navigate(['/medpal/patient/login']);
-            });
-            this.submitted = false;
-          },
-          error: (err) => {
-            this.enableLoader = false;
-            this.submitted = false;
-            this.commonService.showNotification(err.message);
-            // error action over here
-          },
-        });
-      }
-    });
+    if (this.signupForm.valid) {
+      const dialogRef = this.dialog.open(OtpVerifyComponent, {
+        minWidth: '30vw',
+        data: {
+          title: 'OTP Verification',
+          isOtpVerify: true,
+          mobileNo: this.signupForm.value.mobile,
+        },
+        autoFocus: false,
+      });
+      dialogRef.afterClosed().subscribe((result: any) => {
+        if (result) {
+          this.enableLoader = true;
+          this.healthService.patientRegister(this.signupForm.value).subscribe({
+            next: (data) => {
+              this.enableLoader = false;
+              const dialogRef2 = this.dialog.open(PopupComponent, {
+                minWidth: '20vw',
+                data: {
+                  successIcon: true,
+                  content: 'Registration Done!',
+                  isAlert: true,
+                },
+                autoFocus: false,
+              });
+              dialogRef2.afterClosed().subscribe(() => {
+                this.route.navigate(['/medpal/patient/login']);
+              });
+              this.submitted = false;
+            },
+            error: (err) => {
+              this.enableLoader = false;
+              this.submitted = false;
+              this.commonService.showNotification(err);
+              // error action over here
+            },
+          });
+        }
+      });
+    }
   }
 }

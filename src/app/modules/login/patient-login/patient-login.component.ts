@@ -11,13 +11,8 @@ import { first } from 'rxjs/operators';
 export class PatientLoginComponent implements OnInit {
   enableLoader = false;
   returnUrl: any;
-  loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
-    ]),
-    password: new FormControl('', [Validators.required]),
-  });
+  userEmail: any;
+  loginForm: FormGroup = new FormGroup({});
 
   constructor(
     private route: Router,
@@ -28,12 +23,21 @@ export class PatientLoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userEmail = this.router.snapshot.queryParams['email'] || '';
     this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || '/';
     if (this.authService.currentUserValue) {
       this.route.navigate(['/medpal'], {
         queryParams: { returnUrl: this.returnUrl },
       });
     }
+
+    this.loginForm = new FormGroup({
+      email: new FormControl(this.userEmail ? this.userEmail : '', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
+      ]),
+      password: new FormControl('', [Validators.required]),
+    });
   }
   rememberMe() {
     // checked data here
