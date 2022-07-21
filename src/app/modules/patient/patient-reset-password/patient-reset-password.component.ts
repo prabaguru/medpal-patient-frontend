@@ -12,7 +12,7 @@ import { PopupComponent } from 'src/app/shared/components/popup/popup.component'
 })
 export class PatientProfileResetPasswordComponent implements OnInit {
   isDoctor = false;
-  public enableLoader = false;
+  //public enableLoader = false;
   submitted = false;
   currentUser: any;
   matchPassword: any;
@@ -72,12 +72,12 @@ export class PatientProfileResetPasswordComponent implements OnInit {
     if (this.resetForm.invalid || !this.matchPassword) {
       return;
     }
-    this.enableLoader = true;
+    //this.enableLoader = true;
     const postData = this.resetForm.value;
 
     this.healthService.updatePatientProfile(postData).subscribe({
       next: (data: any) => {
-        this.enableLoader = false;
+        //this.enableLoader = false;
         this.submitted = false;
         const dialogRef = this.dialog.open(PopupComponent, {
           minWidth: '20vw',
@@ -95,7 +95,7 @@ export class PatientProfileResetPasswordComponent implements OnInit {
         });
       },
       error: (err) => {
-        this.enableLoader = false;
+        //this.enableLoader = false;
         this.submitted = false;
         this.commonService.showNotification(err);
       },

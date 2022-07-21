@@ -18,7 +18,7 @@ export class ResetPasswordComponent implements OnInit {
   timestamp: any;
   userEmail: any;
   submitted = false;
-  enableLoader = false;
+  // enableLoader = false;
   constructor(
     private router: Router,
     private healthService: MedpalService,
@@ -77,12 +77,12 @@ export class ResetPasswordComponent implements OnInit {
     if (this.resetForm.invalid || !this.matchPassword) {
       return;
     }
-    this.enableLoader = true;
+    //this.enableLoader = true;
     const postData = this.resetForm.value;
 
     this.healthService.updatePassword(postData).subscribe({
       next: (data: any) => {
-        this.enableLoader = false;
+        //this.enableLoader = false;
         this.submitted = false;
         const dialogRef = this.dialog.open(PopupComponent, {
           minWidth: '20vw',
@@ -102,7 +102,7 @@ export class ResetPasswordComponent implements OnInit {
         });
       },
       error: (err) => {
-        this.enableLoader = false;
+        //this.enableLoader = false;
         this.submitted = false;
         this.commonService.showNotification(err);
       },

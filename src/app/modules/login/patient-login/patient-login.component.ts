@@ -9,7 +9,7 @@ import { first } from 'rxjs/operators';
   styleUrls: ['./patient-login.component.scss'],
 })
 export class PatientLoginComponent implements OnInit {
-  enableLoader = false;
+  //enableLoader = false;
   returnUrl: any;
   userEmail: any;
   loginForm: FormGroup = new FormGroup({});
@@ -47,7 +47,7 @@ export class PatientLoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
-    this.enableLoader = true;
+    //this.enableLoader = true;
 
     this.authService
       .login(
@@ -64,12 +64,12 @@ export class PatientLoginComponent implements OnInit {
               this.commonService.showNotification(`Welcome ${res.firstName}!`);
             }
           } else {
-            this.enableLoader = false;
+            // this.enableLoader = false;
             this.route.navigate([this.returnUrl]);
           }
         },
         error: (error) => {
-          this.enableLoader = false;
+          //this.enableLoader = false;
           this.commonService.showNotification(error);
         },
         complete: () => {},

@@ -16,7 +16,7 @@ import { HttpEvent, HttpEventType } from '@angular/common/http';
   styleUrls: ['./patient-profile.component.scss'],
 })
 export class PatientProfileComponent implements OnInit {
-  public enableLoader = false;
+  //public enableLoader = false;
   public displayImgData = { image: '', imageFileName: '' };
   public separateDialCode = true;
   public SearchCountryField = SearchCountryField;
@@ -179,12 +179,12 @@ export class PatientProfileComponent implements OnInit {
     if (this.profileForm.invalid) {
       return;
     }
-    this.enableLoader = true;
+    //this.enableLoader = true;
     const postData = this.profileForm.value;
 
     this.healthService.updatePatientProfile(postData).subscribe({
       next: (data: any) => {
-        this.enableLoader = false;
+        //this.enableLoader = false;
         this.dialog.open(PopupComponent, {
           minWidth: '20vw',
           data: {
@@ -200,7 +200,7 @@ export class PatientProfileComponent implements OnInit {
         //this.commonService.updateProfileImg();
       },
       error: (err) => {
-        this.enableLoader = false;
+        //this.enableLoader = false;
         this.submitted = false;
         this.commonService.showNotification(err);
       },

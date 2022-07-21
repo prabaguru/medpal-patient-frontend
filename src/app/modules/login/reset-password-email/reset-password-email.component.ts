@@ -13,7 +13,7 @@ import { PopupComponent } from 'src/app/shared/components/popup/popup.component'
 export class ResetPasswordEmailComponent implements OnInit {
   isDoctor = false;
   submitted = false;
-  enableLoader = false;
+  //enableLoader = false;
   public resetForm: FormGroup = new FormGroup({});
   constructor(
     private route: Router,
@@ -39,11 +39,11 @@ export class ResetPasswordEmailComponent implements OnInit {
     if (this.resetForm.invalid) {
       return;
     }
-    this.enableLoader = true;
+    //this.enableLoader = true;
     const postData = this.resetForm.value;
     this.healthService.forgotPassWordSendEmail(postData).subscribe({
       next: (data: any) => {
-        this.enableLoader = false;
+        //this.enableLoader = false;
         this.submitted = false;
         const dialogRef = this.dialog.open(PopupComponent, {
           minWidth: '20vw',
@@ -62,7 +62,7 @@ export class ResetPasswordEmailComponent implements OnInit {
         this.resetForm.reset();
       },
       error: (err) => {
-        this.enableLoader = false;
+        // this.enableLoader = false;
         this.submitted = false;
         this.commonService.showNotification(err);
       },

@@ -49,7 +49,9 @@ export class MedpalService {
       observe: 'events',
     });
   }
-
+  getDoctorsLIsting() {
+    return this.http.get(`${this.baseUrl}/doctors/getAll`);
+  }
   private handleError(err: any) {
     //console.log("error caught in service");
     //console.error(err);

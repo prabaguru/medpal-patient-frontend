@@ -1,618 +1,432 @@
 <div class="container-fluid bg">
-  <div class="row p-5">
-    <div class="col-md-6">
-      <h1 class="text-white maincolor aon-banner-heading mt-lg-5">
-        Welcome To <b style="letter-spacing: 2.5px">Medpal</b>.Live<br />
-      </h1>
-      <p class="text-white pl-5 maincolor">
-        All heathcare appointments in one place for you. Unleash the power and
-        value with Us.
-      </p>
+  <div class="row">
+    <div class="aon-search2-bar-wrap">
+      <div class="container">
+        <div class="aon-search2-row">
+          <form class="aon-search2-form no-p-lr row justify-content-between">
+            <div class="col-md-5">
+              <mat-form-field appearance="outline" class="full-width-field">
+                <mat-label>Search doctors, clinics, hospitals, etc.</mat-label>
+                <input type="text" matInput maxlength="20" />
+                <mat-icon matPrefix class="my-icon">local_hospital</mat-icon>
+              </mat-form-field>
+            </div>
 
-      <button mat-raised-button color="primary" class="homebutton">
-        I am Patient <i class="fa fa-user-plus icosize"></i>
-      </button>
+            <div class="col-md-5">
+              <mat-form-field
+                appearance="outline"
+                class="full-width-field border-red"
+              >
+                <mat-label>Search Location.</mat-label>
+                <input type="text" matInput maxlength="20" />
+                <mat-icon matPrefix class="my-icon">my_location</mat-icon>
+              </mat-form-field>
+            </div>
 
-      &nbsp;&nbsp;
-      <button
-        mat-raised-button
-        class="homedocBtn"
-        class="homebutton"
-        color="primary"
-        [routerLink]="['/authentication/signin']"
-        [queryParams]="{ loginType: 'Doctor' }"
-      >
-        I am a Doctor <i class="fa fa-user-md icosize"></i>
-      </button>
-      <p class="m-5">
-        <img src="assets/images/medpallogo.png" class="img-fluid" width="200" />
-      </p>
-    </div>
-    <div class="col-md-6">
-      <img
-        src="../../../assets/images/landing_image.png"
-        alt="Dell"
-        class="img-fluid"
-      />
+            <div class="col-md-2">
+              <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                class="site-button"
+              >
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<section class="aon-med-team-area aon-med-team-area1 bg-light-gray">
+<div class="aon-search-info-wrap">
   <div class="container">
-    <!--Title Section Start-->
-    <div class="section-head center">
-      <span class="aon-sub-title">Doctors</span>
-      <h2 class="aon-title">Top Rated Doctors</h2>
-      <p class="text-black">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry the standard dummy text ever since the when an printer took.
-      </p>
+    <h3 class="aon-searchInfo-title">
+      {{ doctorsListing.length }}
+      <span *ngIf="doctorsListing.length == 1">Doctor</span>
+      <span *ngIf="doctorsListing.length > 1 || doctorsListing.length == 0"
+        >Doctors</span
+      >
+      available
+    </h3>
+    <div class="aon-searchInfo-text">
+      <i class="fa fa-check"></i> Book appointments with minimum wait-time &amp;
+      verified doctor details
     </div>
-    <!--Title Section End-->
-
-    <div class="section-content">
-      <div class="aon-med-team-section">
+  </div>
+</div>
+<div class="aon-page-jobs-wrap">
+  <div class="container">
+    <div class="row">
+      <!-- Left part start -->
+      <div class="col-lg-8 col-md-12">
         <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <div class="aon-med-team">
-              <div class="aon-med-team-pic">
-                <a href="javascript:void()"
-                  ><img src="../../../assets/images/pic1.jpg" alt="Medpal"
-                /></a>
+          <!-- COLUMNS 1 -->
+          <div class="col-lg-6 col-md-12">
+            <div class="sf-grid-view">
+              <div class="sf-grid-head">
+                <div class="sf-medi-rate">
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star text-gray"></span>
+                  <span class="sf-rating-lable">3 Feedback</span>
+                </div>
+                <div class="sf-medi-like">
+                  <i class="feather-thumbs-up"></i>
+                  <span class="bage-green">93%</span>
+                </div>
               </div>
-              <div class="aon-med-team-info">
-                <h4 class="aon-title">
-                  <a href="javascript:void()">Dr. Marya Smith</a>
-                </h4>
-                <p class="aon-med-team-discription">
-                  MDS - Periodontology and Oral Implantology
-                </p>
-                <span class="aon-med-team-position">Dental</span>
-                <span class="aon-med-team-location"
-                  ><i class="feather-map-pin"></i>Georgia, USA</span
-                >
-                <div class="aon-df-rating">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="aon-df-lable">(124)</span>
+              <div class="sf-grid-view-mid">
+                <div class="sf-grid-media">
+                  <a href="profile1.html"
+                    ><img
+                      src="../../../assets/images/profile-pic.jpg"
+                      alt="Medpal"
+                  /></a>
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="sf-grid-info">
+                  <a href="profile1.html" class="sf-doc-profile-view"
+                    >View Profile</a
+                  >
+                  <h3>Dr. Viniita Jhuntra</h3>
+                  <div class="sf-doct-info">
+                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
+                  </div>
+                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
+                  <a href="booking-form.html" class="site-button">
+                    Book Appointment
+                  </a>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6">
-            <div class="aon-med-team">
-              <div class="aon-med-team-pic">
-                <a href="javascript:void()"
-                  ><img src="../../../assets/images/pic1.jpg" alt="Medpal"
-                /></a>
+          <!-- COLUMNS 2 -->
+          <div class="col-lg-6 col-md-12">
+            <div class="sf-grid-view">
+              <div class="sf-grid-head">
+                <div class="sf-medi-rate">
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star text-gray"></span>
+                  <span class="sf-rating-lable">3 Feedback</span>
+                </div>
+                <div class="sf-medi-like">
+                  <i class="feather-thumbs-up"></i>
+                  <span class="bage-green">93%</span>
+                </div>
               </div>
-              <div class="aon-med-team-info">
-                <h4 class="aon-title">
-                  <a href="javascript:void()">Dr. Darren Elder</a>
-                </h4>
-                <p class="aon-med-team-discription">
-                  MDS - Periodontology and Oral Implantology
-                </p>
-                <span class="aon-med-team-position">Dental</span>
-                <span class="aon-med-team-location"
-                  ><i class="feather-map-pin"></i>Georgia, USA</span
-                >
-                <div class="aon-df-rating">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="aon-df-lable">(124)</span>
+              <div class="sf-grid-view-mid">
+                <div class="sf-grid-media">
+                  <a href="profile1.html"
+                    ><img
+                      src="../../../assets/images/profile-pic.jpg"
+                      alt="Medpal"
+                  /></a>
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="sf-grid-info">
+                  <a href="profile1.html" class="sf-doc-profile-view"
+                    >View Profile</a
+                  >
+                  <h3>Dr. Flores Emily</h3>
+                  <div class="sf-doct-info">
+                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
+                  </div>
+                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
+                  <a href="booking-form.html" class="site-button">
+                    Book Appointment
+                  </a>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6">
-            <div class="aon-med-team">
-              <div class="aon-med-team-pic">
-                <a href="javascript:void()"
-                  ><img src="../../../assets/images/pic1.jpg" alt="Medpal"
-                /></a>
+          <!-- COLUMNS 3 -->
+          <div class="col-lg-6 col-md-12">
+            <div class="sf-grid-view">
+              <div class="sf-grid-head">
+                <div class="sf-medi-rate">
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star text-gray"></span>
+                  <span class="sf-rating-lable">3 Feedback</span>
+                </div>
+                <div class="sf-medi-like">
+                  <i class="feather-thumbs-up"></i>
+                  <span class="bage-green">93%</span>
+                </div>
               </div>
-              <div class="aon-med-team-info">
-                <h4 class="aon-title">
-                  <a href="javascript:void()">Dr. David Chua</a>
-                </h4>
-                <p class="aon-med-team-discription">
-                  MDS - Periodontology and Oral Implantology
-                </p>
-                <span class="aon-med-team-position">Dental</span>
-                <span class="aon-med-team-location"
-                  ><i class="feather-map-pin"></i>Georgia, USA</span
-                >
-                <div class="aon-df-rating">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="aon-df-lable">(124)</span>
+              <div class="sf-grid-view-mid">
+                <div class="sf-grid-media">
+                  <a href="profile1.html"
+                    ><img
+                      src="../../../assets/images/profile-pic.jpg"
+                      alt="Medpal"
+                  /></a>
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="sf-grid-info">
+                  <a href="profile1.html" class="sf-doc-profile-view"
+                    >View Profile</a
+                  >
+                  <h3>Dr. Steven Ford</h3>
+                  <div class="sf-doct-info">
+                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
+                  </div>
+                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
+                  <a href="booking-form.html" class="site-button">
+                    Book Appointment
+                  </a>
                 </div>
               </div>
             </div>
           </div>
-          <div class="col-lg-6 col-md-6">
-            <div class="aon-med-team">
-              <div class="aon-med-team-pic">
-                <a href="javascript:void()"
-                  ><img src="../../../assets/images/pic1.jpg" alt="Medpal"
-                /></a>
+          <!-- COLUMNS 4 -->
+          <div class="col-lg-6 col-md-12">
+            <div class="sf-grid-view">
+              <div class="sf-grid-head">
+                <div class="sf-medi-rate">
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star text-gray"></span>
+                  <span class="sf-rating-lable">3 Feedback</span>
+                </div>
+                <div class="sf-medi-like">
+                  <i class="feather-thumbs-up"></i>
+                  <span class="bage-green">93%</span>
+                </div>
               </div>
-              <div class="aon-med-team-info">
-                <h4 class="aon-title">
-                  <a href="javascript:void()">Dr. Zuliya Wood</a>
-                </h4>
-                <p class="aon-med-team-discription">
-                  MDS - Periodontology and Oral Implantology
-                </p>
-                <span class="aon-med-team-position">Dental</span>
-                <span class="aon-med-team-location"
-                  ><i class="feather-map-pin"></i>Georgia, USA</span
-                >
-                <div class="aon-df-rating">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="aon-df-lable">(124)</span>
+              <div class="sf-grid-view-mid">
+                <div class="sf-grid-media">
+                  <a href="profile1.html"
+                    ><img
+                      src="../../../assets/images/profile-pic.jpg"
+                      alt="Medpal"
+                  /></a>
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="sf-grid-info">
+                  <a href="profile1.html" class="sf-doc-profile-view"
+                    >View Profile</a
+                  >
+                  <h3>Dr. Samuel Daniels</h3>
+                  <div class="sf-doct-info">
+                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
+                  </div>
+                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
+                  <a href="booking-form.html" class="site-button">
+                    Book Appointment
+                  </a>
                 </div>
               </div>
             </div>
+          </div>
+          <!-- COLUMNS 5 -->
+          <div class="col-lg-6 col-md-12">
+            <div class="sf-grid-view">
+              <div class="sf-grid-head">
+                <div class="sf-medi-rate">
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star text-gray"></span>
+                  <span class="sf-rating-lable">3 Feedback</span>
+                </div>
+                <div class="sf-medi-like">
+                  <i class="feather-thumbs-up"></i>
+                  <span class="bage-green">93%</span>
+                </div>
+              </div>
+              <div class="sf-grid-view-mid">
+                <div class="sf-grid-media">
+                  <a href="profile1.html"
+                    ><img
+                      src="../../../assets/images/profile-pic.jpg"
+                      alt="Medpal"
+                  /></a>
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="sf-grid-info">
+                  <a href="profile1.html" class="sf-doc-profile-view"
+                    >View Profile</a
+                  >
+                  <h3>Dr. Viniita Jhuntra</h3>
+                  <div class="sf-doct-info">
+                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
+                  </div>
+                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
+                  <a href="booking-form.html" class="site-button">
+                    Book Appointment
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- COLUMNS 6 -->
+          <div class="col-lg-6 col-md-12">
+            <div class="sf-grid-view">
+              <div class="sf-grid-head">
+                <div class="sf-medi-rate">
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star"></span>
+                  <span class="fa fa-star text-gray"></span>
+                  <span class="sf-rating-lable">3 Feedback</span>
+                </div>
+                <div class="sf-medi-like">
+                  <i class="feather-thumbs-up"></i>
+                  <span class="bage-green">93%</span>
+                </div>
+              </div>
+              <div class="sf-grid-view-mid">
+                <div class="sf-grid-media">
+                  <a href="profile1.html"
+                    ><img
+                      src="../../../assets/images/profile-pic.jpg"
+                      alt="Medpal"
+                  /></a>
+                  <i class="fa fa-check"></i>
+                </div>
+                <div class="sf-grid-info">
+                  <a href="profile1.html" class="sf-doc-profile-view"
+                    >View Profile</a
+                  >
+                  <h3>Dr. Ann Coleman</h3>
+                  <div class="sf-doct-info">
+                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
+                  </div>
+                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
+                  <a href="booking-form.html" class="site-button">
+                    Book Appointment
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="site-pagination s-p-center">
+            <ul class="pagination">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1"
+                  ><i class="fa fa-chevron-left"></i
+                ></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item active">
+                <a class="page-link" href="#"
+                  >2 <span class="sr-only">(current)</span></a
+                >
+              </li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item"><a class="page-link" href="#">4</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#"
+                  ><i class="fa fa-ellipsis-h"></i
+                ></a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">11</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#"
+                  ><i class="fa fa-chevron-right"></i
+                ></a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="aon-addmore-btn-section">
-        <a href="javascripr:;" class="aon-addplus"
-          ><i class="fa fa-plus"></i
-        ></a>
+      <!-- Left part END -->
+
+      <!-- Side bar start -->
+      <div class="col-lg-4 col-md-12">
+        <aside class="side-bar">
+          <!-- Search Filter-->
+          <div class="sf-siderbar-map">
+            <div class="search-filter-wrap">
+              <!-- COLUMNS 1 -->
+              <div class="search-filter-box">
+                <h4 class="search-filter-title">Video Consult</h4>
+                <div class="search-filter-content">
+                  <div class="checkbox sf-radio-checkbox sf-radio-input">
+                    <input id="lau1" name="abc" value="five" type="checkbox" />
+                    <label for="lau1">Yes</label>
+                  </div>
+                </div>
+              </div>
+              <!-- COLUMNS 2 -->
+              <div class="search-filter-box">
+                <h4 class="search-filter-title">Availability</h4>
+                <div class="search-filter-content">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option>Select Doctors</option>
+                    <option>Available Today</option>
+                    <option>Available Tommorow</option>
+                    <option>Available in next 7 days</option>
+                  </select>
+                </div>
+              </div>
+              <!-- COLUMNS 3 -->
+              <div class="search-filter-box">
+                <h4 class="search-filter-title">Gender</h4>
+                <div class="search-filter-content">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option>Male Doctor</option>
+                    <option>Female Doctor</option>
+                  </select>
+                </div>
+              </div>
+              <!-- COLUMNS 4 -->
+              <div class="search-filter-box">
+                <h4 class="search-filter-title">Consultation Fee</h4>
+                <div class="search-filter-content">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option>Free</option>
+                    <option>100-200</option>
+                    <option>200-500</option>
+                    <option>500+</option>
+                  </select>
+                </div>
+              </div>
+              <!-- COLUMNS 5 -->
+              <div class="search-filter-box">
+                <h4 class="search-filter-title">Availability</h4>
+                <div class="search-filter-content">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                  >
+                    <option>Sort By</option>
+                    <option>Earliest Available</option>
+                    <option>Price - Low to High</option>
+                    <option>Price - High to Low</option>
+                    <option>Years of Experience</option>
+                    <option>Recommendation</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
+      <!-- Side bar END -->
     </div>
   </div>
-</section>
-<section class="aon-med-srv-cat-area bg-white">
-  <div class="container">
-    <!--Title Section Start-->
-    <div class="section-head center">
-      <span class="aon-sub-title">Categories</span>
-      <h2 class="aon-title">Top Searched Specialties</h2>
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry the standard dummy text ever since the when an printer took.
-      </p>
-    </div>
-    <!--Title Section End-->
-
-    <div class="section-content">
-      <div class="aon-med-srv-cat-section">
-        <ul class="justify-content-center">
-          <li>
-            <!--one-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/1.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:;">Primary Care</a></h4>
-                <p>24 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--two-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/2.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:;">Cardiology</a></h4>
-                <p>27 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--three-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/3.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:;">MRI Resonance</a></h4>
-                <p>47 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--four-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/4.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:;">Blood Test</a></h4>
-                <p>32 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--five-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/5.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:;">Laboratory</a></h4>
-                <p>45 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--six-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/6.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:;">Dentistry</a></h4>
-                <p>78 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--seven-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/7.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:;">X-Ray</a></h4>
-                <p>45 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--eight-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/8.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:;">Piscologist</a></h4>
-                <p>35 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--nine-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/9.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:;">Chiropractor</a></h4>
-                <p>78 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--ten-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/10.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:;">Pediatrician</a></h4>
-                <p>41 listing</p>
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div class="aon-addmore-btn-section">
-        <a href="javascripr:;" class="aon-addplus"
-          ><i class="fa fa-plus"></i
-        ></a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="aon-med-working-area bg-white">
-  <div class="container">
-    <!--Title Section Start-->
-    <div class="section-head center">
-      <span class="aon-sub-title">Working</span>
-      <h2 class="aon-title">How Medpal Works</h2>
-      <p class="text-black">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry the standard dummy text ever since the when an printer took.
-      </p>
-    </div>
-    <!--Title Section End-->
-
-    <div class="section-content">
-      <div class="aon-med-working-section">
-        <div class="row justify-content-center">
-          <div class="col-lg-4 col-md-6">
-            <div class="aon-med-working aon-icon-effect">
-              <div class="media">
-                <span
-                  ><img
-                    class="aon-icon"
-                    src="../../../assets/images/working-icon/1.png"
-                    alt=""
-                /></span>
-              </div>
-              <div class="aon-med-working-info">
-                <h4>Find a Local Physiotherapist</h4>
-                <p>
-                  This helps us determine which Taskers are best for your job
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="aon-med-working aon-icon-effect">
-              <div class="media">
-                <span
-                  ><img
-                    class="aon-icon"
-                    src="../../../assets/images/working-icon/2.png"
-                    alt=""
-                /></span>
-              </div>
-              <div class="aon-med-working-info">
-                <h4>Choose Your Schedule</h4>
-                <p>
-                  This helps us determine which Taskers are best for your job
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="aon-med-working aon-icon-effect">
-              <div class="media">
-                <span
-                  ><img
-                    class="aon-icon"
-                    src="../../../assets/images/working-icon/3.png"
-                    alt=""
-                /></span>
-              </div>
-              <div class="aon-med-working-info">
-                <h4>Make a Payment</h4>
-                <p>
-                  This helps us determine which Taskers are best for your job
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="aon-med-appoint-area">
-  <div class="container">
-    <!--Title Section Start-->
-    <div class="section-head center white">
-      <span class="aon-sub-title">Registration</span>
-      <h2 class="aon-titleh2">Want to Make an Appointment Easily</h2>
-      <p class="paragrapfont">
-        Regain your health and mobility. Leave your pain behind. Do the things
-        you love. Our team of health professionals is dedicated to providing you
-        with the best medical solutions for your injury or condition. Our
-        specialists collaborate to find pain treatments
-      </p>
-      <a href="javascript:void()" class="site-button">Book Now</a>
-    </div>
-    <!--Title Section End-->
-    <div class="section-content">
-      <div class="media animate-v">
-        <img src="../../../assets/images/heart.png" alt="Medpal" />
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="aon-med-faq-area bg-white">
-  <div class="container">
-    <!--Title Section Start-->
-    <div class="section-head center">
-      <span class="aon-sub-title">FAQs for Patients</span>
-      <h2 class="aon-title">Frequently Ask Questions?</h2>
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry the standard dummy text ever since the when an printer took.
-      </p>
-    </div>
-    <!--Title Section End-->
-
-    <div class="section-content">
-      <div class="aon-med-faq-section">
-        <div class="accordion aon-med-faq" id="sf-faq-accordion">
-          <!--One-->
-          <div class="accordion-item">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#FAQ1"
-              aria-expanded="false"
-            >
-              Can I book an appointment behalf or someone else?
-            </button>
-
-            <div
-              id="FAQ1"
-              class="accordion-collapse collapse"
-              data-bs-parent="#sf-faq-accordion"
-            >
-              <div class="accordion-body">
-                Best service are provide us. simply dummy text of the printing
-                and typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy.
-              </div>
-            </div>
-          </div>
-
-          <!--Two-->
-          <div class="accordion-item">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#FAQ2"
-              aria-expanded="false"
-            >
-              Do I need a referral to see a Physiotherapist?
-            </button>
-
-            <div
-              id="FAQ2"
-              class="accordion-collapse collapse"
-              data-bs-parent="#sf-faq-accordion"
-            >
-              <div class="accordion-body">
-                Best service are provide us. simply dummy text of the printing
-                and typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy.
-              </div>
-            </div>
-          </div>
-
-          <!--Three-->
-          <div class="accordion-item">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#FAQ3"
-              aria-expanded="false"
-            >
-              Can I book an appointment behalf or someone else?
-            </button>
-
-            <div
-              id="FAQ3"
-              class="accordion-collapse collapse"
-              data-bs-parent="#sf-faq-accordion"
-            >
-              <div class="accordion-body">
-                Best service are provide us. simply dummy text of the printing
-                and typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy.
-              </div>
-            </div>
-          </div>
-
-          <!--Four-->
-          <div class="accordion-item">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#FAQ4"
-              aria-expanded="false"
-            >
-              Do you have venue option for appointments?
-            </button>
-
-            <div
-              id="FAQ4"
-              class="accordion-collapse collapse"
-              data-bs-parent="#sf-faq-accordion"
-            >
-              <div class="accordion-body">
-                Best service are provide us. simply dummy text of the printing
-                and typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy.
-              </div>
-            </div>
-          </div>
-
-          <!--Five-->
-          <div class="accordion-item">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#FAQ5"
-              aria-expanded="false"
-            >
-              Can I book an appointment behalf or someone else?
-            </button>
-
-            <div
-              id="FAQ5"
-              class="accordion-collapse collapse"
-              data-bs-parent="#sf-faq-accordion"
-            >
-              <div class="accordion-body">
-                Best service are provide us. simply dummy text of the printing
-                and typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy.
-              </div>
-            </div>
-          </div>
-
-          <!--Six-->
-          <div class="accordion-item">
-            <button
-              class="accordion-button collapsed"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#FAQ6"
-              aria-expanded="false"
-            >
-              Will I need a referral to see a Physiotherapist?
-            </button>
-
-            <div
-              id="FAQ6"
-              class="accordion-collapse collapse"
-              data-bs-parent="#sf-faq-accordion"
-            >
-              <div class="accordion-body">
-                Best service are provide us. simply dummy text of the printing
-                and typesetting industry. Lorem Ipsum has been the industry's
-                standard dummy.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+</div>

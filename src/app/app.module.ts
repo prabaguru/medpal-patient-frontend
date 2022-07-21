@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 import { HeaderComponent } from './modules/home/header/header.component';
 import { FooterComponent } from './modules/home/footer/footer.component';
@@ -21,6 +22,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { PatientHomeComponent } from './modules/patient/patient-home/patient-home.component';
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
+import { DoctorsListingComponent } from './modules/doctors-listing/doctors-listing.component';
 import { PatientProfileResetPasswordComponent } from './modules/patient/patient-reset-password/patient-reset-password.component';
 import {
   MedPalHttpInterceptor,
@@ -43,6 +45,7 @@ import {
     PatientProfileComponent,
     MedpalHomeComponent,
     PatientProfileResetPasswordComponent,
+    DoctorsListingComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import {
     FlexLayoutModule,
     NgxIntlTelInputModule,
     AppRoutingModule,
+    NgHttpLoaderModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

@@ -18,7 +18,7 @@ import { PopupComponent } from 'src/app/shared/components/popup/popup.component'
 })
 export class PatientSignupComponent implements OnInit {
   isDoctor = false;
-  enableLoader = false;
+  //enableLoader = false;
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
   CountryISO = CountryISO;
@@ -108,10 +108,10 @@ export class PatientSignupComponent implements OnInit {
       });
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result) {
-          this.enableLoader = true;
+          //this.enableLoader = true;
           this.healthService.patientRegister(this.signupForm.value).subscribe({
             next: (data) => {
-              this.enableLoader = false;
+              //this.enableLoader = false;
               const dialogRef2 = this.dialog.open(PopupComponent, {
                 minWidth: '20vw',
                 data: {
@@ -127,7 +127,7 @@ export class PatientSignupComponent implements OnInit {
               this.submitted = false;
             },
             error: (err) => {
-              this.enableLoader = false;
+              //this.enableLoader = false;
               this.submitted = false;
               this.commonService.showNotification(err);
               // error action over here

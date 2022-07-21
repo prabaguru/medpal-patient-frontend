@@ -7,7 +7,6 @@ import { CommonService, MedpalService, AuthService } from 'src/app/services';
   styleUrls: ['./patient-home.component.scss'],
 })
 export class PatientHomeComponent implements OnInit {
-  public enableLoader = false;
   currentUser: any;
 
   constructor(

@@ -8,6 +8,7 @@ import { ResetPasswordComponent } from './modules/login/reset-password/reset-pas
 import { ResetPasswordEmailComponent } from './modules/login/reset-password-email/reset-password-email.component';
 import { PatientProfileResetPasswordComponent } from './modules/patient/patient-reset-password/patient-reset-password.component';
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
+import { DoctorsListingComponent } from './modules/doctors-listing/doctors-listing.component';
 import { AuthGuard } from './services';
 
 const routes: Routes = [
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: MedpalHomeComponent,
+      },
+      {
+        path: 'doctors-listing/doctors',
+        component: DoctorsListingComponent,
       },
       {
         path: 'patient/login',
