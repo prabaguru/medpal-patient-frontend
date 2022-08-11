@@ -52,6 +52,14 @@ export class MedpalService {
   getDoctorsLIsting() {
     return this.http.get(`${this.baseUrl}/doctors/getAll`);
   }
+
+  getDoctorData(name: string) {
+    const params = new HttpParams().append('name', name);
+    return this.http.get(`${environment.apiUrl}/doctors/getByName`, {
+      params,
+    });
+  }
+
   private handleError(err: any) {
     //console.log("error caught in service");
     //console.error(err);

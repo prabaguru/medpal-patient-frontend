@@ -62,13 +62,16 @@ button.ButtonFull {
   width: 100% !important;
 }
 button.mat-raised-button {
-  padding: 6px;
+  // padding: 6px;
   margin-top: 10px;
   background: $med-core;
   color: #fff;
   font-size: 16px;
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+.bannerbtn {
+  font-size: 12px !important;
 }
 .mat-icon {
   color: $med-core;
@@ -85,7 +88,7 @@ button.mat-raised-button {
     text-align: left !important;
     font-size: 13px;
     color: #f44336;
-    top: -25px !important;
+    top: -18px !important;
   }
 }
 // mobile number with country code
@@ -180,4 +183,16 @@ input[type="number"] {
 .btn:focus,
 .btn:active {
   background-color: #fff !important;
+}
+.timings {
+  font-size: 12px !important;
+  font-weight: bold !important;
+  color: $med-core2;
+}
+.capitalize {
+  text-transform: capitalize !important;
+}
+.bgcore {
+  background-color: $med-core3;
+  color: #fff !important;
 }

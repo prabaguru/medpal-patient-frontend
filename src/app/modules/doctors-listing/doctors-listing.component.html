@@ -62,7 +62,10 @@
       <div class="col-lg-8 col-md-12">
         <div class="row">
           <!-- COLUMNS 1 -->
-          <div class="col-lg-6 col-md-12">
+          <div
+            class="col-lg-6 col-md-12"
+            *ngFor="let doc of doctorsListing; let i = index"
+          >
             <div class="sf-grid-view">
               <div class="sf-grid-head">
                 <div class="sf-medi-rate">
@@ -74,247 +77,121 @@
                   <span class="sf-rating-lable">3 Feedback</span>
                 </div>
                 <div class="sf-medi-like">
-                  <i class="feather-thumbs-up"></i>
-                  <span class="bage-green">93%</span>
+                  <i class="fa fa-thumbs-up"></i>
+                  <span class="bage-green">88%</span>
                 </div>
               </div>
               <div class="sf-grid-view-mid">
                 <div class="sf-grid-media">
-                  <a href="profile1.html"
+                  <a
+                    href="javascript:void(0)"
+                    [routerLink]="['/medpal/doctors-profile']"
+                    [queryParams]="{ doctor: doc.firstName }"
                     ><img
-                      src="../../../assets/images/profile-pic.jpg"
+                      *ngIf="doc.image.imageUrl"
+                      src="{{ doc.image.imageUrl }}"
                       alt="Medpal"
-                  /></a>
+                    />
+                    <img
+                      *ngIf="!doc.image.imageUrl"
+                      src="../../../assets/images/user-doc.png"
+                      alt="Medpal"
+                    />
+                  </a>
                   <i class="fa fa-check"></i>
                 </div>
                 <div class="sf-grid-info">
-                  <a href="profile1.html" class="sf-doc-profile-view"
+                  <a
+                    href="javascript:void(0)"
+                    [routerLink]="['/medpal/doctors-profile']"
+                    [queryParams]="{ doctor: doc.firstName }"
+                    class="sf-doc-profile-view"
                     >View Profile</a
                   >
-                  <h3>Dr. Viniita Jhuntra</h3>
-                  <div class="sf-doct-info">
-                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
-                  </div>
-                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
-                  <a href="booking-form.html" class="site-button">
-                    Book Appointment
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- COLUMNS 2 -->
-          <div class="col-lg-6 col-md-12">
-            <div class="sf-grid-view">
-              <div class="sf-grid-head">
-                <div class="sf-medi-rate">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star text-gray"></span>
-                  <span class="sf-rating-lable">3 Feedback</span>
-                </div>
-                <div class="sf-medi-like">
-                  <i class="feather-thumbs-up"></i>
-                  <span class="bage-green">93%</span>
-                </div>
-              </div>
-              <div class="sf-grid-view-mid">
-                <div class="sf-grid-media">
-                  <a href="profile1.html"
-                    ><img
-                      src="../../../assets/images/profile-pic.jpg"
-                      alt="Medpal"
-                  /></a>
-                  <i class="fa fa-check"></i>
-                </div>
-                <div class="sf-grid-info">
-                  <a href="profile1.html" class="sf-doc-profile-view"
-                    >View Profile</a
+                  <h3>Dr. {{ doc.firstName }}</h3>
+                  <p *ngIf="doc.graduation.DoctorType.name" class="m-0">
+                    {{ doc.graduation.DoctorType.name }}
+                  </p>
+                  <div
+                    class="sf-doct-info"
+                    *ngIf="doc.graduation.Graduation === 'UG'"
                   >
-                  <h3>Dr. Flores Emily</h3>
-                  <div class="sf-doct-info">
-                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
+                    <span> {{ doc.graduation.qualificationUG.sName }}</span>
+                    (General)
                   </div>
-                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
-                  <a href="booking-form.html" class="site-button">
-                    Book Appointment
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- COLUMNS 3 -->
-          <div class="col-lg-6 col-md-12">
-            <div class="sf-grid-view">
-              <div class="sf-grid-head">
-                <div class="sf-medi-rate">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star text-gray"></span>
-                  <span class="sf-rating-lable">3 Feedback</span>
-                </div>
-                <div class="sf-medi-like">
-                  <i class="feather-thumbs-up"></i>
-                  <span class="bage-green">93%</span>
-                </div>
-              </div>
-              <div class="sf-grid-view-mid">
-                <div class="sf-grid-media">
-                  <a href="profile1.html"
-                    ><img
-                      src="../../../assets/images/profile-pic.jpg"
-                      alt="Medpal"
-                  /></a>
-                  <i class="fa fa-check"></i>
-                </div>
-                <div class="sf-grid-info">
-                  <a href="profile1.html" class="sf-doc-profile-view"
-                    >View Profile</a
+                  <div
+                    class="sf-doct-info"
+                    *ngIf="doc.graduation.Graduation === 'PG'"
                   >
-                  <h3>Dr. Steven Ford</h3>
-                  <div class="sf-doct-info">
-                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
+                    <span>{{ doc.graduation.qualificationPG.sName }} - </span>
+                    ({{ doc.graduation.specialisationPG.name }})
                   </div>
-                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
-                  <a href="booking-form.html" class="site-button">
-                    Book Appointment
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- COLUMNS 4 -->
-          <div class="col-lg-6 col-md-12">
-            <div class="sf-grid-view">
-              <div class="sf-grid-head">
-                <div class="sf-medi-rate">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star text-gray"></span>
-                  <span class="sf-rating-lable">3 Feedback</span>
-                </div>
-                <div class="sf-medi-like">
-                  <i class="feather-thumbs-up"></i>
-                  <span class="bage-green">93%</span>
-                </div>
-              </div>
-              <div class="sf-grid-view-mid">
-                <div class="sf-grid-media">
-                  <a href="profile1.html"
-                    ><img
-                      src="../../../assets/images/profile-pic.jpg"
-                      alt="Medpal"
-                  /></a>
-                  <i class="fa fa-check"></i>
-                </div>
-                <div class="sf-grid-info">
-                  <a href="profile1.html" class="sf-doc-profile-view"
-                    >View Profile</a
+                  <div class="sf-doc-exp m-b20">
+                    {{ doc.graduation.overallExperience }} - Years experience
+                    overall
+                  </div>
+                  <a
+                    href="#"
+                    *ngIf="
+                      doc.ClinicOneTimings.active &&
+                      !doc.ClinicTwoTimings.active
+                    "
+                    class="site-button"
                   >
-                  <h3>Dr. Samuel Daniels</h3>
-                  <div class="sf-doct-info">
-                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
-                  </div>
-                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
-                  <a href="booking-form.html" class="site-button">
                     Book Appointment
                   </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- COLUMNS 5 -->
-          <div class="col-lg-6 col-md-12">
-            <div class="sf-grid-view">
-              <div class="sf-grid-head">
-                <div class="sf-medi-rate">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star text-gray"></span>
-                  <span class="sf-rating-lable">3 Feedback</span>
-                </div>
-                <div class="sf-medi-like">
-                  <i class="feather-thumbs-up"></i>
-                  <span class="bage-green">93%</span>
-                </div>
-              </div>
-              <div class="sf-grid-view-mid">
-                <div class="sf-grid-media">
-                  <a href="profile1.html"
-                    ><img
-                      src="../../../assets/images/profile-pic.jpg"
-                      alt="Medpal"
-                  /></a>
-                  <i class="fa fa-check"></i>
-                </div>
-                <div class="sf-grid-info">
-                  <a href="profile1.html" class="sf-doc-profile-view"
-                    >View Profile</a
+                  <!-- Example single danger button -->
+                  <div
+                    class="btn-group"
+                    *ngIf="
+                      doc.ClinicOneTimings.active && doc.ClinicTwoTimings.active
+                    "
                   >
-                  <h3>Dr. Viniita Jhuntra</h3>
-                  <div class="sf-doct-info">
-                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
+                    <button
+                      type="button"
+                      class="site-button dropdown-toggle"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      Book Appointment
+                      <span class="badge bg-light text-dark"
+                        >2 Clinics found</span
+                      >
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li>
+                        <a class="dropdown-item capitalize" href="#"
+                          >{{ doc.ClinicOneTimings.ClinicName }}
+                          <span
+                            class="capitalize"
+                            *ngIf="doc.ClinicOneTimings.ClinicLocation.name"
+                          >
+                            -
+                            {{ doc.ClinicOneTimings.ClinicLocation.name }}</span
+                          ></a
+                        >
+                      </li>
+                      <li><hr class="dropdown-divider" /></li>
+                      <li>
+                        <a class="dropdown-item capitalize" href="#"
+                          >{{ doc.ClinicTwoTimings.ClinicName }}
+                          <span
+                            class="capitalize"
+                            *ngIf="doc.ClinicTwoTimings.ClinicLocation.name"
+                          >
+                            -
+                            {{ doc.ClinicTwoTimings.ClinicLocation.name }}</span
+                          ></a
+                        >
+                      </li>
+                    </ul>
                   </div>
-                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
-                  <a href="booking-form.html" class="site-button">
-                    Book Appointment
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- COLUMNS 6 -->
-          <div class="col-lg-6 col-md-12">
-            <div class="sf-grid-view">
-              <div class="sf-grid-head">
-                <div class="sf-medi-rate">
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star text-gray"></span>
-                  <span class="sf-rating-lable">3 Feedback</span>
-                </div>
-                <div class="sf-medi-like">
-                  <i class="feather-thumbs-up"></i>
-                  <span class="bage-green">93%</span>
-                </div>
-              </div>
-              <div class="sf-grid-view-mid">
-                <div class="sf-grid-media">
-                  <a href="profile1.html"
-                    ><img
-                      src="../../../assets/images/profile-pic.jpg"
-                      alt="Medpal"
-                  /></a>
-                  <i class="fa fa-check"></i>
-                </div>
-                <div class="sf-grid-info">
-                  <a href="profile1.html" class="sf-doc-profile-view"
-                    >View Profile</a
-                  >
-                  <h3>Dr. Ann Coleman</h3>
-                  <div class="sf-doct-info">
-                    <span>Anesthesiology</span> (ph.D, DPT, MS OMPT)
-                  </div>
-                  <div class="sf-doc-exp m-b20">33 year experience overall</div>
-                  <a href="booking-form.html" class="site-button">
-                    Book Appointment
-                  </a>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="site-pagination s-p-center">
+          <!-- <div class="site-pagination s-p-center">
             <ul class="pagination">
               <li class="page-item disabled">
                 <a class="page-link" href="#" tabindex="-1"
@@ -341,7 +218,7 @@
                 ></a>
               </li>
             </ul>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- Left part END -->

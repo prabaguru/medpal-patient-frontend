@@ -34,7 +34,9 @@
               "./node_modules/intl-tel-input/build/css/intlTelInput.css",
               "src/styles.scss"
             ],
-            "scripts": ["./node_modules/bootstrap/dist/js/bootstrap.min.js"]
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {

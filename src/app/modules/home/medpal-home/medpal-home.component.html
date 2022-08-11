@@ -13,22 +13,21 @@
         <button
           mat-raised-button
           color="primary"
-          class="homebutton"
+          class="bannerbtn"
           [routerLink]="['/medpal/patient/login']"
         >
-          I am Patient <i class="fa fa-user-plus icosize"></i>
+          Patient Login <i class="fa fa-user-plus icosize"></i>
+        </button>
+        &nbsp;&nbsp;&nbsp;
+        <button
+          mat-raised-button
+          class="bannerbtn"
+          color="primary"
+          [routerLink]="['/medpal/doctors-listing/doctors']"
+        >
+          Book Appointments <i class="fa fa-calendar icosize"></i>
         </button>
       </p>
-
-      <button
-        mat-raised-button
-        class="homebutton"
-        color="primary"
-        [routerLink]="['/authentication/signin']"
-        [queryParams]="{ loginType: 'Doctor' }"
-      >
-        I am a Doctor <i class="fa fa-user-md icosize"></i>
-      </button>
       <p class="m-5">
         <img src="assets/images/medpallogo.png" class="img-fluid" width="200" />
       </p>

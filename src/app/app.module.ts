@@ -23,13 +23,14 @@ import { PatientHomeComponent } from './modules/patient/patient-home/patient-hom
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
 import { DoctorsListingComponent } from './modules/doctors-listing/doctors-listing.component';
+import { DoctorsProfileComponent } from './modules/doctors-profile/doctors-profile.component';
 import { PatientProfileResetPasswordComponent } from './modules/patient/patient-reset-password/patient-reset-password.component';
 import {
   MedPalHttpInterceptor,
   ErrorInterceptor,
   AuthGuard,
 } from './services/';
-
+import { AgmCoreModule } from '@agm/core';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import {
     MedpalHomeComponent,
     PatientProfileResetPasswordComponent,
     DoctorsListingComponent,
+    DoctorsProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +60,9 @@ import {
     NgxIntlTelInputModule,
     AppRoutingModule,
     NgHttpLoaderModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCeyWl8SeX1z5K8JzGUlgC9kan_sCQ-bpw',
+    }),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
