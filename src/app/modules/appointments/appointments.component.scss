@@ -1,0 +1,33 @@
+@import "src/assets/styles/variables";
+.capitalize {
+  text-transform: capitalize !important;
+}
+mat-button-toggle-group {
+  flex-wrap: wrap !important;
+}
+:host .mat-button-toggle-group {
+  border-radius: 0px !important;
+  border: none !important;
+}
+:host .mat-button-toggle {
+  margin: 5px !important;
+  border: 1px solid #ccc !important;
+  color: $black;
+  font-weight: 500 !important;
+}
+
+:host .mat-button-toggle-checked {
+  background-color: $med-core;
+  color: $white;
+}
+.aon-form-consul-free {
+  margin-left: 25px !important;
+}
+::ng-deep .cdk-overlay-container {
+  z-index: 1200 !important;
+}
+.mat-button.mat-button-disabled.mat-button-disabled {
+  color: #fff !important;
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -131,14 +131,15 @@
                     overall
                   </div>
                   <a
-                    href="#"
+                    href="javascript:void(0)"
+                    (click)="openModal(doc, 'clinic1')"
                     *ngIf="
                       doc.ClinicOneTimings.active &&
                       !doc.ClinicTwoTimings.active
                     "
                     class="site-button"
                   >
-                    Book Appointment
+                    <i class="fa fa-calendar"></i> Book Appointment
                   </a>
                   <!-- Example single danger button -->
                   <div
@@ -153,14 +154,17 @@
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      Book Appointment
+                      <i class="fa fa-calendar"></i> Book Appointment
                       <span class="badge bg-light text-dark"
                         >2 Clinics found</span
                       >
                     </button>
                     <ul class="dropdown-menu">
                       <li>
-                        <a class="dropdown-item capitalize" href="#"
+                        <a
+                          class="dropdown-item capitalize"
+                          href="javascript:void(0)"
+                          (click)="openModal(doc, 'clinic1')"
                           >{{ doc.ClinicOneTimings.ClinicName }}
                           <span
                             class="capitalize"
@@ -173,7 +177,10 @@
                       </li>
                       <li><hr class="dropdown-divider" /></li>
                       <li>
-                        <a class="dropdown-item capitalize" href="#"
+                        <a
+                          class="dropdown-item capitalize"
+                          href="javascript:void(0)"
+                          (click)="openModal(doc, 'clinic2')"
                           >{{ doc.ClinicTwoTimings.ClinicName }}
                           <span
                             class="capitalize"
@@ -307,3 +314,4 @@
     </div>
   </div>
 </div>
+<appointments [data]="inputToChild"></appointments>

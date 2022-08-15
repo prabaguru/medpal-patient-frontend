@@ -11,7 +11,7 @@ export class DoctorsProfileComponent implements OnInit {
   pushPage: boolean = false;
   zoom: number = 8;
   height = '100px';
-  googleMapType = 'satellite';
+  googleMapType = 'roadmap';
   scroll(el: HTMLElement) {
     el.scrollIntoView({ behavior: 'smooth' });
   }
@@ -42,4 +42,5 @@ export class DoctorsProfileComponent implements OnInit {
   }
 
   mapClicked(event: any) {}
+  openModal(data: any, cli: any) {}
 }

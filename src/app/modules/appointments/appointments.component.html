@@ -1,0 +1,286 @@
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdropAppointments"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content" *ngIf="showtemplate">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="staticBackdropLabel">Book Appointment</h5> -->
+        <div
+          class="aon-form-top d-flex justify-content-between align-items-center"
+        >
+          <div class="aon-form-top-left d-flex">
+            <div class="aon-form-doc-pic">
+              <img
+                *ngIf="doc.image.imageUrl"
+                src="{{ doc.image.imageUrl }}"
+                alt="Medpal"
+              />
+              <img
+                *ngIf="!doc.image.imageUrl"
+                src="../../../assets/images/user-doc.png"
+                alt="Medpal"
+              />
+            </div>
+            <div class="aon-form-doc-info">
+              <strong>Booking Appointment to Dr. {{ doc.firstName }}</strong>
+              <span>{{ doc.graduation.DoctorType.name }}</span>
+              <span *ngIf="doc.clinic1"
+                ><i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{ doc.ClinicOneTimings.ClinicLocation.address }}</span
+              >
+              <span *ngIf="doc.clinic2"
+                ><i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{ doc.ClinicTwoTimings.ClinicLocation.address }}</span
+              >
+            </div>
+          </div>
+          <div class="aon-form-top-right">
+            <div class="aon-form-consul-free">
+              <strong>&nbsp;&nbsp;Consulting Fee:</strong>
+              <span *ngIf="doc.clinic1"
+                ><strong
+                  >&#8377; {{ doc.ClinicOneTimings.ConsultationFeesC1 }}</strong
+                ></span
+              >
+              <span *ngIf="doc.clinic2"
+                ><strong
+                  >&#8377; {{ doc.ClinicTwoTimings.ConsultationFeesC1 }}</strong
+                ></span
+              >
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="resetForm(); stepper.reset()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div
+          class="row d-flex justify-content-center"
+          *ngIf="timingSlots.length == 0"
+        >
+          <div class="alert alert-danger col-md-4 fw-bold" role="alert">
+            Sorry for the inconvenience. The clinic is not functioning today.
+            Select different date from the date picker below...
+          </div>
+        </div>
+        <mat-stepper linear #stepper>
+          <mat-step
+            [stepControl]="firstFormGroup"
+            [editable]="isEditable"
+            errorMessage="Slot is required."
+          >
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Available Slots</ng-template>
+              <div class="container-fluid mt-2">
+                <div class="row d-flex justify-content-center">
+                  <div class="col-md-3">
+                    <mat-form-field
+                      class="example-full-width"
+                      appearance="outline"
+                    >
+                      <mat-label>Choose Appointment Date</mat-label>
+                      <input
+                        matInput
+                        [min]="minDate"
+                        [max]="maxDate"
+                        [matDatepicker]="picker"
+                        [readonly]="true"
+                        formControlName="appointmentDate"
+                        (dateChange)="getDay($event)"
+                      />
+                      <mat-hint>DD/MM/YYYY</mat-hint>
+                      <mat-datepicker-toggle
+                        matSuffix
+                        [for]="picker"
+                      ></mat-datepicker-toggle>
+                      <mat-datepicker touchUi #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <mat-button-toggle-group
+                    formControlName="slot"
+                    aria-label="Available Slots"
+                  >
+                    <mat-button-toggle
+                      *ngFor="let time of timingSlots"
+                      value="time"
+                      class="col-md-1"
+                      >{{ time }}</mat-button-toggle
+                    >
+                  </mat-button-toggle-group>
+                  <div class="mt-2">
+                    <button
+                      mat-button
+                      matStepperNext
+                      class="site-button"
+                      (click)="checkvalFone()"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step
+            [stepControl]="secondFormGroup"
+            [editable]="isEditable"
+            errorMessage="Appointment details is required."
+          >
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Fill out your details</ng-template>
+              <div class="row d-flex justify-content-center mt-4">
+                <div class="col-md-3">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Mobile No:(+91)</mat-label>
+                    <mat-icon matPrefix> smartphone </mat-icon>
+                    <input
+                      matInput
+                      formControlName="mobNo"
+                      maxlength="10"
+                      [ngClass]="{
+                        'is-invalid': submitted && g.mobNo.errors
+                      }"
+                    />
+                    <mat-icon
+                      matSuffix
+                      matTooltip="+91- is not mandatory."
+                      matTooltipPosition="above"
+                      >info</mat-icon
+                    >
+                  </mat-form-field>
+                  <div
+                    *ngIf="submitted && g.mobNo.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="g.mobNo.errors.required">
+                      Mobile no is required
+                    </div>
+                    <div *ngIf="g.mobNo.errors.pattern">
+                      Only numbers allowed
+                    </div>
+                    <div *ngIf="g.mobNo.errors.minlength">
+                      Mobile no must have 10 digits
+                    </div>
+                  </div>
+                </div>
+                <div class="w-100"></div>
+                <div
+                  class="col-md-3 mb-3"
+                  *ngIf="isOtpVisible && secondFormGroup.valid"
+                >
+                  <mat-label>Enter OTP</mat-label>
+                  <ng-otp-input
+                    [formCtrl]="otpListCtrl"
+                    [config]="config"
+                  ></ng-otp-input>
+
+                  <!-- <mat-form-field appearance="outline">
+                    <mat-label>Enter OTP</mat-label>
+                    <mat-icon matPrefix> book_online </mat-icon>
+                    <input
+                      matInput
+                      formControlName="regOtp"
+                      maxlength="6"
+                      [ngClass]="{
+                        'is-invalid': submitted && g.regOtp.errors
+                      }"
+                    />
+                  </mat-form-field>
+                  <div
+                    *ngIf="submitted && g.regOtp.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="g.regOtp.errors.required">Enter OTP</div>
+                    <div *ngIf="g.regOtp.errors.pattern">
+                      Only numbers allowed
+                    </div>
+                  </div> -->
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-3 mt-3">
+                  <span
+                    *ngIf="disableOtpBtn"
+                    matBadge="{{ timeLeft }}"
+                    matBadgeOverlap="false"
+                  ></span>
+                  <button
+                    mat-button
+                    class="site-button"
+                    (click)="sendOtp()"
+                    [disabled]="secondFormGroup.invalid || disableOtpBtn"
+                  >
+                    {{ otpBtnText }}
+                  </button>
+                  &nbsp;&nbsp;
+                  <button
+                    mat-button
+                    class="site-button"
+                    (click)="checkval()"
+                    *ngIf="disableOtpBtn"
+                  >
+                    Submit
+                  </button>
+                </div>
+
+                <div class="mt-5">
+                  <button mat-button matStepperPrevious class="site-button">
+                    Back</button
+                  >&nbsp;&nbsp;
+                  <button
+                    mat-button
+                    matStepperNext
+                    class="site-button"
+                    (click)="checkval()"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+              <button mat-button matStepperPrevious class="site-button">
+                Back</button
+              >&nbsp;&nbsp;
+              <button
+                mat-button
+                (click)="stepper.reset(); resetForm()"
+                class="site-button"
+              >
+                Reset
+              </button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="site-button" (click)="submit()">
+          Book Now
+        </button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="resetForm(); stepper.reset()"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

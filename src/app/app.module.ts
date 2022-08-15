@@ -24,6 +24,7 @@ import { PatientProfileComponent } from './modules/patient/patient-profile/patie
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
 import { DoctorsListingComponent } from './modules/doctors-listing/doctors-listing.component';
 import { DoctorsProfileComponent } from './modules/doctors-profile/doctors-profile.component';
+import { AppointmentsComponent } from './modules/appointments/appointments.component';
 import { PatientProfileResetPasswordComponent } from './modules/patient/patient-reset-password/patient-reset-password.component';
 import {
   MedPalHttpInterceptor,
@@ -31,6 +32,7 @@ import {
   AuthGuard,
 } from './services/';
 import { AgmCoreModule } from '@agm/core';
+import { NgOtpInputModule } from 'ng-otp-input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +50,7 @@ import { AgmCoreModule } from '@agm/core';
     PatientProfileResetPasswordComponent,
     DoctorsListingComponent,
     DoctorsProfileComponent,
+    AppointmentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ import { AgmCoreModule } from '@agm/core';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCeyWl8SeX1z5K8JzGUlgC9kan_sCQ-bpw',
     }),
+    NgOtpInputModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
