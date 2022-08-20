@@ -44,6 +44,20 @@ export class AuthService {
       );
   }
 
+  reglogin(data: any) {
+    return this.http
+      .post<any>(`${environment.apiUrl}/patients/registerNLogin`, data)
+      .pipe(
+        map((user) => {
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          this.deleteLS();
+          localStorage.setItem('loggedInUserData', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+          return user;
+        })
+      );
+  }
+
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('loggedInUserData');

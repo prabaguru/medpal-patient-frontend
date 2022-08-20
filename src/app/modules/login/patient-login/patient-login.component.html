@@ -18,50 +18,128 @@
         <div class="login">
           <div class="col-md-12 email-wrapper">
             <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
-              <mat-icon matPrefix class="form-icon">email</mat-icon>
-              <input
-                type="email"
-                matInput
-                formControlName="email"
-                autocomplete="off"
-                maxlength="200"
-              />
+              <mat-label>Login Type</mat-label>
+              <mat-select
+                formControlName="loginType"
+                (selectionChange)="onLoginChange($event.value)"
+              >
+                <mat-option value="lwp"> Login with Password </mat-option>
+                <mat-option value="lwotp"> Login with OTP </mat-option>
+              </mat-select>
             </mat-form-field>
-            <small
-              class="custom-error"
-              *ngIf="loginForm.controls['email'].errors?.pattern"
-              >Email address is invalid</small
-            >
-          </div>
-          <div class="col-md-12">
-            <mat-form-field appearance="outline">
-              <mat-label>Password</mat-label>
-              <mat-icon matPrefix class="form-icon">vpn_key</mat-icon>
-              <input
-                type="password"
-                matInput
-                formControlName="password"
-                maxlength="20"
-              />
-            </mat-form-field>
-          </div>
-          <div class="col-md-12">
-            <mat-checkbox color="primary" (change)="rememberMe()">
-              Remember Me</mat-checkbox
-            >
-            <span
-              class="baseColor float-end"
-              [routerLink]="['/medpal/patient/forget-password']"
-            >
-              Forget password?
+            <span *ngIf="g.get('loginType').value === 'lwotp'">
+              <div class="col-md-12">
+                <mat-form-field appearance="outline">
+                  <mat-label>Enter Mobile - (+91)</mat-label>
+                  <mat-icon matPrefix class="form-icon">smartphone</mat-icon>
+                  <input
+                    type="text"
+                    matInput
+                    formControlName="mobile"
+                    autocomplete="off"
+                    maxlength="10"
+                  />
+                  <mat-icon
+                    matSuffix
+                    matTooltip="+91- is not mandatory."
+                    matTooltipPosition="above"
+                    >info</mat-icon
+                  >
+                </mat-form-field>
+                <small
+                  class="custom-error"
+                  *ngIf="loginForm.controls['mobile'].errors?.required"
+                  >Number is required.</small
+                >
+                <small
+                  class="custom-error"
+                  *ngIf="loginForm.controls['mobile'].errors?.pattern"
+                  >Enter only number.</small
+                >
+                <small
+                  class="custom-error"
+                  *ngIf="loginForm.controls['mobile'].errors?.minLength"
+                  >Mobile no must be min 10 digits.</small
+                >
+              </div>
+              <div class="col-md-12">
+                <p>Enter OTP which is sent to {{ g.get("mobile").value }}</p>
+                <ng-otp-input
+                  [formCtrl]="otpListCtrl"
+                  [config]="config"
+                  #ngOtpInput
+                ></ng-otp-input>
+              </div>
+              <div class="col-md-12 my-4">
+                <button
+                  mat-flat-button
+                  color="primary"
+                  (click)="sendOtp()"
+                  [disabled]="disableOtpBtn || loginForm.invalid"
+                >
+                  <span *ngIf="disableOtpBtn" matBadge="{{ timeLeft }}"></span>
+                  {{ otpBtnText }}
+                </button>
+                &nbsp;&nbsp;
+                <button
+                  mat-flat-button
+                  color="primary"
+                  (click)="submitOtp()"
+                  *ngIf="disableOtpBtn"
+                >
+                  Verify-OTP & Login
+                </button>
+              </div>
             </span>
           </div>
-          <div class="col-md-12 ButtonFull">
-            <button mat-raised-button (click)="login()" class="ButtonFull">
-              Login
-            </button>
-          </div>
+          <span *ngIf="g.get('loginType').value === 'lwp'">
+            <div class="col-md-12 email-wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <mat-icon matPrefix class="form-icon">email</mat-icon>
+                <input
+                  type="email"
+                  matInput
+                  formControlName="email"
+                  autocomplete="off"
+                  maxlength="200"
+                />
+              </mat-form-field>
+              <small
+                class="custom-error"
+                *ngIf="loginForm.controls['email'].errors?.pattern"
+                >Email address is invalid</small
+              >
+            </div>
+            <div class="col-md-12">
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <mat-icon matPrefix class="form-icon">vpn_key</mat-icon>
+                <input
+                  type="password"
+                  matInput
+                  formControlName="password"
+                  maxlength="10"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-12">
+              <mat-checkbox color="primary" (change)="rememberMe()">
+                Remember Me</mat-checkbox
+              >
+              <span
+                class="baseColor float-end"
+                [routerLink]="['/medpal/patient/forget-password']"
+              >
+                Forget password?
+              </span>
+            </div>
+            <div class="col-md-12 ButtonFull">
+              <button mat-raised-button (click)="login()" class="ButtonFull">
+                Login
+              </button>
+            </div>
+          </span>
           <div class="end">
             <p>
               Don't have an account?

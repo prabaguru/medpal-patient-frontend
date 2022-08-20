@@ -1,28 +1,52 @@
 <div class="confirm-popup">
-    <h2 mat-dialog-title *ngIf="title">{{title}}</h2>
-    <mat-dialog-content class="mat-typography">
-    <div class="confirmation-content">
-        {{content}}
+  <button class="close" mat-button [mat-dialog-close]="false">X</button>
+  <h2 mat-dialog-title *ngIf="title">
+    <mat-icon matPrefix> smartphone </mat-icon> {{ title }}
+  </h2>
+  <mat-dialog-content class="mat-typography">
+    <!-- <div class="confirmation-content">
+      {{ content }}
+    </div> -->
+    <div class="otp-content">
+      <p>Enter OTP which is sent to {{ data.mobileNo }}</p>
+      <div class="col-md-12">
+        <ng-otp-input
+          [formCtrl]="otpListCtrl"
+          [config]="config"
+          #ngOtpInput
+        ></ng-otp-input>
+      </div>
+      <!-- <div class="timer-wrap">
+        <span class="timer"> {{ timeLeft }} </span> [mm:ss]
+      </div>
+      <p>Didn't receive the OTP? <span class="baseColor">Resend OTP</span></p> -->
     </div>
-    <div *ngIf="isOtpVerify" class="otp-content">
-        <p>Enter OTP which is sent to {{ data.mobileNo }}</p>
-        
-        <div class="col-md-12">
-            <mat-form-field appearance="outline" floatLabel="never">
-                <input matInput placeholder="Please enter the 6 digit OTP here to verify" autocomplete="off">
-                <mat-icon matPrefix class="form-icon">verified</mat-icon>
-            </mat-form-field>
-        </div>
-        <div class="timer-wrap"> <span class='timer'> {{ timeLeft }} </span> [mm:ss] </div>
-        <p> Didn't receive the OTP? <span class="baseColor">Resend OTP</span> </p>
-    </div>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end" *ngIf="!isOtpVerify">
-        <button mat-stroked-button color="primary"> {{ accept }} </button>
-        <button mat-stroked-button [mat-dialog-close]="false" *ngIf="!isAlert && !isOtpVerify"> {{ cancel }}</button>
-    </mat-dialog-actions>
-    <mat-dialog-actions *ngIf="isOtpVerify" class="btn-wrap">
-        <button mat-stroked-button color="primary" [mat-dialog-close]="false"> {{ cancel }}</button>
-        <button mat-flat-button color="primary" [disabled]="isDisabledAccept" (click)="verify()"> {{ accept }} </button>
-    </mat-dialog-actions>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="btn-wrap">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="sendOtp()"
+      [disabled]="disableOtpBtn"
+    >
+      <span *ngIf="disableOtpBtn" matBadge="{{ timeLeft }}"></span>
+      {{ otpBtnText }}
+    </button>
+    &nbsp;&nbsp;
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="submitOtp()"
+      *ngIf="disableOtpBtn"
+    >
+      Verify & Proceed
+    </button>
+    <!-- <button mat-stroked-button color="primary" [mat-dialog-close]="false">
+      Cancel
+    </button>
+    <button mat-flat-button color="primary" (click)="verify()">
+      Verify & Proceed
+    </button> -->
+  </mat-dialog-actions>
 </div>

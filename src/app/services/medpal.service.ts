@@ -12,9 +12,14 @@ export class MedpalService {
   constructor(private http: HttpClient) {}
 
   /* API call started from here */
+  // public patientRegister(data: any) {
+  //   return this.http
+  //     .post(`${this.baseUrl}/patients/register`, data)
+  //     .pipe(catchError(this.handleError));
+  // }
   public patientRegister(data: any) {
     return this.http
-      .post(`${this.baseUrl}/patients/register`, data)
+      .post(`${this.baseUrl}/patients/registerNLogin`, data)
       .pipe(catchError(this.handleError));
   }
   public patientLogin(data: any) {

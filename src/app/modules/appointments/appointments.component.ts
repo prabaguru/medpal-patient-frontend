@@ -78,9 +78,10 @@ export class AppointmentsComponent implements OnInit {
     length: 6,
     allowNumbersOnly: true,
   };
-  timeLeft: number = 10;
+  timeLeft: number = 60;
   interval: any;
   disableOtpBtn: boolean = false;
+  otp: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -214,12 +215,17 @@ export class AppointmentsComponent implements OnInit {
     this.timeLeft = 0;
     this.secondFormGroup.get('mobNo')?.enable({ onlySelf: true });
   }
-
+  generateOtp() {
+    return Math.floor(100000 + Math.random() * 900000);
+  }
   sendOtp() {
+    this.otp = '';
+    this.otp = this.generateOtp();
+    console.log('otp- ' + this.otp);
     this.isOtpVisible = true;
     this.disableOtpBtn = true;
     this.startTimer();
-    this.timeLeft = 10;
+    this.timeLeft = 60;
     this.otpBtnText = 'sec left to enter OTP';
     this.secondFormGroup.get('mobNo')?.disable({ onlySelf: true });
   }
@@ -241,5 +247,28 @@ export class AppointmentsComponent implements OnInit {
 
   pauseTimer() {
     clearInterval(this.interval);
+  }
+
+  submitOtp() {
+    if (this.secondFormGroup.invalid) {
+      return;
+    }
+    let enteredOtp = this.otpListCtrl.value;
+    let otp = this.otp.toString();
+    if (enteredOtp === otp) {
+      this.commonService.showNotification('OTP success...');
+      let obj = {
+        firstName: 'newuser',
+        password: 'newuser',
+        mobile: {
+          number: this.g['mobNo'].value,
+          countryCode: 'IN',
+          dialCode: '+91',
+        },
+      };
+    } else {
+      this.commonService.showNotification('OTP entered is wrong...');
+      return;
+    }
   }
 }

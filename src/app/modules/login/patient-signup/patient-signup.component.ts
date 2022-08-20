@@ -10,7 +10,7 @@ import {
 import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import { OtpVerifyComponent } from 'src/app/shared/components/otp-verify/otp-verify.component';
 import { PopupComponent } from 'src/app/shared/components/popup/popup.component';
-
+import { first } from 'rxjs/operators';
 @Component({
   selector: 'app-patient-signup',
   templateUrl: './patient-signup.component.html',
@@ -25,9 +25,9 @@ export class PatientSignupComponent implements OnInit {
   PhoneNumberFormat = PhoneNumberFormat;
   preferredCountries: CountryISO[] = [
     CountryISO.India,
-    CountryISO.UnitedArabEmirates,
-    CountryISO.UnitedStates,
-    CountryISO.UnitedKingdom,
+    // CountryISO.UnitedArabEmirates,
+    // CountryISO.UnitedStates,
+    // CountryISO.UnitedKingdom,
   ];
   submitted = false;
 
@@ -39,6 +39,7 @@ export class PatientSignupComponent implements OnInit {
       Validators.minLength(3),
     ]),
     mobile: new FormControl('', [Validators.required]),
+    primaryMobile: new FormControl('', []),
     email: new FormControl('', [
       Validators.required,
       Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
@@ -97,42 +98,47 @@ export class PatientSignupComponent implements OnInit {
       return;
     }
     if (this.signupForm.valid) {
+      let pm = this.f['mobile'].value;
+      pm = pm.number.replace(/ /g, '');
+      pm = pm.substring(1);
+      this.f['primaryMobile'].setValue('');
+      this.f['primaryMobile'].setValue(pm);
       const dialogRef = this.dialog.open(OtpVerifyComponent, {
         minWidth: '30vw',
+        disableClose: true,
         data: {
           title: 'OTP Verification',
           isOtpVerify: true,
-          mobileNo: this.signupForm.value.mobile,
+          mobileNo: this.f['primaryMobile'].value,
         },
         autoFocus: false,
       });
       dialogRef.afterClosed().subscribe((result: any) => {
         if (result) {
-          //this.enableLoader = true;
-          this.healthService.patientRegister(this.signupForm.value).subscribe({
-            next: (data) => {
-              //this.enableLoader = false;
-              const dialogRef2 = this.dialog.open(PopupComponent, {
-                minWidth: '20vw',
-                data: {
-                  successIcon: true,
-                  content: 'Registration Done!',
-                  isAlert: true,
-                },
-                autoFocus: false,
-              });
-              dialogRef2.afterClosed().subscribe(() => {
-                this.route.navigate(['/medpal/patient/login']);
-              });
-              this.submitted = false;
-            },
-            error: (err) => {
-              //this.enableLoader = false;
-              this.submitted = false;
-              this.commonService.showNotification(err);
-              // error action over here
-            },
-          });
+          this.authService
+            .reglogin(this.signupForm.value)
+            .pipe(first())
+            .subscribe({
+              next: (res) => {
+                if (res) {
+                  const token = this.authService.currentUserValue.token;
+                  if (token) {
+                    this.route.navigate(['medpal/patient/profile']);
+                    this.commonService.showNotification(
+                      `Welcome ${res.firstName}!`
+                    );
+                  }
+                } else {
+                  this.route.navigate([this.returnUrl]);
+                }
+                this.submitted = false;
+              },
+              error: (err) => {
+                this.submitted = false;
+                this.commonService.showNotification(err);
+                // error action over here
+              },
+            });
         }
       });
     }
