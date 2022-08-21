@@ -33,6 +33,7 @@ export class PatientSignupComponent implements OnInit {
 
   signupForm: FormGroup = new FormGroup({
     loginType: new FormControl('Patient'),
+    regType: new FormControl('reg'),
     firstName: new FormControl('', [
       Validators.required,
       Validators.pattern("^[a-zA-Z '-]+$"),
@@ -103,44 +104,63 @@ export class PatientSignupComponent implements OnInit {
       pm = pm.substring(1);
       this.f['primaryMobile'].setValue('');
       this.f['primaryMobile'].setValue(pm);
-      const dialogRef = this.dialog.open(OtpVerifyComponent, {
-        minWidth: '30vw',
-        disableClose: true,
-        data: {
-          title: 'OTP Verification',
-          isOtpVerify: true,
-          mobileNo: this.f['primaryMobile'].value,
-        },
-        autoFocus: false,
-      });
-      dialogRef.afterClosed().subscribe((result: any) => {
-        if (result) {
-          this.authService
-            .reglogin(this.signupForm.value)
-            .pipe(first())
-            .subscribe({
-              next: (res) => {
-                if (res) {
-                  const token = this.authService.currentUserValue.token;
-                  if (token) {
-                    this.route.navigate(['medpal/patient/profile']);
-                    this.commonService.showNotification(
-                      `Welcome ${res.firstName}!`
-                    );
-                  }
-                } else {
-                  this.route.navigate([this.returnUrl]);
-                }
-                this.submitted = false;
-              },
-              error: (err) => {
-                this.submitted = false;
-                this.commonService.showNotification(err);
-                // error action over here
-              },
-            });
-        }
-      });
+      this.checkemail();
     }
+  }
+
+  checkemail(): void {
+    this.healthService
+      .patientCheckEmail({ email: this.f['email'].value })
+      .pipe(first())
+      .subscribe({
+        next: (res) => {
+          this.regRLogin();
+        },
+        error: (error) => {
+          this.commonService.showNotification(error);
+        },
+        complete: () => {},
+      });
+  }
+
+  regRLogin() {
+    const dialogRef = this.dialog.open(OtpVerifyComponent, {
+      minWidth: '30vw',
+      disableClose: true,
+      data: {
+        title: 'OTP Verification',
+        isOtpVerify: true,
+        mobileNo: this.f['primaryMobile'].value,
+      },
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result) {
+        this.authService
+          .reglogin(this.signupForm.value)
+          .pipe(first())
+          .subscribe({
+            next: (res) => {
+              if (res) {
+                const token = this.authService.currentUserValue.token;
+                if (token) {
+                  this.route.navigate(['medpal/patient/profile']);
+                  this.commonService.showNotification(
+                    `Welcome ${res.firstName}!`
+                  );
+                }
+              } else {
+                this.route.navigate([this.returnUrl]);
+              }
+              this.submitted = false;
+            },
+            error: (err) => {
+              this.submitted = false;
+              this.commonService.showNotification(err);
+              // error action over here
+            },
+          });
+      }
+    });
   }
 }

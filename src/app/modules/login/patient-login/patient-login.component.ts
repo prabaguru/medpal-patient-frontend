@@ -10,6 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import { first } from 'rxjs/operators';
 import { NgOtpInputComponent, NgOtpInputConfig } from 'ng-otp-input';
+declare var $: any;
 @Component({
   selector: 'app-patient-login',
   templateUrl: './patient-login.component.html',
@@ -29,7 +30,7 @@ export class PatientLoginComponent implements OnInit {
     length: 6,
     allowNumbersOnly: true,
   };
-  timeLeft: number = 10;
+  timeLeft: number = 90;
   interval: any;
   disableOtpBtn: boolean = false;
   otp: any;
@@ -126,13 +127,13 @@ export class PatientLoginComponent implements OnInit {
       this.isOtpVisible = true;
       this.disableOtpBtn = true;
       this.startTimer();
-      this.timeLeft = 10;
+      this.timeLeft = 90;
       this.otpBtnText = 'sec left to enter OTP';
       this.toggleDisable();
       this.f['mobile'].disable();
       this.f['loginType'].disable();
       this.ngOtpInput.setValue('');
-      //this.onSubmitOtp(this.otp);
+      this.onSubmitOtp(this.otp);
     }
   }
 
@@ -165,6 +166,8 @@ export class PatientLoginComponent implements OnInit {
     }
     if (enteredOtp === otp) {
       this.commonService.showNotification('OTP success...');
+      this.loginMobile();
+      return;
     } else {
       this.commonService.showNotification('OTP entered is wrong...');
       return;
@@ -201,5 +204,58 @@ export class PatientLoginComponent implements OnInit {
         },
         complete: () => {},
       });
+  }
+
+  loginMobile(): void {
+    if (this.loginForm.invalid) {
+      return;
+    }
+    //this.enableLoader = true;
+
+    this.authService
+      .loginMobile(this.loginForm.controls['mobile'].value)
+      .pipe(first())
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            const token = this.authService.currentUserValue.token;
+            if (token) {
+              this.route.navigate(['medpal/patient/profile']);
+              this.commonService.showNotification(`Welcome ${res.firstName}!`);
+            }
+          } else {
+            // this.enableLoader = false;
+            this.route.navigate([this.returnUrl]);
+          }
+        },
+        error: (error) => {
+          //this.enableLoader = false;
+          this.commonService.showNotification(error);
+        },
+        complete: () => {},
+      });
+  }
+
+  onSubmitOtp(otp: string) {
+    let mobileNo = this.loginForm.controls['mobile'].value;
+    let msgString = `Your OTP for login into Medpal  is  - ${otp} . OTP will expire in 90 sec. Thank you. Medpal - Weisermanner`;
+
+    let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobileNo}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000226780`;
+
+    $.ajax({
+      type: 'GET',
+      url: smsUrl,
+      crossDomain: true,
+      dataType: 'jsonp',
+      jsonpCallback: 'callback',
+      success: function () {
+        //this.commonService.showNotification('OTP sent successfully...');
+      },
+      error: function (xhr: any, status: any) {
+        // this.commonService.showNotification(
+        //   'OTP not sent successfully. Check some time later...'
+        // );
+      },
+    });
   }
 }

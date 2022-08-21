@@ -114,14 +114,23 @@
                   <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
                     <mat-icon matPrefix class="form-icon">email</mat-icon>
-                    <input
-                      type="email"
-                      matInput
-                      formControlName="email"
-                      autocomplete="off"
-                      readonly
-                    />
+                    <span *ngIf="currentUser.email != ''">
+                      <input
+                        type="email"
+                        matInput
+                        formControlName="email"
+                        autocomplete="off"
+                        readonly
+                    /></span>
+                    <span *ngIf="currentUser.email == ''">
+                      <input
+                        type="email"
+                        matInput
+                        formControlName="email"
+                        autocomplete="off"
+                    /></span>
                     <mat-icon
+                      *ngIf="currentUser.email != ''"
                       matSuffix
                       matTooltip="Email is not editable..."
                       matTooltipPosition="above"

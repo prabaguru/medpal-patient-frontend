@@ -78,7 +78,7 @@ export class OtpVerifyComponent implements OnInit {
     this.otpBtnText = 'sec left to enter OTP';
     this.toggleDisable();
     this.ngOtpInput.setValue('');
-    //this.onSubmitOtp(this.otp);
+    this.onSubmitOtp(this.otp);
   }
 
   startTimer() {

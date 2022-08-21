@@ -24,9 +24,9 @@ export class PatientProfileComponent implements OnInit {
   public PhoneNumberFormat = PhoneNumberFormat;
   public preferredCountries: CountryISO[] = [
     CountryISO.India,
-    CountryISO.UnitedArabEmirates,
-    CountryISO.UnitedStates,
-    CountryISO.UnitedKingdom,
+    // CountryISO.UnitedArabEmirates,
+    // CountryISO.UnitedStates,
+    // CountryISO.UnitedKingdom,
   ];
   public gender = '';
   public maritalStatus = '';
@@ -45,7 +45,7 @@ export class PatientProfileComponent implements OnInit {
     public authService: AuthService
   ) {
     this.currentUser = this.authService.currentUserValue;
-    console.log(this.currentUser);
+    //console.log(this.currentUser);
 
     this.profileForm = new FormGroup({
       id: new FormControl(this.currentUser._id ? this.currentUser._id : '', [
@@ -176,9 +176,14 @@ export class PatientProfileComponent implements OnInit {
 
   saveChanges() {
     this.submitted = true;
+    if (this.f['email'].value == '') {
+      this.commonService.showNotification('Update email address...');
+      return;
+    }
     if (this.profileForm.invalid) {
       return;
     }
+
     //this.enableLoader = true;
     const postData = this.profileForm.value;
 
