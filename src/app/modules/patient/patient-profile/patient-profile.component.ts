@@ -45,7 +45,7 @@ export class PatientProfileComponent implements OnInit {
     public authService: AuthService
   ) {
     this.currentUser = this.authService.currentUserValue;
-    console.log(this.currentUser);
+    //console.log(this.currentUser);
 
     this.profileForm = new FormGroup({
       id: new FormControl(this.currentUser._id ? this.currentUser._id : '', [
