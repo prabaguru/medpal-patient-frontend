@@ -227,11 +227,10 @@
                 <div class="col-xl-4 col-lg-6 col-sm-6 flag-mobile text-start">
                   <ngx-intl-tel-input
                     [cssClass]="'custom-flag-input'"
-                    [preferredCountries]="preferredCountries"
+                    [onlyCountries]="preferredCountries"
                     [enableAutoCountrySelect]="true"
                     [enablePlaceholder]="true"
-                    [searchCountryFlag]="true"
-                    [enablePlaceholder]="true"
+                    [searchCountryFlag]="false"
                     [searchCountryField]="[
                       SearchCountryField.Iso2,
                       SearchCountryField.Name

@@ -27,6 +27,11 @@ export class MedpalService {
       .post(`${this.baseUrl}/patients/checkEmail`, data)
       .pipe(catchError(this.handleError));
   }
+  public patientCheckMobile(data: any) {
+    return this.http
+      .post(`${this.baseUrl}/patients/CheckMobile`, data)
+      .pipe(catchError(this.handleError));
+  }
   public patientLogin(data: any) {
     return this.http
       .post(`${this.baseUrl}/patients/authenticate`, data)

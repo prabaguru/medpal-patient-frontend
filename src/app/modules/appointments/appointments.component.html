@@ -114,7 +114,7 @@
                   >
                     <mat-button-toggle
                       *ngFor="let time of timingSlots"
-                      value="time"
+                      value="{{ time }}"
                       class="col-md-1"
                       >{{ time }}</mat-button-toggle
                     >
@@ -138,9 +138,12 @@
             [editable]="isEditable"
             errorMessage="Appointment details is required."
           >
+            <ng-template matStepLabel>Fill out your details</ng-template>
             <form [formGroup]="secondFormGroup">
-              <ng-template matStepLabel>Fill out your details</ng-template>
-              <div class="row d-flex justify-content-center mt-4">
+              <div
+                *ngIf="!submitted"
+                class="row d-flex justify-content-center mt-4"
+              >
                 <div class="col-md-3">
                   <mat-form-field appearance="outline">
                     <mat-label>Mobile No:(+91)</mat-label>
@@ -149,8 +152,9 @@
                       matInput
                       formControlName="mobNo"
                       maxlength="10"
+                      placeholder="Enter 10 digit without +91"
                       [ngClass]="{
-                        'is-invalid': submitted && g.mobNo.errors
+                        'is-invalid': submitted && t.mobNo.errors
                       }"
                     />
                     <mat-icon
@@ -161,16 +165,16 @@
                     >
                   </mat-form-field>
                   <div
-                    *ngIf="submitted && g.mobNo.errors"
+                    *ngIf="secSubmitted && t.mobNo.errors"
                     class="invalid-feedback"
                   >
-                    <div *ngIf="g.mobNo.errors.required">
+                    <div *ngIf="t.mobNo.errors.required">
                       Mobile no is required
                     </div>
-                    <div *ngIf="g.mobNo.errors.pattern">
+                    <div *ngIf="t.mobNo.errors.pattern">
                       Only numbers allowed
                     </div>
-                    <div *ngIf="g.mobNo.errors.minlength">
+                    <div *ngIf="t.mobNo.errors.minlength">
                       Mobile no must have 10 digits
                     </div>
                   </div>
@@ -185,28 +189,6 @@
                     [formCtrl]="otpListCtrl"
                     [config]="config"
                   ></ng-otp-input>
-
-                  <!-- <mat-form-field appearance="outline">
-                    <mat-label>Enter OTP</mat-label>
-                    <mat-icon matPrefix> book_online </mat-icon>
-                    <input
-                      matInput
-                      formControlName="regOtp"
-                      maxlength="6"
-                      [ngClass]="{
-                        'is-invalid': submitted && g.regOtp.errors
-                      }"
-                    />
-                  </mat-form-field>
-                  <div
-                    *ngIf="submitted && g.regOtp.errors"
-                    class="invalid-feedback"
-                  >
-                    <div *ngIf="g.regOtp.errors.required">Enter OTP</div>
-                    <div *ngIf="g.regOtp.errors.pattern">
-                      Only numbers allowed
-                    </div>
-                  </div> -->
                 </div>
                 <div class="w-100"></div>
                 <div class="col-md-3 mt-3">
@@ -233,22 +215,149 @@
                     Submit
                   </button>
                 </div>
-
-                <div class="mt-5">
-                  <button mat-button matStepperPrevious class="site-button">
-                    Back</button
-                  >&nbsp;&nbsp;
-                  <button
-                    mat-button
-                    matStepperNext
-                    class="site-button"
-                    (click)="checkval()"
-                  >
-                    Next
-                  </button>
-                </div>
               </div>
             </form>
+            <form [formGroup]="thirdFormGroup">
+              <div
+                *ngIf="submitted"
+                class="row d-flex justify-content-center mt-4"
+              >
+                <div class="col-md-3 mb-2">
+                  AppointmentDate:
+                  {{ f.bookedDay.value }} - {{ f.bookeddate.value }} - Slot:
+                  {{ f.slot.value }}
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-3 mb-2">
+                  <mat-label class="bookforme">Book for Me&nbsp;</mat-label>
+                  <mat-slide-toggle
+                    color="primary"
+                    formControlName="appointmentFor"
+                    (change)="bookfortoggle($event.checked)"
+                    >Book for Others</mat-slide-toggle
+                  >
+                </div>
+
+                <div class="w-100"></div>
+                <div class="col-md-3 mb-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label
+                      ><span *ngIf="g.appointmentFor.value === true"
+                        >Patient</span
+                      >
+                      First Name</mat-label
+                    >
+                    <mat-icon matPrefix class="form-icon">face</mat-icon>
+                    <input
+                      type="text"
+                      matInput
+                      formControlName="firstName"
+                      maxlength="40"
+                      autocomplete="off"
+                    />
+                  </mat-form-field>
+                  <div
+                    *ngIf="submitted && g.firstName.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="g.firstName.errors.required">
+                      First name is required.
+                    </div>
+                    <div *ngIf="g.firstName.errors.pattern">
+                      Nos & special characters is not allowed.
+                    </div>
+                    <div *ngIf="g.firstName.errors.minlength">
+                      First name requires 3 characters.
+                    </div>
+                  </div>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-3 mb-2">
+                  <mat-form-field appearance="outline">
+                    <mat-label
+                      ><span *ngIf="g.appointmentFor.value === true"
+                        >Patient</span
+                      >
+                      Email Address<span class="spanitalics"> </span
+                    ></mat-label>
+                    <mat-icon matPrefix class="form-icon">email</mat-icon>
+                    <input
+                      type="email"
+                      matInput
+                      formControlName="email"
+                      autocomplete="off"
+                      maxlength="200"
+                    />
+                  </mat-form-field>
+                  <div
+                    *ngIf="submitted && g.email.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="g.email.errors.required">
+                      Email is required.
+                    </div>
+                    <div *ngIf="g.email.errors.pattern">
+                      Email address is invalid
+                    </div>
+                  </div>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-3">
+                  <mat-form-field appearance="outline">
+                    <mat-label
+                      ><span *ngIf="g.appointmentFor.value === true"
+                        >Patient</span
+                      >
+                      Mobile No:(+91)</mat-label
+                    >
+                    <mat-icon matPrefix> smartphone </mat-icon>
+                    <input
+                      matInput
+                      formControlName="primaryMobile"
+                      maxlength="10"
+                      placeholder="Enter 10 digit without +91"
+                      [ngClass]="{
+                        'is-invalid': submitted && g.primaryMobile.errors
+                      }"
+                    />
+                    <mat-icon
+                      matSuffix
+                      matTooltip="+91- is not mandatory."
+                      matTooltipPosition="above"
+                      >info</mat-icon
+                    >
+                  </mat-form-field>
+                  <div
+                    *ngIf="submitted && g.primaryMobile.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="g.primaryMobile.errors.required">
+                      Mobile no is required
+                    </div>
+                    <div *ngIf="g.primaryMobile.errors.pattern">
+                      Only numbers allowed
+                    </div>
+                    <div *ngIf="g.primaryMobile.errors.minlength">
+                      Mobile no must have 10 digits
+                    </div>
+                  </div>
+                </div>
+                <div class="w-100"></div>
+              </div>
+            </form>
+            <div class="mt-5">
+              <button mat-button matStepperPrevious class="site-button">
+                Back</button
+              >&nbsp;&nbsp;
+              <button
+                mat-button
+                matStepperNext
+                class="site-button"
+                (click)="checkval()"
+              >
+                Next
+              </button>
+            </div>
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>

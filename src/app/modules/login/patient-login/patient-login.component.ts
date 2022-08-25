@@ -36,7 +36,7 @@ export class PatientLoginComponent implements OnInit {
   otp: any;
   showOtpComponent: boolean = true;
   otpListCtrl = new FormControl('', Validators.required);
-
+  sendotpSmsFlag: Boolean = true;
   constructor(
     private route: Router,
     private router: ActivatedRoute,
@@ -89,6 +89,7 @@ export class PatientLoginComponent implements OnInit {
         Validators.maxLength(10),
       ]);
       this.otpBtnText = 'SEND OTP';
+      this.sendotpSmsFlag = true;
     } else {
       this.f['mobile'].clearValidators();
       this.f['mobile'].setValue(null);
@@ -98,6 +99,7 @@ export class PatientLoginComponent implements OnInit {
         Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
       ]);
       this.f['password'].addValidators([Validators.required]);
+      this.sendotpSmsFlag = false;
     }
   }
   rememberMe() {
@@ -121,20 +123,24 @@ export class PatientLoginComponent implements OnInit {
       this.commonService.showNotification('Enter Mobile No...');
       return;
     } else {
-      this.otp = '';
-      this.otp = this.generateOtp();
-      console.log('otp- ' + this.otp);
-      this.isOtpVisible = true;
-      this.disableOtpBtn = true;
-      this.startTimer();
-      this.timeLeft = 90;
-      this.otpBtnText = 'sec left to enter OTP';
-      this.toggleDisable();
-      this.f['mobile'].disable();
-      this.f['loginType'].disable();
-      this.ngOtpInput.setValue('');
-      this.onSubmitOtp(this.otp);
+      this.sendotpSmsFlag ? this.checkMobile() : this.sendotpSms();
     }
+  }
+
+  sendotpSms() {
+    this.otp = '';
+    this.otp = this.generateOtp();
+    console.log('otp- ' + this.otp);
+    this.isOtpVisible = true;
+    this.disableOtpBtn = true;
+    this.startTimer();
+    this.timeLeft = 90;
+    this.otpBtnText = 'sec left to enter OTP';
+    this.toggleDisable();
+    this.f['mobile'].disable();
+    this.f['loginType'].disable();
+    this.ngOtpInput.setValue('');
+    this.onSubmitOtp(this.otp);
   }
 
   startTimer() {
@@ -156,6 +162,22 @@ export class PatientLoginComponent implements OnInit {
 
   pauseTimer() {
     clearInterval(this.interval);
+  }
+  checkMobile(): void {
+    this.healthService
+      .patientCheckMobile({ primaryMobile: this.f['mobile'].value })
+      .pipe(first())
+      .subscribe({
+        next: (res) => {
+          this.sendotpSms();
+          this.sendotpSmsFlag = false;
+        },
+        error: (error) => {
+          this.commonService.showNotification(error);
+          this.sendotpSmsFlag = true;
+        },
+        complete: () => {},
+      });
   }
   submitOtp() {
     let enteredOtp = this.otpListCtrl.value;

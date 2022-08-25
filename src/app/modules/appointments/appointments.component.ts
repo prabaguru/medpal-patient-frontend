@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CommonService, MedpalService } from 'src/app/services';
+import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import {
   FormBuilder,
   FormGroup,
@@ -15,7 +15,7 @@ import {
 } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
-
+import { first } from 'rxjs/operators';
 declare var $: any;
 const MY_DATE_FORMAT = {
   parse: {
@@ -69,8 +69,10 @@ export class AppointmentsComponent implements OnInit {
   maxDate: Date;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
   otpListCtrl = new FormControl('', Validators.required);
   submitted: boolean = false;
+  secSubmitted: boolean = true;
   isOtpVisible: boolean = false;
   otpBtnText: String = 'SEND OTP';
   hidden: boolean = true;
@@ -82,18 +84,27 @@ export class AppointmentsComponent implements OnInit {
   interval: any;
   disableOtpBtn: boolean = false;
   otp: any;
+  loggedIn: boolean = false;
+  userInfo: any;
+  formatDate: any;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     public commonService: CommonService,
     public medpalService: MedpalService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    public authService: AuthService
   ) {
     this.minDate = moment(moment.now()).toDate();
     this.maxDate = moment(this.minDate, 'DD/MM/YYYY').add(10, 'days').toDate();
+    this.formatDate = moment(this.minDate).format('DD/MM/YYYY');
+    console.log(this.formatDate);
     this.firstFormGroup = this._formBuilder.group({
       slot: ['', Validators.required],
       appointmentDate: [this.minDate, Validators.required],
+      bookeddate: [moment(this.minDate).format('DD/MM/YYYY')],
+      bookedDay: [moment(this.minDate).format('ddd')],
     });
     this.secondFormGroup = this._formBuilder.group({
       mobNo: [
@@ -102,6 +113,32 @@ export class AppointmentsComponent implements OnInit {
           Validators.required,
           Validators.pattern('^[0-9]*$'),
           Validators.minLength(10),
+        ],
+      ],
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      appointmentFor: ['', Validators.required],
+      primaryMobile: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+          Validators.minLength(10),
+        ],
+      ],
+      firstName: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern("^[a-zA-Z '-]+$"),
+          Validators.minLength(3),
+        ],
+      ],
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
         ],
       ],
     });
@@ -122,6 +159,11 @@ export class AppointmentsComponent implements OnInit {
   }
   ngOnInit(): void {
     window.scroll(0, 0);
+    if (this.authService.currentUserValue) {
+      this.loggedIn = true;
+    } else {
+      this.loggedIn = false;
+    }
   }
 
   getDay(e: any) {
@@ -133,8 +175,11 @@ export class AppointmentsComponent implements OnInit {
   get f() {
     return this.firstFormGroup.controls;
   }
-  get g() {
+  get t() {
     return this.secondFormGroup.controls;
+  }
+  get g() {
+    return this.thirdFormGroup.controls;
   }
   generateSlots(slot: string) {
     this.f['slot'].setValue('');
@@ -261,14 +306,69 @@ export class AppointmentsComponent implements OnInit {
         firstName: 'newuser',
         password: 'newuser',
         mobile: {
-          number: this.g['mobNo'].value,
+          number: this.t['mobNo'].value,
           countryCode: 'IN',
           dialCode: '+91',
         },
+        primaryMobile: this.t['mobNo'].value,
       };
+      this.regNLogin(obj);
     } else {
       this.commonService.showNotification('OTP entered is wrong...');
       return;
     }
+  }
+
+  regNLogin(obj: any) {
+    this.authService
+      .reglogin(obj)
+      .pipe(first())
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            const token = this.authService.currentUserValue.token;
+            this.userInfo = null;
+            this.userInfo = this.authService.currentUserValue;
+            if (token) {
+              this.commonService.showNotification(`Welcome ${res.firstName}!`);
+              this.submitted = true;
+              this.setformvalue(this.userInfo);
+            }
+          }
+        },
+        error: (err) => {
+          this.commonService.showNotification(err);
+          this.submitted = false;
+          // error action over here
+        },
+      });
+  }
+  bookfortoggle(e: Boolean) {
+    e ? this.resetsetformvalue() : this.setformvalue(this.userInfo);
+  }
+
+  setformvalue(res: any) {
+    if (res.firstName === 'newuser') {
+      this.g['firstName'].setValue('');
+    } else {
+      this.g['firstName'].setValue(res.firstName);
+      this.g['firstName'].disable();
+    }
+    if (res.email == '') {
+      this.g['email'].setValue('');
+    } else {
+      this.g['email'].setValue(res.email);
+      this.g['email'].disable();
+    }
+    this.g['primaryMobile'].setValue(res.primaryMobile);
+    this.g['primaryMobile'].disable();
+  }
+  resetsetformvalue() {
+    this.g['firstName'].setValue('');
+    this.g['firstName'].enable();
+    this.g['primaryMobile'].setValue('');
+    this.g['primaryMobile'].enable();
+    this.g['email'].setValue('');
+    this.g['email'].enable();
   }
 }
