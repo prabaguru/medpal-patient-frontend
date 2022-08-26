@@ -9,4 +9,5 @@ export class User {
   role: string;
   address: string;
   Pincode: string;
+  primaryMobile: any;
 }

@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import {
@@ -16,6 +22,7 @@ import {
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
 import { first } from 'rxjs/operators';
+import { MatStepper } from '@angular/material/stepper';
 declare var $: any;
 const MY_DATE_FORMAT = {
   parse: {
@@ -47,7 +54,9 @@ const MY_DATE_FORMAT = {
   ],
 })
 export class AppointmentsComponent implements OnInit {
-  isEditable: boolean = true;
+  @ViewChild('stepper') stepper!: MatStepper;
+  editable: boolean = true;
+  isEditable: boolean = false;
   clinicNumber: any = [];
   doc: any = [];
   pushPage: boolean = false;
@@ -87,7 +96,8 @@ export class AppointmentsComponent implements OnInit {
   loggedIn: boolean = false;
   userInfo: any;
   formatDate: any;
-
+  updateUser: Boolean = false;
+  appoinmentDetails: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -98,13 +108,12 @@ export class AppointmentsComponent implements OnInit {
   ) {
     this.minDate = moment(moment.now()).toDate();
     this.maxDate = moment(this.minDate, 'DD/MM/YYYY').add(10, 'days').toDate();
-    this.formatDate = moment(this.minDate).format('DD/MM/YYYY');
-    console.log(this.formatDate);
+
     this.firstFormGroup = this._formBuilder.group({
       slot: ['', Validators.required],
       appointmentDate: [this.minDate, Validators.required],
-      bookeddate: [moment(this.minDate).format('DD/MM/YYYY')],
-      bookedDay: [moment(this.minDate).format('ddd')],
+      bookedDate: [''],
+      bookedDay: [''],
     });
     this.secondFormGroup = this._formBuilder.group({
       mobNo: [
@@ -117,7 +126,8 @@ export class AppointmentsComponent implements OnInit {
       ],
     });
     this.thirdFormGroup = this._formBuilder.group({
-      appointmentFor: ['', Validators.required],
+      appointmentFor: [false, Validators.required],
+      confirmbooking: ['', Validators.required],
       primaryMobile: [
         '',
         [
@@ -149,6 +159,7 @@ export class AppointmentsComponent implements OnInit {
     this.doc = {};
     this.timingSlots = [];
     this.showtemplate = false;
+    this.setUserInfo();
     if (changes.data.currentValue !== undefined) {
       this.doc = changes.data.currentValue.mainObj;
     }
@@ -159,13 +170,56 @@ export class AppointmentsComponent implements OnInit {
   }
   ngOnInit(): void {
     window.scroll(0, 0);
-    if (this.authService.currentUserValue) {
-      this.loggedIn = true;
-    } else {
-      this.loggedIn = false;
-    }
+    this.setUserInfo();
   }
 
+  setUserInfo() {
+    this.userInfo = null;
+    if (this.authService.currentUserValue) {
+      this.userInfo = this.authService.currentUserValue;
+      this.loggedIn = true;
+      this.submitted = true;
+    } else {
+      this.loggedIn = false;
+      this.submitted = false;
+    }
+    if (!this.loggedIn) {
+      this.thirdFormGroup.patchValue({
+        firstName: '',
+        email: '',
+        primaryMobile: '',
+        appointmentFor: false,
+        confirmbooking: false,
+      });
+    } else {
+      let firstName = null;
+      if (this.userInfo.firstName === 'newuser') {
+        firstName = '';
+      } else {
+        firstName = this.userInfo.firstName;
+        this.g['firstName'].disable();
+      }
+      let uemail = this.validateEmail(this.userInfo.email);
+      let email = null;
+      if (uemail) {
+        this.updateUser = false;
+        email = this.userInfo.email;
+        this.g['email'].disable();
+      } else {
+        email = '';
+        this.updateUser = true;
+      }
+      this.thirdFormGroup.patchValue({
+        appointmentFor: false,
+        firstName: firstName,
+        email: email,
+        primaryMobile: this.userInfo.primaryMobile,
+        confirmbooking: false,
+      });
+
+      this.g['primaryMobile'].disable();
+    }
+  }
   getDay(e: any) {
     this.timingSlots = [];
     let date;
@@ -227,22 +281,61 @@ export class AppointmentsComponent implements OnInit {
     }
   }
   submit() {
-    if (this.firstFormGroup.valid) {
-      console.log(this.firstFormGroup.value);
+    let confirmbooking = this.g['confirmbooking'].value;
+    if (!confirmbooking) {
+      this.commonService.showNotification('Check confirm booking...');
+      return;
+    }
+    this.stepper.next();
+
+    if (this.thirdFormGroup.valid) {
+      //console.log(this.thirdFormGroup.value);
     } else {
       this.commonService.showNotification(
-        'Kindly check for the mandatory fields...'
+        'Kindly fillin the mandatory fields...'
       );
       return;
     }
+
+    let formatDate = moment(this.f['appointmentDate'].value).format('x');
+    let obj = {
+      p_id: this.userInfo._id,
+      slot: this.f['slot'].value,
+      appointmentDate: formatDate,
+      bookedDate: this.f['bookedDate'].value,
+      bookedDay: this.f['bookedDay'].value,
+      appointmentFor: this.g['appointmentFor'].value,
+      email: this.g['email'].value,
+      firstName: this.g['firstName'].value,
+      primaryMobile: this.g['primaryMobile'].value,
+      consultingFees: this.doc.clinic1
+        ? this.doc.ClinicOneTimings.ConsultationFeesC1
+        : this.doc.ClinicTwoTimings.ConsultationFeesC1,
+      d_id: this.doc._id,
+      doctorname: this.doc.firstName,
+      DocDetails: this.doc.graduation,
+      clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
+      ClinicAddress: this.doc.clinic1
+        ? this.doc.ClinicOneTimings.ClinicLocation
+        : this.doc.ClinicTwoTimings.ClinicLocation,
+    };
+    this.appoinmentDetails = null;
+    this.appoinmentDetails = obj;
+    if (this.updateUser) {
+      let updateObj = {
+        firstname: this.g['firstName'].value,
+        email: this.g['email'].value,
+      };
+    }
+    console.log(obj);
   }
 
   checkval() {
-    if (this.secondFormGroup.invalid) {
-      this.submitted = true;
-    } else {
-      this.submitted = false;
-    }
+    // if (this.secondFormGroup.invalid) {
+    //   this.submitted = true;
+    // } else {
+    //   this.submitted = false;
+    // }
   }
   checkvalFone() {
     if (this.firstFormGroup.invalid) {
@@ -259,6 +352,10 @@ export class AppointmentsComponent implements OnInit {
     this.pauseTimer();
     this.timeLeft = 0;
     this.secondFormGroup.get('mobNo')?.enable({ onlySelf: true });
+    this.firstFormGroup.reset();
+    this.secondFormGroup.reset();
+    this.thirdFormGroup.reset();
+    this.setUserInfo();
   }
   generateOtp() {
     return Math.floor(100000 + Math.random() * 900000);
@@ -311,6 +408,7 @@ export class AppointmentsComponent implements OnInit {
           dialCode: '+91',
         },
         primaryMobile: this.t['mobNo'].value,
+        email: enteredOtp,
       };
       this.regNLogin(obj);
     } else {
@@ -330,6 +428,7 @@ export class AppointmentsComponent implements OnInit {
             this.userInfo = null;
             this.userInfo = this.authService.currentUserValue;
             if (token) {
+              this.loggedIn = true;
               this.commonService.showNotification(`Welcome ${res.firstName}!`);
               this.submitted = true;
               this.setformvalue(this.userInfo);
@@ -346,7 +445,10 @@ export class AppointmentsComponent implements OnInit {
   bookfortoggle(e: Boolean) {
     e ? this.resetsetformvalue() : this.setformvalue(this.userInfo);
   }
-
+  validateEmail(email: string) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
   setformvalue(res: any) {
     if (res.firstName === 'newuser') {
       this.g['firstName'].setValue('');
@@ -354,11 +456,14 @@ export class AppointmentsComponent implements OnInit {
       this.g['firstName'].setValue(res.firstName);
       this.g['firstName'].disable();
     }
-    if (res.email == '') {
-      this.g['email'].setValue('');
-    } else {
+    let uemail = this.validateEmail(res.email);
+    if (uemail) {
       this.g['email'].setValue(res.email);
       this.g['email'].disable();
+      this.updateUser = false;
+    } else {
+      this.g['email'].setValue('');
+      this.updateUser = true;
     }
     this.g['primaryMobile'].setValue(res.primaryMobile);
     this.g['primaryMobile'].disable();
@@ -370,5 +475,19 @@ export class AppointmentsComponent implements OnInit {
     this.g['primaryMobile'].enable();
     this.g['email'].setValue('');
     this.g['email'].enable();
+  }
+  stepperChange(e: any) {
+    if (e.selectedIndex === 1) {
+      this.formatDate = null;
+      let appval = null;
+      appval = this.f['appointmentDate'].value;
+      this.formatDate = moment(appval).format('DD/MM/YYYY');
+      this.f['bookedDate'].setValue(this.formatDate);
+      this.f['bookedDay'].setValue(moment(appval).format('ddd'));
+    }
+    if (e.selectedIndex === 2) {
+      this.editable = false;
+      //e.previouslySelectedStep._editable = false;
+    }
   }
 }

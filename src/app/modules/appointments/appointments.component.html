@@ -75,10 +75,14 @@
             Select different date from the date picker below...
           </div>
         </div>
-        <mat-stepper linear #stepper>
+        <mat-stepper
+          [linear]="true"
+          #stepper
+          (selectionChange)="stepperChange($event)"
+        >
           <mat-step
             [stepControl]="firstFormGroup"
-            [editable]="isEditable"
+            [editable]="editable"
             errorMessage="Slot is required."
           >
             <form [formGroup]="firstFormGroup">
@@ -134,14 +138,14 @@
             </form>
           </mat-step>
           <mat-step
-            [stepControl]="secondFormGroup"
-            [editable]="isEditable"
+            [stepControl]="thirdFormGroup"
+            [editable]="editable"
             errorMessage="Appointment details is required."
           >
             <ng-template matStepLabel>Fill out your details</ng-template>
             <form [formGroup]="secondFormGroup">
               <div
-                *ngIf="!submitted"
+                *ngIf="!submitted && !loggedIn"
                 class="row d-flex justify-content-center mt-4"
               >
                 <div class="col-md-3">
@@ -154,7 +158,7 @@
                       maxlength="10"
                       placeholder="Enter 10 digit without +91"
                       [ngClass]="{
-                        'is-invalid': submitted && t.mobNo.errors
+                        'is-invalid': secSubmitted && t.mobNo.errors
                       }"
                     />
                     <mat-icon
@@ -219,16 +223,16 @@
             </form>
             <form [formGroup]="thirdFormGroup">
               <div
-                *ngIf="submitted"
+                *ngIf="submitted && loggedIn"
                 class="row d-flex justify-content-center mt-4"
               >
                 <div class="col-md-3 mb-2">
                   AppointmentDate:
-                  {{ f.bookedDay.value }} - {{ f.bookeddate.value }} - Slot:
+                  {{ f.bookedDay.value }} - {{ f.bookedDate.value }} - Slot:
                   {{ f.slot.value }}
                 </div>
                 <div class="w-100"></div>
-                <div class="col-md-3 mb-2">
+                <div class="col-md-3 mb-3">
                   <mat-label class="bookforme">Book for Me&nbsp;</mat-label>
                   <mat-slide-toggle
                     color="primary"
@@ -343,26 +347,130 @@
                   </div>
                 </div>
                 <div class="w-100"></div>
+                <div class="col-md-3 mb-3">
+                  <mat-checkbox
+                    formControlName="confirmbooking"
+                    color="primary"
+                  >
+                    Confirm Booking
+                  </mat-checkbox>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-3">
+                  <button
+                    type="submit"
+                    class="site-button"
+                    (click)="submit()"
+                    [disabled]="thirdFormGroup.invalid"
+                  >
+                    Book Now
+                  </button>
+                </div>
+                <div class="w-100"></div>
               </div>
             </form>
             <div class="mt-5">
               <button mat-button matStepperPrevious class="site-button">
                 Back</button
               >&nbsp;&nbsp;
-              <button
+              <!-- <button
                 mat-button
                 matStepperNext
                 class="site-button"
                 (click)="checkval()"
               >
                 Next
-              </button>
+              </button> -->
             </div>
           </mat-step>
-          <mat-step>
+          <mat-step [isEditable]="isEditable">
             <ng-template matStepLabel>Done</ng-template>
-            <p>You are now done.</p>
-            <div>
+
+            <div class="container">
+              <div class="row d-flex justify-content-center mt-3">
+                <div class="col-md-6">
+                  <p class="alert alert-success text-center">
+                    <mat-icon class="material-symbols-outlined">
+                      add_task
+                    </mat-icon>
+                    Appointment Booked Successfully....
+                  </p>
+                  <table class="table table-hover" *ngIf="appoinmentDetails">
+                    <thead>
+                      <tr>
+                        <th scope="col" colspan="2"># Appointment Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>
+                          <i class="fa fa-user-plus icosize"></i> Doctor Name
+                        </td>
+                        <td>
+                          Dr. {{ appoinmentDetails.firstName }}
+                          <span
+                            *ngIf="
+                              appoinmentDetails.DocDetails.Graduation === 'PG'
+                            "
+                            class="fst-italic font-monospace"
+                          >
+                            ({{
+                              appoinmentDetails.DocDetails.qualificationUG.sName
+                            }}
+                            -
+                            {{
+                              appoinmentDetails.DocDetails.qualificationPG.sName
+                            }}
+                            -
+                            {{
+                              appoinmentDetails.DocDetails.specialisationPG
+                                .name
+                            }})
+                          </span>
+                          <span
+                            *ngIf="
+                              appoinmentDetails.DocDetails.Graduation === 'UG'
+                            "
+                            class="fst-italic font-monospace"
+                          >
+                            ({{
+                              appoinmentDetails.DocDetails.qualificationUG
+                                .sName
+                            }})
+                          </span>
+                          <span
+                            *ngIf="appoinmentDetails.DocDetails.DoctorType"
+                            class="fst-italic font-monospace"
+                          >
+                            - {{ appoinmentDetails.DocDetails.DoctorType.name }}
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>
+                          <i class="fa fa-calendar icosize"></i> Date/Time
+                        </td>
+                        <td>
+                          {{ appoinmentDetails.bookedDate }} -
+                          {{ appoinmentDetails.bookedDay }} at
+                          <strong>{{ appoinmentDetails.slot }}</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td>
+                          <i class="fa fa-map-marker icosize"></i> Location
+                        </td>
+                        <td>{{ appoinmentDetails.ClinicAddress.address }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <!-- <div>
               <button mat-button matStepperPrevious class="site-button">
                 Back</button
               >&nbsp;&nbsp;
@@ -373,14 +481,11 @@
               >
                 Reset
               </button>
-            </div>
+            </div> -->
           </mat-step>
         </mat-stepper>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="site-button" (click)="submit()">
-          Book Now
-        </button>
         <button
           type="button"
           class="btn btn-secondary"
