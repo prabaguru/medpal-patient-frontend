@@ -30,15 +30,33 @@
             </div>
             <div class="aon-form-doc-info">
               <strong>Booking Appointment to Dr. {{ doc.firstName }}</strong>
+              &nbsp;
+              <span
+                *ngIf="doc.graduation.Graduation === 'PG'"
+                class="fst-italic font-monospace"
+              >
+                ({{ doc.graduation.qualificationUG.sName }}
+                -
+                {{ doc.graduation.qualificationPG.sName }}
+                -
+                {{ doc.graduation.specialisationPG.name }})
+              </span>
+              <span
+                *ngIf="doc.graduation.Graduation === 'UG'"
+                class="fst-italic font-monospace"
+              >
+                ({{ doc.graduation.qualificationUG.sName }})
+              </span>
+
               <span>{{ doc.graduation.DoctorType.name }}</span>
-              <span *ngIf="doc.clinic1"
-                ><i class="fa fa-map-marker" aria-hidden="true"></i>
-                {{ doc.ClinicOneTimings.ClinicLocation.address }}</span
-              >
-              <span *ngIf="doc.clinic2"
-                ><i class="fa fa-map-marker" aria-hidden="true"></i>
-                {{ doc.ClinicTwoTimings.ClinicLocation.address }}</span
-              >
+              <p *ngIf="doc.clinic1">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{ doc.ClinicOneTimings.ClinicLocation.address }}
+              </p>
+              <p *ngIf="doc.clinic2">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{ doc.ClinicTwoTimings.ClinicLocation.address }}
+              </p>
             </div>
           </div>
           <div class="aon-form-top-right">
@@ -117,6 +135,7 @@
                     aria-label="Available Slots"
                   >
                     <mat-button-toggle
+                      (click)="slotToggle()"
                       *ngFor="let time of timingSlots"
                       value="{{ time }}"
                       class="col-md-1"
@@ -365,15 +384,23 @@
                   >
                     Book Now
                   </button>
+                  &nbsp;&nbsp;
+                  <button
+                    type="button"
+                    matStepperPrevious
+                    class="btn btn-secondary float-end"
+                  >
+                    Back
+                  </button>
                 </div>
                 <div class="w-100"></div>
               </div>
             </form>
             <div class="mt-5">
-              <button mat-button matStepperPrevious class="site-button">
+              <!--<button mat-button matStepperPrevious class="site-button">
                 Back</button
               >&nbsp;&nbsp;
-              <!-- <button
+               <button
                 mat-button
                 matStepperNext
                 class="site-button"
@@ -383,7 +410,7 @@
               </button> -->
             </div>
           </mat-step>
-          <mat-step [isEditable]="isEditable">
+          <mat-step [isEditable]="isEditable" class="done">
             <ng-template matStepLabel>Done</ng-template>
 
             <div class="container">

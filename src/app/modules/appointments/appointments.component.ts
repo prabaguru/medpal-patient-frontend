@@ -286,7 +286,6 @@ export class AppointmentsComponent implements OnInit {
       this.commonService.showNotification('Check confirm booking...');
       return;
     }
-    this.stepper.next();
 
     if (this.thirdFormGroup.valid) {
       //console.log(this.thirdFormGroup.value);
@@ -296,7 +295,60 @@ export class AppointmentsComponent implements OnInit {
       );
       return;
     }
+    this.createObjects();
+    let docGrad = '';
+    if (this.doc.graduation.Graduation === 'PG') {
+      docGrad = `(${this.doc.graduation.qualificationUG.sName} - ${this.doc.graduation.qualificationPG.sName} - ${this.doc.graduation.specialisationPG.name}) : ${this.doc.graduation.DoctorType.name}`;
+    } else {
+      docGrad = `(${this.doc.graduation.qualificationUG.sName}) : ${this.doc.graduation.DoctorType.name}`;
+    }
+    let clinicloc = '';
+    if (this.doc.clinic1) {
+      clinicloc = this.doc.ClinicOneTimings.ClinicLocation.address;
+    } else {
+      clinicloc = this.doc.ClinicTwoTimings.ClinicLocation.address;
+    }
+    let formatDate = moment(this.f['appointmentDate'].value).format('x');
+    let apiobj = {
+      p_id: this.userInfo._id,
+      slot: this.f['slot'].value,
+      appointmentDate: formatDate,
+      bookedDate: this.f['bookedDate'].value,
+      bookedDay: this.f['bookedDay'].value,
+      appointmentFor: this.g['appointmentFor'].value,
+      email: this.g['email'].value,
+      firstName: this.g['firstName'].value,
+      primaryMobile: this.g['primaryMobile'].value,
+      consultingFees: this.doc.clinic1
+        ? this.doc.ClinicOneTimings.ConsultationFeesC1
+        : this.doc.ClinicTwoTimings.ConsultationFeesC1,
+      d_id: this.doc._id,
+      doctorName: this.doc.firstName,
+      doctorQualification: docGrad,
+      clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
+      ClinicAddress: clinicloc,
+    };
+    // let forOthers = this.g['appointmentFor'].value;
+    // if (this.updateUser && !forOthers) {
+    //   let updateObj = {
+    //     firstname: this.g['firstName'].value,
+    //     email: this.g['email'].value,
+    //   };
+    // }
 
+    this.medpalService.bookAppointment(apiobj).subscribe({
+      next: (data: any) => {
+        this.stepper.next();
+        this.commonService.showNotification(data.message);
+      },
+      error: (err) => {
+        this.commonService.showNotification(err);
+        this.g['confirmbooking'].setValue(false);
+      },
+    });
+  }
+
+  createObjects() {
     let formatDate = moment(this.f['appointmentDate'].value).format('x');
     let obj = {
       p_id: this.userInfo._id,
@@ -321,15 +373,7 @@ export class AppointmentsComponent implements OnInit {
     };
     this.appoinmentDetails = null;
     this.appoinmentDetails = obj;
-    if (this.updateUser) {
-      let updateObj = {
-        firstname: this.g['firstName'].value,
-        email: this.g['email'].value,
-      };
-    }
-    console.log(obj);
   }
-
   checkval() {
     // if (this.secondFormGroup.invalid) {
     //   this.submitted = true;
@@ -475,6 +519,9 @@ export class AppointmentsComponent implements OnInit {
     this.g['primaryMobile'].enable();
     this.g['email'].setValue('');
     this.g['email'].enable();
+  }
+  slotToggle() {
+    this.stepper.next();
   }
   stepperChange(e: any) {
     if (e.selectedIndex === 1) {
