@@ -88,9 +88,10 @@
           class="row d-flex justify-content-center"
           *ngIf="timingSlots.length == 0"
         >
-          <div class="alert alert-danger col-md-4 fw-bold" role="alert">
-            Sorry for the inconvenience. The clinic is not functioning today.
-            Select different date from the date picker below...
+          <div class="alert alert-danger col-md-8 fw-bold" role="alert">
+            We regret for the inconvenience caused. The clinic is not
+            functioning today. Select different date from the date picker below
+            to book your healthcare appointment slot...
           </div>
         </div>
         <mat-stepper
@@ -137,9 +138,10 @@
                     <mat-button-toggle
                       (click)="slotToggle()"
                       *ngFor="let time of timingSlots"
+                      disabled
                       value="{{ time }}"
                       class="col-md-1"
-                      >{{ time }}</mat-button-toggle
+                      >Booked: <br />{{ time }}</mat-button-toggle
                     >
                   </mat-button-toggle-group>
                   <div class="mt-2">

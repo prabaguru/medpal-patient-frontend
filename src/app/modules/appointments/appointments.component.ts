@@ -279,6 +279,16 @@ export class AppointmentsComponent implements OnInit {
     if (slot === 'Sat' && this.doc.clinic2) {
       this.timingSlots = this.doc.ClinicTwoTimings.SaturdaySlots;
     }
+    console.log(this.timingSlots);
+    //let timenow = this.f['appointmentDate'].value;
+    let getTime = moment().subtract(30, 'minutes').toDate().getTime();
+    let halfAnHourAgo: any = moment(getTime).format('hh:mm a');
+    console.log(halfAnHourAgo);
+    let comtime = '06:00 pm';
+    let dep = moment(comtime.format('hh:mm a')).isBefore(
+      moment(halfAnHourAgo.format('hh:mm a'))
+    );
+    alert(dep);
   }
   submit() {
     let confirmbooking = this.g['confirmbooking'].value;
@@ -328,13 +338,6 @@ export class AppointmentsComponent implements OnInit {
       clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
       ClinicAddress: clinicloc,
     };
-    // let forOthers = this.g['appointmentFor'].value;
-    // if (this.updateUser && !forOthers) {
-    //   let updateObj = {
-    //     firstname: this.g['firstName'].value,
-    //     email: this.g['email'].value,
-    //   };
-    // }
 
     this.medpalService.bookAppointment(apiobj).subscribe({
       next: (data: any) => {
@@ -347,7 +350,38 @@ export class AppointmentsComponent implements OnInit {
       },
     });
   }
-
+  updateUserFNE() {
+    let forOthers = this.g['appointmentFor'].value;
+    let updateObj = {
+      id: '',
+      firstName: '',
+      email: '',
+    };
+    if (this.updateUser && !forOthers) {
+      updateObj = {
+        id: this.userInfo._id,
+        firstName: this.g['firstName'].value,
+        email: this.g['email'].value,
+      };
+    }
+    if (!updateObj.id || !updateObj.firstName || !updateObj.email) {
+      return;
+    }
+    this.medpalService.updatePatientFNE(updateObj).subscribe({
+      next: (data: any) => {
+        let obj = {
+          firstName: updateObj.firstName,
+          email: updateObj.email,
+        };
+        this.updateUser = false;
+        this.updateCurrentUserData(updateObj);
+        //this.commonService.showNotification(data.message);
+      },
+      error: (err) => {
+        //this.commonService.showNotification(err);
+      },
+    });
+  }
   createObjects() {
     let formatDate = moment(this.f['appointmentDate'].value).format('x');
     let obj = {
@@ -389,6 +423,9 @@ export class AppointmentsComponent implements OnInit {
   }
 
   resetForm() {
+    if (this.updateUser) {
+      this.updateUserFNE();
+    }
     this.isOtpVisible = false;
     this.disableOtpBtn = false;
     this.timingSlots = [];
@@ -536,5 +573,20 @@ export class AppointmentsComponent implements OnInit {
       this.editable = false;
       //e.previouslySelectedStep._editable = false;
     }
+  }
+
+  updateCurrentUserData(obj: any) {
+    const oldInfo = JSON.parse(
+      localStorage.getItem('loggedInUserData') as string
+    );
+    localStorage.setItem(
+      'loggedInUserData',
+      JSON.stringify({ ...oldInfo, ...obj })
+    );
+    this.authService.updateUserObjOnSave(
+      JSON.parse(localStorage.getItem('loggedInUserData') as string)
+    );
+    this.userInfo = [];
+    this.userInfo = this.authService.currentUserValue;
   }
 }

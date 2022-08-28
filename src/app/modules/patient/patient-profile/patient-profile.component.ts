@@ -46,6 +46,7 @@ export class PatientProfileComponent implements OnInit {
   ) {
     this.currentUser = this.authService.currentUserValue;
     //console.log(this.currentUser);
+    let uemail = this.validateEmail(this.currentUser.email);
 
     this.profileForm = new FormGroup({
       id: new FormControl(this.currentUser._id ? this.currentUser._id : '', [
@@ -69,7 +70,7 @@ export class PatientProfileComponent implements OnInit {
           Validators.pattern("^[a-zA-Z '-]+$"),
         ]
       ),
-      email: new FormControl(this.currentUser.email, [
+      email: new FormControl(uemail ? this.currentUser.email : '', [
         Validators.required,
         Validators.email,
       ]),
@@ -211,7 +212,10 @@ export class PatientProfileComponent implements OnInit {
       },
     });
   }
-
+  validateEmail(email: string) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  }
   updateCurrentUserData(obj: any) {
     const oldInfo = JSON.parse(
       localStorage.getItem('loggedInUserData') as string
