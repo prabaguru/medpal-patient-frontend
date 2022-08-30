@@ -98,6 +98,7 @@ export class AppointmentsComponent implements OnInit {
   formatDate: any;
   updateUser: Boolean = false;
   appoinmentDetails: any;
+  finalTimeslot: any = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -279,17 +280,37 @@ export class AppointmentsComponent implements OnInit {
     if (slot === 'Sat' && this.doc.clinic2) {
       this.timingSlots = this.doc.ClinicTwoTimings.SaturdaySlots;
     }
-    console.log(this.timingSlots);
+    //console.log(this.timingSlots);
     //let timenow = this.f['appointmentDate'].value;
-    let getTime = moment().subtract(30, 'minutes').toDate().getTime();
-    let halfAnHourAgo: any = moment(getTime).format('hh:mm a');
-    console.log(halfAnHourAgo);
-    let comtime = '06:00 pm';
-    let dep = moment(comtime.format('hh:mm a')).isBefore(
-      moment(halfAnHourAgo.format('hh:mm a'))
-    );
-    alert(dep);
+    let getTime = moment().add(30, 'minutes').toDate().getTime();
+    //let getTime = moment().toDate().getTime();
+    let halfAnHourAgo: any = moment(getTime).unix();
+    //console.log(halfAnHourAgo);
+
+    this.finalTimeslot = [];
+    let arrLength = this.timingSlots.length;
+    for (let i = 0; i < arrLength; i++) {
+      let dd = this.changeTS(this.timingSlots[i]);
+      this.finalTimeslot.push({
+        time: dd,
+        Stime: moment.unix(dd).format('hh:mm a'),
+        disabled: dd > halfAnHourAgo ? false : true,
+      });
+      console.log(this.finalTimeslot);
+    }
   }
+
+  changeTS(ts: string) {
+    let calDate = null;
+    let dt = null;
+    let dateeObj = null;
+    calDate = this.f['appointmentDate'].value;
+    dateeObj = moment(calDate).format('DD/MM/YYYY');
+    let concot = dateeObj + ' ' + ts;
+    dt = moment(concot, 'DD/MM/YYYY hh:mm a').unix();
+    return dt;
+  }
+
   submit() {
     let confirmbooking = this.g['confirmbooking'].value;
     if (!confirmbooking) {
@@ -318,7 +339,12 @@ export class AppointmentsComponent implements OnInit {
     } else {
       clinicloc = this.doc.ClinicTwoTimings.ClinicLocation.address;
     }
-    let formatDate = moment(this.f['appointmentDate'].value).format('x');
+    let dateeObj = '';
+    let concot = '';
+    let formatDate = null;
+    dateeObj = moment(this.f['appointmentDate'].value).format('DD/MM/YYYY');
+    concot = dateeObj + ' ' + this.f['slot'].value;
+    formatDate = moment(concot, 'DD/MM/YYYY hh:mm a').unix();
     let apiobj = {
       p_id: this.userInfo._id,
       slot: this.f['slot'].value,
@@ -383,7 +409,12 @@ export class AppointmentsComponent implements OnInit {
     });
   }
   createObjects() {
-    let formatDate = moment(this.f['appointmentDate'].value).format('x');
+    let dateeObj = '';
+    let concot = '';
+    let formatDate = null;
+    dateeObj = moment(this.f['appointmentDate'].value).format('DD/MM/YYYY');
+    concot = dateeObj + ' ' + this.f['slot'].value;
+    formatDate = moment(concot, 'DD/MM/YYYY hh:mm a').unix();
     let obj = {
       p_id: this.userInfo._id,
       slot: this.f['slot'].value,

@@ -137,11 +137,11 @@
                   >
                     <mat-button-toggle
                       (click)="slotToggle()"
-                      *ngFor="let time of timingSlots"
-                      disabled
-                      value="{{ time }}"
+                      *ngFor="let time of finalTimeslot"
+                      [disabled]="time.disabled"
+                      value="{{ time.Stime }}"
                       class="col-md-1"
-                      >Booked: <br />{{ time }}</mat-button-toggle
+                      >{{ time.Stime }}</mat-button-toggle
                     >
                   </mat-button-toggle-group>
                   <div class="mt-2">
