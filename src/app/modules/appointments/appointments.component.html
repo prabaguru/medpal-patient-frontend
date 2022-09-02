@@ -84,16 +84,6 @@
         ></button>
       </div>
       <div class="modal-body">
-        <div
-          class="row d-flex justify-content-center"
-          *ngIf="timingSlots.length == 0"
-        >
-          <div class="alert alert-danger col-md-8 fw-bold" role="alert">
-            We regret for the inconvenience caused. The clinic is not
-            functioning today. Select different date from the date picker below
-            to book your healthcare appointment slot...
-          </div>
-        </div>
         <mat-stepper
           [linear]="true"
           #stepper
@@ -130,6 +120,18 @@
                       ></mat-datepicker-toggle>
                       <mat-datepicker touchUi #picker></mat-datepicker>
                     </mat-form-field>
+                  </div>
+                  <div
+                    class=""
+                    *ngIf="finalTimeslot.length == 0 && timingSlotsFlag"
+                  >
+                    <div
+                      class="alert alert-danger col-md-8 fw-bold"
+                      role="alert"
+                    >
+                      We regret for the inconvenience caused. The clinic is not
+                      functioning today. Select different date...
+                    </div>
                   </div>
                   <mat-button-toggle-group
                     formControlName="slot"

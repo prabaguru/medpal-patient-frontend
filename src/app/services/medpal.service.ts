@@ -1,4 +1,4 @@
-import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpParams, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable, of, throwError } from 'rxjs';
@@ -18,7 +18,14 @@ export class MedpalService {
       .post(`${this.baseUrl}/patient_appointments/register`, data)
       .pipe(catchError(this.handleError));
   }
-
+  getAppointmentsById(data: any) {
+    let params = new HttpParams({ fromObject: data });
+    return this.http
+      .get(`${this.baseUrl}/patient_appointments/getById`, {
+        params,
+      })
+      .pipe(catchError(this.handleError));
+  }
   public patientRegister(data: any) {
     return this.http
       .post(`${this.baseUrl}/patients/registerNLogin`, data)
@@ -55,7 +62,9 @@ export class MedpalService {
       .pipe(catchError(this.handleError));
   }
   updatePassword(data: any) {
-    return this.http.put(`${this.baseUrl}/patients/changePassWord`, data);
+    return this.http
+      .put(`${this.baseUrl}/patients/changePassWord`, data)
+      .pipe(catchError(this.handleError));
   }
   public uploadImage(
     id: any,
@@ -72,16 +81,24 @@ export class MedpalService {
     });
   }
   getDoctorsLIsting() {
-    return this.http.get(`${this.baseUrl}/doctors/getAll`);
+    return this.http
+      .get(`${this.baseUrl}/doctors/getAll`)
+      .pipe(catchError(this.handleError));
   }
 
   getDoctorData(name: string) {
     const params = new HttpParams().append('name', name);
-    return this.http.get(`${environment.apiUrl}/doctors/getByName`, {
-      params,
-    });
+    return this.http
+      .get(`${this.baseUrl}/doctors/getByName`, {
+        params,
+      })
+      .pipe(catchError(this.handleError));
   }
-
+  updateDoctorAppointments(payload: any) {
+    return this.http
+      .put(`${this.baseUrl}/doctors/update`, payload)
+      .pipe(catchError(this.handleError));
+  }
   private handleError(err: any) {
     //console.log("error caught in service");
     //console.error(err);
