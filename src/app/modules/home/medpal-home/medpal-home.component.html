@@ -11,13 +11,25 @@
 
       <p>
         <button
+          *ngIf="!isLoggenIn"
           mat-raised-button
           color="primary"
           class="bannerbtn"
           [routerLink]="['/medpal/patient/login']"
         >
-          Patient Login <i class="fa fa-user-plus icosize"></i>
+          My Login <i class="fa fa-user-plus icosize"></i>
         </button>
+
+        <button
+          *ngIf="isLoggenIn"
+          mat-raised-button
+          color="primary"
+          class="bannerbtn"
+          [routerLink]="['/medpal/patient/Appointments']"
+        >
+          My Appointments <i class="fa fa-user-plus icosize"></i>
+        </button>
+
         &nbsp;&nbsp;&nbsp;
         <button
           mat-raised-button

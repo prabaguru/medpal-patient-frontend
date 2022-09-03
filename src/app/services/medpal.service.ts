@@ -80,14 +80,23 @@ export class MedpalService {
       observe: 'events',
     });
   }
+
+  getDoctorAppointments(data: any) {
+    let params = new HttpParams({ fromObject: data });
+    return this.http
+      .get(`${this.baseUrl}/doctors/getUserAppointments`, {
+        params,
+      })
+      .pipe(catchError(this.handleError));
+  }
   getDoctorsLIsting() {
     return this.http
       .get(`${this.baseUrl}/doctors/getAll`)
       .pipe(catchError(this.handleError));
   }
 
-  getDoctorData(name: string) {
-    const params = new HttpParams().append('name', name);
+  getDoctorData(data: any) {
+    let params = new HttpParams({ fromObject: data });
     return this.http
       .get(`${this.baseUrl}/doctors/getByName`, {
         params,

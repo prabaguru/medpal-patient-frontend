@@ -26,6 +26,7 @@ import { DoctorsListingComponent } from './modules/doctors-listing/doctors-listi
 import { DoctorsProfileComponent } from './modules/doctors-profile/doctors-profile.component';
 import { AppointmentsComponent } from './modules/appointments/appointments.component';
 import { PatientProfileResetPasswordComponent } from './modules/patient/patient-reset-password/patient-reset-password.component';
+import { PatientAppointmentsComponent } from './modules/patient/patient-appointments/patient-appointments.component';
 import {
   MedPalHttpInterceptor,
   ErrorInterceptor,
@@ -51,6 +52,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     DoctorsListingComponent,
     DoctorsProfileComponent,
     AppointmentsComponent,
+    PatientAppointmentsComponent,
   ],
   imports: [
     BrowserModule,

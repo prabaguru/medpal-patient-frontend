@@ -167,11 +167,7 @@ export class AppointmentsComponent implements OnInit {
     this.setUserInfo();
     if (changes.data.currentValue !== undefined) {
       this.doc = changes.data.currentValue.mainObj;
-      //this.getAppointmentsById();
-    }
-    if (Object.getOwnPropertyNames(this.doc).length > 0) {
-      this.showtemplate = true;
-      this.generateSlots(this.weekday);
+      this.getAppointmentsById();
     }
   }
   ngOnInit(): void {
@@ -230,15 +226,15 @@ export class AppointmentsComponent implements OnInit {
     this.timingSlots = [];
     let date;
     date = moment(e.value._d).day();
-    // let checkSlot = this.slotCheck(this.momweekday[date]);
-    // if (checkSlot) {
-    //   this.getAppointmentsById(date);
-    //   this.timingSlotsFlag = false;
-    // } else {
-    //   this.finalTimeslot = [];
-    //   this.timingSlotsFlag = true;
-    // }
-    this.generateSlots(this.momweekday[date]);
+    let checkSlot = this.slotCheck(this.momweekday[date]);
+    if (checkSlot) {
+      this.getAppointmentsById(date);
+      this.timingSlotsFlag = false;
+    } else {
+      this.finalTimeslot = [];
+      this.timingSlotsFlag = true;
+    }
+    //this.generateSlots(this.momweekday[date]);
   }
   get f() {
     return this.firstFormGroup.controls;
@@ -378,7 +374,6 @@ export class AppointmentsComponent implements OnInit {
     } else {
       this.timingSlotsFlag = true;
     }
-    // let settings = [...this.finalTimeslot, ...this.bookedTimeslot];
     //console.log(this.finalTimeslot);
   }
 
@@ -741,43 +736,31 @@ export class AppointmentsComponent implements OnInit {
     }
   }
   getAppointmentsById(d?: any) {
-    let dateeObj = '';
-    let formatDate = null;
-    dateeObj = moment(this.f['appointmentDate'].value).format('DD/MM/YYYY');
-    formatDate = moment(dateeObj, 'DD/MM/YYYY').unix();
-    this.bookedppointments = [];
+    this.bookedTimeslot = [];
     let userId = '';
     userId = this.userInfo._id;
     let obj: any = {
       id: this.doc._id,
       clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
-      date: dateeObj,
     };
     this.medpalService
-      .getAppointmentsById(obj)
+      .getDoctorAppointments(obj)
       .pipe(first())
       .subscribe(
-        (data) => {
-          this.bookedppointments = data;
-          this.bookedTimeslot = [];
-          let arrLength = this.bookedppointments.length;
-          if (arrLength > 0) {
-            for (let i = 0; i < arrLength; i++) {
-              //let dd = this.changeTS(this.bookedppointments[i].slot);
-              this.bookedTimeslot.push({
-                time: this.bookedppointments[i].appointmentDate,
-                Stime: this.bookedppointments[i].slot,
-                disabled: true,
-              });
-            }
-          }
+        (data: any) => {
+          let clinic = data.clinic;
+          let app =
+            clinic === 'Clinic1'
+              ? data.data.clinic1appointments
+              : data.data.clinic2appointments;
+          this.bookedTimeslot = app;
           if (Object.getOwnPropertyNames(this.doc).length > 0) {
             this.showtemplate = true;
             this.generateSlots(
               this.momweekday[d] ? this.momweekday[d] : this.weekday
             );
           }
-          //console.log(this.bookedppointments);
+          //console.log(this.bookedTimeslot);
         },
         (error) => {
           this.commonService.showNotification(error);

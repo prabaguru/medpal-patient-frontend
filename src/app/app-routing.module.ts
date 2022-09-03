@@ -11,6 +11,7 @@ import { PatientProfileComponent } from './modules/patient/patient-profile/patie
 import { DoctorsListingComponent } from './modules/doctors-listing/doctors-listing.component';
 import { DoctorsProfileComponent } from './modules/doctors-profile/doctors-profile.component';
 import { AppointmentsComponent } from './modules/appointments/appointments.component';
+import { PatientAppointmentsComponent } from './modules/patient/patient-appointments/patient-appointments.component';
 import { AuthGuard } from './services';
 
 const routes: Routes = [
@@ -67,19 +68,13 @@ const routes: Routes = [
         component: PatientProfileResetPasswordComponent,
         canActivate: [AuthGuard],
       },
+      {
+        path: 'patient/Appointments',
+        component: PatientAppointmentsComponent,
+        canActivate: [AuthGuard],
+      },
     ],
   },
-  // {
-  //   path: 'medpal-patient',
-  //   component: PatientHomeComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       redirectTo: 'profile',
-  //       pathMatch: 'full',
-  //     },
-  //   ],
-  // },
 ];
 
 @NgModule({
