@@ -497,6 +497,7 @@ export class AppointmentsComponent implements OnInit {
 
     this.medpalService.updateDoctorAppointments(obj).subscribe({
       next: (data: any) => {
+        this.confirmBookingSms();
         //this.commonService.showNotification(data.message);
       },
       error: (err) => {
@@ -605,13 +606,14 @@ export class AppointmentsComponent implements OnInit {
   sendOtp() {
     this.otp = '';
     this.otp = this.generateOtp();
-    console.log('otp- ' + this.otp);
+    //console.log('otp- ' + this.otp);
     this.isOtpVisible = true;
     this.disableOtpBtn = true;
     this.startTimer();
     this.timeLeft = 60;
     this.otpBtnText = 'sec left to enter OTP';
     this.secondFormGroup.get('mobNo')?.disable({ onlySelf: true });
+    this.onSubmitOtp(this.otp);
   }
 
   startTimer() {
@@ -737,8 +739,6 @@ export class AppointmentsComponent implements OnInit {
   }
   getAppointmentsById(d?: any) {
     this.bookedTimeslot = [];
-    let userId = '';
-    userId = this.userInfo._id;
     let obj: any = {
       id: this.doc._id,
       clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
@@ -780,5 +780,56 @@ export class AppointmentsComponent implements OnInit {
     );
     this.userInfo = [];
     this.userInfo = this.authService.currentUserValue;
+  }
+
+  onSubmitOtp(otp: string) {
+    let mobileNo = this.t['mobNo'].value;
+    let msgString = '';
+    msgString = `Your OTP to book appointment is  - ${otp} . Please be 10 mins before your consultation time. Thank you. Medpal - Weisermanner`;
+    let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobileNo}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000226779`;
+
+    $.ajax({
+      type: 'GET',
+      url: smsUrl,
+      crossDomain: true,
+      dataType: 'jsonp',
+      jsonpCallback: 'callback',
+      success: function () {
+        //this.commonService.showNotification('OTP sent successfully...');
+      },
+      error: function (xhr: any, status: any) {
+        // this.commonService.showNotification(
+        //   'OTP not sent successfully. Check some time later...'
+        // );
+      },
+    });
+  }
+
+  confirmBookingSms() {
+    let mobileNo = this.g['primaryMobile'].value;
+    let docName = this.doc.firstName;
+    //let glink = 'https://maps.google.com/maps?q=';
+    //let gmap = `Clinic Map location: ${glink}${this.appoinmentDetails.ClinicAddress.loc.y},${this.appoinmentDetails.ClinicAddress.loc.x}`;
+    let mob = `93531 05105`;
+    let bookedfor = `${this.g['firstName'].value} on ${this.f['bookedDate'].value} - ${this.f['bookedDay'].value} at ${this.f['slot'].value}`;
+    let msgString = '';
+    msgString = `The consult with Dr. ${docName} is booked for ${bookedfor} . Our Helpline no is ${mob} . Plz carry your case no. Thank you. Medpal - Weisermanner`;
+    let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobileNo}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000226781`;
+
+    $.ajax({
+      type: 'GET',
+      url: smsUrl,
+      crossDomain: true,
+      dataType: 'jsonp',
+      jsonpCallback: 'callback',
+      success: function () {
+        //this.commonService.showNotification('OTP sent successfully...');
+      },
+      error: function (xhr: any, status: any) {
+        // this.commonService.showNotification(
+        //   'OTP not sent successfully. Check some time later...'
+        // );
+      },
+    });
   }
 }

@@ -130,7 +130,7 @@ export class PatientLoginComponent implements OnInit {
   sendotpSms() {
     this.otp = '';
     this.otp = this.generateOtp();
-    console.log('otp- ' + this.otp);
+    //console.log('otp- ' + this.otp);
     this.isOtpVisible = true;
     this.disableOtpBtn = true;
     this.startTimer();

@@ -8,16 +8,23 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   currentUser: any = {};
-  constructor(private authService: AuthService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+  isLoggenIn: boolean = false;
+  constructor(private authService: AuthService, private router: Router) {
+    this.authService.currentUser.subscribe((x) => {
+      this.currentUser = x;
+      this.currentUser?.token
+        ? (this.isLoggenIn = true)
+        : (this.isLoggenIn = false);
+    });
   }
+
+  ngOnInit(): void {}
   logout() {
     this.authService.logout().subscribe((res) => {
       if (!res.success) {
         this.router.navigate(['/medpal/home']);
       }
+      this.isLoggenIn = false;
     });
   }
 }

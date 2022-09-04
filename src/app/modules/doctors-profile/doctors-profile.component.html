@@ -22,6 +22,7 @@
                 <i class="fa fa-check icons feather-check"></i>
               </div>
               <div class="aon-doctorAbout-position">
+                <i class="fa fa-graduation-cap fs-4 icocolor"></i>
                 <span *ngIf="doc.graduation.Graduation === 'UG'">
                   <span> {{ doc.graduation.qualificationUG.sName }}</span>
                   - (General)
@@ -73,28 +74,27 @@
                   <span class="aon-rating-lable">4.9 (45 Reviews)</span>
                 </div>
                 <div class="aon-doctorAbout-exper">
-                  {{ doc.graduation.overallExperience }} Years Experience
-                  Overall ({{ doc.graduation.overallExperience }} years as
-                  specialist)
+                  Overall Experience ({{ doc.graduation.overallExperience }}
+                  years as Specialist)
                 </div>
-                <ul class="aon-doctorAbout-contat">
+                <ul class="aon-doctorAbout-contat mb-4">
                   <li><i class="fa fa-envelope icons"></i> {{ doc.email }}</li>
                   <li>
                     <i class="fa fa-phone icons"></i> {{ doc.mobile.number }}
                   </li>
                 </ul>
-                <div
+                <!-- <div
                   class="aon-doctorAbout-text"
                   *ngIf="doc.services"
                   [innerHTML]="doc.services"
                   style="text-transform: capitalize"
-                ></div>
+                ></div> -->
                 <ul class="aon-doctorAddto-share">
-                  <li>
+                  <!-- <li>
                     <a href="javascript:void(0)"
                       ><i class="fa fa-share icons"></i> Share</a
                     >
-                  </li>
+                  </li> -->
                   <li
                     *ngIf="
                       doc.ClinicOneTimings.active &&
@@ -120,6 +120,7 @@
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
+                      <i class="fa fa-calendar"></i>
                       Book Appointment
                       <span class="badge bg-light text-dark"
                         >2 Clinics found</span
@@ -187,7 +188,9 @@
                   aria-controls="Experience-tabs"
                   aria-selected="true"
                 >
-                  <h3>Clinic Timings</h3>
+                  <h3>
+                    <i class="fa fa-clock fs-5 icocolor"></i> Clinic Timings
+                  </h3>
                 </div>
               </li>
               <li class="nav-item" role="presentation">
@@ -200,7 +203,10 @@
                   aria-controls="Locationstabs"
                   aria-selected="false"
                 >
-                  <h3>Education Training</h3>
+                  <h3>
+                    <i class="fa fa-book fs-5 icocolor"></i>
+                    Education Training
+                  </h3>
                 </div>
               </li>
               <li class="nav-item" role="presentation">
@@ -213,7 +219,9 @@
                   aria-controls="QA-tabs"
                   aria-selected="false"
                 >
-                  <h3>Experience</h3>
+                  <h3>
+                    <i class="fa fa-briefcase fs-5 icocolor"></i> Experience
+                  </h3>
                 </div>
               </li>
             </ul>
@@ -585,7 +593,7 @@
             <div class="aon-doctorReview-left">
               <div class="aon-doctorTotal-rating">
                 <div class="aon-docRating-title">Overall rating</div>
-                <div class="aon-docRating-num">4.83</div>
+                <div class="aon-docRating-num">4.85</div>
                 <div class="aon-docRating-rating">
                   <span class="fa fa-star"></span>
                   <span class="fa fa-star"></span>
@@ -593,23 +601,23 @@
                   <span class="fa fa-star"></span>
                   <span class="fa fa-star text-gray-dark"></span>
                 </div>
-                <div class="aon-docRating-total">690 reviews</div>
+                <div class="aon-docRating-total">45 reviews</div>
               </div>
             </div>
 
             <div class="aon-doctorReview-right">
-              <h3>Recent reviews</h3>
+              <h3><i class="fa fa-child fs-2 icocolor"></i> Recent reviews</h3>
               <!-- Award List-->
               <ul class="aon-docReview-list">
                 <li>
                   <p>
-                    Very professional but easy to talk to. He clearly laid out
-                    the issue I was facing and the steps to fix it. Most
-                    importantly, I did not feel judged when...<a
-                      href="javascript:void(0)"
-                      class="aon-docReview-more"
-                      >show more</a
-                    >
+                    We would like to let you know how much we appreciate the
+                    special care our daughter was given by the doctor and staff
+                    at your clinic. Our baby's physician was professional, kind,
+                    understanding, and her treatment was "right on." Your clinic
+                    should be proud to have such kind hearted people. They made
+                    sure that my daughter's hospitalization was very
+                    pleasant....
                   </p>
                   <div class="aon-docReview-meta">
                     Initials hidden | July 27, 2022
@@ -617,13 +625,12 @@
                 </li>
                 <li>
                   <p>
-                    Very professional but easy to talk to. He clearly laid out
-                    the issue I was facing and the steps to fix it. Most
-                    importantly, I did not feel judged when...<a
-                      href="javascript:void(0)"
-                      class="aon-docReview-more"
-                      >show more</a
-                    >
+                    I am writing on behalf of my brother who was a patient in
+                    your clinic. I would like to thank you on behalf of my
+                    entire family for the help and consideration shown to me in
+                    what was a very difficult time. Again, I would like to thank
+                    you for the services you provide to patients and their
+                    families.
                   </p>
                   <div class="aon-docReview-meta">
                     Initials hidden | July 27, 2022
@@ -638,20 +645,11 @@
 
           <!--Location-->
           <div class="aon-docLocation-wrap" #doclocation>
-            <h3 class="mb-4">Location</h3>
+            <h3 class="mb-4">
+              <i class="fa fa-map fs-2 icocolor"></i> Location
+            </h3>
             <div class="sf-doc-location">
-              <div class="row" *ngIf="doc.ClinicOneTimings.active">
-                <div class="col-lg-6">
-                  <agm-map
-                    [latitude]="doc.ClinicOneTimings.ClinicLocation.loc.y"
-                    [longitude]="doc.ClinicOneTimings.ClinicLocation.loc.x"
-                    [zoom]="zoom"
-                    [zoomControl]="false"
-                    (mapClick)="mapClicked($event)"
-                    [mapTypeId]="googleMapType"
-                  >
-                  </agm-map>
-                </div>
+              <div class="row mb-5" *ngIf="doc.ClinicOneTimings.active">
                 <div class="col-lg-6">
                   <ul class="sf-doc-contacts">
                     <li>
@@ -666,9 +664,22 @@
                     </li>
                   </ul>
                 </div>
+                <div class="col-lg-6">
+                  <i class="fa fa-map-marker fs-2 icocolor"></i> &nbsp;&nbsp;
+                  <a
+                    mat-button
+                    color="primary"
+                    class="fw-bold text-decoration-underline"
+                    href="https://maps.google.com/maps?q={{
+                      doc.ClinicOneTimings.ClinicLocation.loc.y
+                    }},{{ doc.ClinicOneTimings.ClinicLocation.loc.x }}"
+                    target="_blank"
+                  >
+                    View Clinic map location
+                  </a>
+                </div>
               </div>
               <div class="row" *ngIf="doc.ClinicTwoTimings.active">
-                <div class="col-lg-6"></div>
                 <div class="col-lg-6">
                   <ul class="sf-doc-contacts">
                     <li>
@@ -683,13 +694,29 @@
                     </li>
                   </ul>
                 </div>
+                <div class="col-lg-6">
+                  <i class="fa fa-map-marker fs-2 icocolor"></i> &nbsp;&nbsp;
+                  <a
+                    mat-button
+                    color="primary"
+                    class="fw-bold text-decoration-underline"
+                    href="https://maps.google.com/maps?q={{
+                      doc.ClinicTwoTimings.ClinicLocation.loc.y
+                    }},{{ doc.ClinicTwoTimings.ClinicLocation.loc.x }}"
+                    target="_blank"
+                  >
+                    View Clinic map location
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
           <!--Patient Exp Info-->
           <div class="aon-docPexpi-wrap" id="aon-reviews-area">
-            <h3 class="mb-4">Patient Experience</h3>
+            <h3 class="mb-4">
+              <i class="fa fa-comments fs-2 icocolor"></i> Patient Experience
+            </h3>
             <div class="sf-patient-exp-list">
               <ul>
                 <li>
@@ -706,12 +733,13 @@
                           <span class="sf-rating-lable">(4/5)</span>
                         </div>
                       </div>
-                      <span class="sf-patient-exp-date">07 March</span>
+                      <span class="sf-patient-exp-date">07 Sep</span>
                     </div>
                     <p>
-                      "It is a long established fact that a reader will be
-                      distracted by the readable content of a page when looking
-                      at its layout."
+                      "Your practice is great. The services you provide are
+                      incredible and the patient experience you provide is like
+                      nothing else. You know these to be true, but are they
+                      known locally, nationally, or globally?"
                     </p>
                   </div>
                 </li>
@@ -729,12 +757,12 @@
                           <span class="sf-rating-lable">(4/5)</span>
                         </div>
                       </div>
-                      <span class="sf-patient-exp-date">07 March</span>
+                      <span class="sf-patient-exp-date">07 Mar</span>
                     </div>
                     <p>
-                      "It is a long established fact that a reader will be
-                      distracted by the readable content of a page when looking
-                      at its layout."
+                      "If you provide better care at a lower cost, that's
+                      something you need to let prospective clients know while
+                      they're researching where to go for an appointment."
                     </p>
                   </div>
                 </li>
@@ -747,17 +775,16 @@
                           <span class="fa fa-star"></span>
                           <span class="fa fa-star"></span>
                           <span class="fa fa-star"></span>
-                          <span class="fa fa-star"></span>
                           <span class="fa fa-star-half-full"></span>
-                          <span class="sf-rating-lable">(4/5)</span>
+                          <span class="sf-rating-lable">(3/5)</span>
                         </div>
                       </div>
-                      <span class="sf-patient-exp-date">07 March</span>
+                      <span class="sf-patient-exp-date">09 Apr</span>
                     </div>
                     <p>
-                      "It is a long established fact that a reader will be
-                      distracted by the readable content of a page when looking
-                      at its layout."
+                      "You have been outstandingly helpful and provided a high
+                      quality of service, care and comfort to my spouse. Thank
+                      you."
                     </p>
                   </div>
                 </li>
@@ -770,17 +797,17 @@
                           <span class="fa fa-star"></span>
                           <span class="fa fa-star"></span>
                           <span class="fa fa-star"></span>
-                          <span class="fa fa-star"></span>
                           <span class="fa fa-star-half-full"></span>
-                          <span class="sf-rating-lable">(4/5)</span>
+                          <span class="sf-rating-lable">(3/5)</span>
                         </div>
                       </div>
-                      <span class="sf-patient-exp-date">07 March</span>
+                      <span class="sf-patient-exp-date">07 Feb</span>
                     </div>
                     <p>
-                      "It is a long established fact that a reader will be
-                      distracted by the readable content of a page when looking
-                      at its layout."
+                      "I want to thank You for taking care of me. I loved my
+                      experience at your hospital and would recommend this
+                      hospital to family and friends. Keep up the phenomenal
+                      work"
                     </p>
                   </div>
                 </li>
@@ -816,7 +843,9 @@
               <div
                 class="aon-consultancy-free d-flex justify-content-between align-items-center"
               >
-                <h3 class="aon-consultancy-title">Consulting Fee</h3>
+                <h3 class="aon-consultancy-title">
+                  <i class="fa fa-credit-card fs-4 icocolor"></i> Consulting Fee
+                </h3>
                 <span class="aon-consultancy-price"
                   >₹
                   {{
@@ -1039,3 +1068,4 @@
   </div>
   <!-- Left & right section  END -->
 </div>
+<appointments [data]="inputToChild"></appointments>

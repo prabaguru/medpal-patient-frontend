@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService, MedpalService } from 'src/app/services';
+declare var $: any;
 @Component({
   templateUrl: './doctors-profile.component.html',
   styleUrls: ['./doctors-profile.component.scss'],
 })
 export class DoctorsProfileComponent implements OnInit {
+  public inputToChild: any;
   docName: string = '';
   docId: string = '';
   doc: any = [];
@@ -63,5 +65,30 @@ export class DoctorsProfileComponent implements OnInit {
   }
 
   mapClicked(event: any) {}
-  openModal(data: any, cli: any) {}
+
+  openModal(data: any, cli: any) {
+    this.inputToChild = null;
+    let obj = {};
+    if (cli === 'clinic1') {
+      data['clinic1'] = true;
+      data['clinic2'] = false;
+      obj = {
+        mainObj: data,
+        clicnicData: data.ClinicOneTimings,
+      };
+    }
+    if (cli === 'clinic2') {
+      data['clinic1'] = false;
+      data['clinic2'] = true;
+      obj = {
+        mainObj: data,
+        clicnicData: data.ClinicTwoTimings,
+      };
+    }
+    this.inputToChild = obj;
+
+    setTimeout(function () {
+      $('#staticBackdropAppointments').modal('show');
+    }, 500);
+  }
 }

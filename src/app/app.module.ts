@@ -32,7 +32,6 @@ import {
   ErrorInterceptor,
   AuthGuard,
 } from './services/';
-import { AgmCoreModule } from '@agm/core';
 import { NgOtpInputModule } from 'ng-otp-input';
 @NgModule({
   declarations: [
@@ -65,9 +64,6 @@ import { NgOtpInputModule } from 'ng-otp-input';
     NgxIntlTelInputModule,
     AppRoutingModule,
     NgHttpLoaderModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCeyWl8SeX1z5K8JzGUlgC9kan_sCQ-bpw',
-    }),
     NgOtpInputModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

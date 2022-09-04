@@ -10,9 +10,12 @@ export class MedpalHomeComponent implements OnInit {
   isLoggenIn: boolean = false;
   constructor(public authService: AuthService) {
     this.currentUser = null;
-    this.currentUser = this.authService.currentUserValue;
-    const token = this.currentUser?.token;
-    token ? (this.isLoggenIn = true) : (this.isLoggenIn = false);
+    this.authService.currentUser.subscribe((x) => {
+      this.currentUser = x;
+      this.currentUser?.token
+        ? (this.isLoggenIn = true)
+        : (this.isLoggenIn = false);
+    });
   }
 
   ngOnInit(): void {

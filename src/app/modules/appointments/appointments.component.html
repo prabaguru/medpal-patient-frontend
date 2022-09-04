@@ -122,15 +122,15 @@
                     </mat-form-field>
                   </div>
                   <div
-                    class=""
+                    class="d-flex justify-content-center"
                     *ngIf="finalTimeslot.length == 0 && timingSlotsFlag"
                   >
                     <div
-                      class="alert alert-danger col-md-8 fw-bold"
+                      class="alert alert-danger col-md-5 fw-bold text-center mt-3"
                       role="alert"
                     >
-                      We regret for the inconvenience caused. The clinic is not
-                      functioning today. Select different date...
+                      We regret for the inconvenience caused. <br />Our clinic
+                      is not functioning today. Kindly select different date.
                     </div>
                   </div>
                   <mat-button-toggle-group
@@ -435,7 +435,7 @@
                     <tbody>
                       <tr>
                         <th scope="row">1</th>
-                        <td>
+                        <td style="width: 150px">
                           <i class="fa fa-user-plus icosize"></i> Doctor Name
                         </td>
                         <td>
@@ -492,9 +492,35 @@
                       <tr>
                         <th scope="row">3</th>
                         <td>
-                          <i class="fa fa-map-marker icosize"></i> Location
+                          <i class="fa fa-inr icosize"></i> Consultation Fees
                         </td>
-                        <td>{{ appoinmentDetails.ClinicAddress.address }}</td>
+                        <td>
+                          <i class="fa fa-inr icosize"></i>
+                          {{ appoinmentDetails.consultingFees }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td>
+                          <i class="fa fa-address-card icosize"></i> Clinic
+                          Address
+                        </td>
+                        <td>
+                          {{ appoinmentDetails.ClinicAddress.address }}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="3">
+                          <i class="fa fa-map-marker icosize"></i>&nbsp;&nbsp;
+                          <a
+                            class="clinicloc"
+                            href="https://maps.google.com/maps?q={{
+                              appoinmentDetails.ClinicAddress.loc.y
+                            }},{{ appoinmentDetails.ClinicAddress.loc.x }}"
+                            target="_blank"
+                            >View Clinic map location</a
+                          >
+                        </td>
                       </tr>
                     </tbody>
                   </table>

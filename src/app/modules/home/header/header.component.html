@@ -26,8 +26,18 @@
             class="nav-link active"
             aria-current="page"
             href="javascript:void(0)"
-            >Book Appointments</a
+            ><i class="fa fa-calendar icosize"></i> Book Appointments
+          </a>
+        </li>
+        <li>
+          <a
+            *ngIf="isLoggenIn"
+            class="nav-link"
+            href="javascript:void(0)"
+            [routerLink]="['/medpal/patient/Appointments']"
           >
+            <i class="fa fa-user-plus icosize"></i> My Appointments
+          </a>
         </li>
         <li class="nav-item dropdown">
           <a
@@ -53,10 +63,10 @@
             <li>
               <a class="dropdown-item" href="javascript:void(0)">Doctor</a>
             </li>
-            <li><hr class="dropdown-divider" /></li>
+            <!-- <li><hr class="dropdown-divider" /></li>
             <li>
               <a class="dropdown-item" href="javascript:void(0)">Hospital</a>
-            </li>
+            </li> -->
           </ul>
         </li>
 
@@ -89,16 +99,14 @@
                 >Doctor Login</a
               >
             </li>
-            <li><hr class="dropdown-divider" /></li>
-            <li>
+            <!-- <li>
               <a class="dropdown-item" href="javascript:void(0)"
                 >Hospital Doctor Login</a
               >
             </li>
-            <li><hr class="dropdown-divider" /></li>
             <li>
               <a class="dropdown-item" href="javascript:void">Hospital Login</a>
-            </li>
+            </li> -->
           </ul>
         </li>
       </ul>
