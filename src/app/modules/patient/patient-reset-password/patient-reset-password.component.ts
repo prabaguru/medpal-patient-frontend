@@ -12,6 +12,8 @@ import { PopupComponent } from 'src/app/shared/components/popup/popup.component'
 })
 export class PatientProfileResetPasswordComponent implements OnInit {
   isDoctor = false;
+  public showPassword: boolean = false;
+  public showPasswordC: boolean = false;
   //public enableLoader = false;
   submitted = false;
   currentUser: any;
@@ -100,5 +102,11 @@ export class PatientProfileResetPasswordComponent implements OnInit {
         this.commonService.showNotification(err);
       },
     });
+  }
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+  public togglePasswordVisibilityC(): void {
+    this.showPasswordC = !this.showPasswordC;
   }
 }

@@ -62,10 +62,11 @@
             </div>
           </div>
           <div class="col-md-12 flag-mobile">
+            <mat-label>Mobile</mat-label>
             <ngx-intl-tel-input
               [cssClass]="'custom-flag-input'"
               [enableAutoCountrySelect]="true"
-              [enablePlaceholder]="true"
+              [enablePlaceholder]="false"
               [searchCountryFlag]="false"
               [onlyCountries]="preferredCountries"
               [searchCountryField]="[
@@ -74,7 +75,7 @@
               ]"
               [selectFirstCountry]="false"
               [selectedCountryISO]="CountryISO.India"
-              [maxLength]="15"
+              [maxLength]="10"
               [phoneValidation]="true"
               [separateDialCode]="separateDialCode"
               [numberFormat]="PhoneNumberFormat.National"
@@ -96,12 +97,14 @@
               <mat-label>Password</mat-label>
               <mat-icon matPrefix class="form-icon">vpn_key</mat-icon>
               <input
-                type="password"
+                [type]="showPassword ? 'text' : 'password'"
                 matInput
                 (input)="pwdMatch()"
                 formControlName="password"
                 maxlength="15"
-              />
+              /><mat-icon matSuffix (click)="togglePasswordVisibility()">{{
+                showPassword ? "visibility_off" : "visibility"
+              }}</mat-icon>
             </mat-form-field>
             <div
               class="custom-error"
@@ -121,12 +124,15 @@
                 <mat-label>Confirm Password</mat-label>
                 <mat-icon matPrefix class="form-icon">vpn_key</mat-icon>
                 <input
-                  type="password"
+                  [type]="showPassword ? 'text' : 'password'"
                   matInput
                   (input)="pwdMatch()"
                   formControlName="confirmPwd"
                   maxlength="15"
                 />
+                <mat-icon matSuffix (click)="togglePasswordVisibility()">{{
+                  showPassword ? "visibility_off" : "visibility"
+                }}</mat-icon>
               </mat-form-field>
               <div
                 class="custom-error"

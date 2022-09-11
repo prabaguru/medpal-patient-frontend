@@ -117,11 +117,14 @@
                 <mat-label>Password</mat-label>
                 <mat-icon matPrefix class="form-icon">vpn_key</mat-icon>
                 <input
-                  type="password"
+                  [type]="showPassword ? 'text' : 'password'"
                   matInput
                   formControlName="password"
                   maxlength="10"
                 />
+                <mat-icon matSuffix (click)="togglePasswordVisibility()">{{
+                  showPassword ? "visibility_off" : "visibility"
+                }}</mat-icon>
               </mat-form-field>
             </div>
             <div class="col-md-12">

@@ -187,11 +187,10 @@
                 <div class="col-xl-4 col-lg-6 col-sm-6 flag-mobile text-start">
                   <ngx-intl-tel-input
                     [cssClass]="'custom-flag-input'"
-                    [preferredCountries]="preferredCountries"
+                    [onlyCountries]="preferredCountries"
                     [enableAutoCountrySelect]="true"
-                    [enablePlaceholder]="true"
-                    [searchCountryFlag]="true"
-                    [enablePlaceholder]="true"
+                    [enablePlaceholder]="false"
+                    [searchCountryFlag]="false"
                     [searchCountryField]="[
                       SearchCountryField.Iso2,
                       SearchCountryField.Name
@@ -229,7 +228,7 @@
                     [cssClass]="'custom-flag-input'"
                     [onlyCountries]="preferredCountries"
                     [enableAutoCountrySelect]="true"
-                    [enablePlaceholder]="true"
+                    [enablePlaceholder]="false"
                     [searchCountryFlag]="false"
                     [searchCountryField]="[
                       SearchCountryField.Iso2,
@@ -237,7 +236,7 @@
                     ]"
                     [selectFirstCountry]="false"
                     [selectedCountryISO]="CountryISO.India"
-                    [maxLength]="15"
+                    [maxLength]="10"
                     [phoneValidation]="true"
                     [separateDialCode]="separateDialCode"
                     [numberFormat]="PhoneNumberFormat.National"

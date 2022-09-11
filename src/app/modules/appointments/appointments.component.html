@@ -249,12 +249,6 @@
                 *ngIf="submitted && loggedIn"
                 class="row d-flex justify-content-center mt-4"
               >
-                <div class="col-md-3 mb-2">
-                  AppointmentDate:
-                  {{ f.bookedDay.value }} - {{ f.bookedDate.value }} - Slot:
-                  {{ f.slot.value }}
-                </div>
-                <div class="w-100"></div>
                 <div class="col-md-3 mb-3">
                   <mat-label class="bookforme">Book for Me&nbsp;</mat-label>
                   <mat-slide-toggle
@@ -368,6 +362,14 @@
                       Mobile no must have 10 digits
                     </div>
                   </div>
+                </div>
+                <div class="w-100"></div>
+                <div class="col-md-3 mb-2 fw-bold text-uppercase font12">
+                  Appointment Date:
+                  <span class="appdatecolor fw-bold"
+                    >{{ f.bookedDay.value }} - {{ f.bookedDate.value }} - Slot:
+                    {{ f.slot.value }}</span
+                  >
                 </div>
                 <div class="w-100"></div>
                 <div class="col-md-3 mb-3">

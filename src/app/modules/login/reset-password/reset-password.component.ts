@@ -12,6 +12,7 @@ import { PopupComponent } from 'src/app/shared/components/popup/popup.component'
 })
 export class ResetPasswordComponent implements OnInit {
   isDoctor = false;
+  public showPassword: boolean = false;
   resetForm: FormGroup = new FormGroup({});
   matchPassword: any;
   userId: any;
@@ -107,5 +108,8 @@ export class ResetPasswordComponent implements OnInit {
         this.commonService.showNotification(err);
       },
     });
+  }
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }

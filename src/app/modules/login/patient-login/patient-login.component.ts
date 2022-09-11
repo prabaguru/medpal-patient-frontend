@@ -18,6 +18,7 @@ declare var $: any;
 })
 export class PatientLoginComponent implements OnInit {
   //enableLoader = false;
+  public showPassword: boolean = false;
   returnUrl: any;
   userEmail: any;
   loginForm: FormGroup = new FormGroup({});
@@ -279,5 +280,8 @@ export class PatientLoginComponent implements OnInit {
         // );
       },
     });
+  }
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }

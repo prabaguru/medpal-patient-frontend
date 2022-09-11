@@ -90,7 +90,7 @@ export class AppointmentsComponent implements OnInit {
     length: 6,
     allowNumbersOnly: true,
   };
-  timeLeft: number = 60;
+  timeLeft: number = 90;
   interval: any;
   disableOtpBtn: boolean = false;
   otp: any;
@@ -411,10 +411,19 @@ export class AppointmentsComponent implements OnInit {
       docGrad = `(${this.doc.graduation.qualificationUG.sName}) : ${this.doc.graduation.DoctorType.name}`;
     }
     let clinicloc = '';
+    let cord = [];
     if (this.doc.clinic1) {
       clinicloc = this.doc.ClinicOneTimings.ClinicLocation.address;
+      cord = [
+        this.doc.ClinicOneTimings.ClinicLocation.loc.x,
+        this.doc.ClinicOneTimings.ClinicLocation.loc.y,
+      ];
     } else {
       clinicloc = this.doc.ClinicTwoTimings.ClinicLocation.address;
+      cord = [
+        this.doc.ClinicTwoTimings.ClinicLocation.loc.x,
+        this.doc.ClinicTwoTimings.ClinicLocation.loc.y,
+      ];
     }
     let dateeObj = '';
     let concot = '';
@@ -441,6 +450,7 @@ export class AppointmentsComponent implements OnInit {
       doctorQualification: docGrad,
       clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
       ClinicAddress: clinicloc,
+      cord: cord,
     };
 
     this.medpalService.bookAppointment(apiobj).subscribe({
@@ -610,7 +620,7 @@ export class AppointmentsComponent implements OnInit {
     this.isOtpVisible = true;
     this.disableOtpBtn = true;
     this.startTimer();
-    this.timeLeft = 60;
+    this.timeLeft = 90;
     this.otpBtnText = 'sec left to enter OTP';
     this.secondFormGroup.get('mobNo')?.disable({ onlySelf: true });
     this.onSubmitOtp(this.otp);

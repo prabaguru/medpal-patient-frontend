@@ -18,6 +18,7 @@ import { first } from 'rxjs/operators';
 })
 export class PatientSignupComponent implements OnInit {
   isDoctor = false;
+  public showPassword: boolean = false;
   //enableLoader = false;
   separateDialCode = true;
   SearchCountryField = SearchCountryField;
@@ -162,5 +163,8 @@ export class PatientSignupComponent implements OnInit {
           });
       }
     });
+  }
+  public togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }
