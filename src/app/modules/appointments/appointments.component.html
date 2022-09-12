@@ -48,12 +48,12 @@
                 ({{ doc.graduation.qualificationUG.sName }})
               </span>
 
-              <span>{{ doc.graduation.DoctorType.name }}</span>
-              <p *ngIf="doc.clinic1">
+              <span class="hm">{{ doc.graduation.DoctorType.name }}</span>
+              <p *ngIf="doc.clinic1" class="hm">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 {{ doc.ClinicOneTimings.ClinicLocation.address }}
               </p>
-              <p *ngIf="doc.clinic2">
+              <p *ngIf="doc.clinic2" class="hm">
                 <i class="fa fa-map-marker" aria-hidden="true"></i>
                 {{ doc.ClinicTwoTimings.ClinicLocation.address }}
               </p>
