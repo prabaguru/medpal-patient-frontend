@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService, MedpalService } from 'src/app/services';
+import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 
 declare var $: any;
 @Component({
@@ -11,16 +12,93 @@ export class DoctorsListingComponent implements OnInit {
   //public enableLoader = false;
   public inputToChild: any;
   doctorsListing = [];
+  options: any = {};
+  public lat: number = 0;
+  public lng: number = 0;
   constructor(
     public commonService: CommonService,
     public medpalService: MedpalService
-  ) {}
+  ) {
+    const center = { lat: 12.972442, lng: 77.580643 };
+    // Create a bounding box with sides ~10km away from the center point
+    const defaultBounds = {
+      north: center.lat + 0.1,
+      south: center.lat - 0.1,
+      east: center.lng + 0.1,
+      west: center.lng - 0.1,
+    };
+    this.options = {
+      bounds: undefined,
+      fields: ['place_id', 'name', 'formatted_address', 'geometry'],
+      strictBounds: false,
+      types: [],
+      componentRestrictions: { country: 'in' },
+    };
+  }
 
   ngOnInit(): void {
-    this.medpalService.getDoctorsLIsting().subscribe({
+    this.getLocation();
+    // this.medpalService.getDoctorsLIsting().subscribe({
+    //   next: (data: any) => {
+    //     this.doctorsListing = [];
+    //     this.doctorsListing = data;
+    //     //console.log(this.doctorsListing);
+    //   },
+    //   error: (err) => {
+    //     this.commonService.showNotification(err);
+    //   },
+    // });
+  }
+
+  public AddressChange(address: any) {
+    console.log(address);
+    this.lng = 0;
+    this.lat = 0;
+    this.lng = address.geometry.location.lng();
+    this.lat = address.geometry.location.lat();
+    console.log('Latitude: ' + this.lat + 'Longitude: ' + this.lng);
+    let obj = {};
+    obj = {
+      lng: this.lng,
+      lat: this.lat,
+    };
+    this.geoQueryDoctors(obj);
+  }
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position: any) => {
+          if (position) {
+            console.log(
+              'Latitude: ' +
+                position.coords.latitude +
+                'Longitude: ' +
+                position.coords.longitude
+            );
+            this.lat = position.coords.latitude;
+            this.lng = position.coords.longitude;
+            let obj = {};
+            obj = {
+              lat: this.lat,
+              lng: this.lng,
+            };
+            this.geoQueryDoctors(obj);
+          }
+        },
+        (error: any) => console.log(error)
+      );
+    } else {
+      this.lat = 0;
+      this.lng = 0;
+    }
+  }
+
+  geoQueryDoctors(obj: any) {
+    this.medpalService.getDoctorsLIstingGeo(obj).subscribe({
       next: (data: any) => {
+        this.doctorsListing = [];
         this.doctorsListing = data;
-        //console.log(this.doctorsListing);
+        console.log(this.doctorsListing);
       },
       error: (err) => {
         this.commonService.showNotification(err);

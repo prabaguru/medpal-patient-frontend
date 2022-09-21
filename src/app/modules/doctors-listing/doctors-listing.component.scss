@@ -1,3 +1,15 @@
 .bg {
   background-color: #fff;
 }
+.searchmain {
+  padding: 0px 0 0px 20px;
+}
+::ng-deep .mat-form-field {
+  font-size: 18px; // example
+}
+.matlabel {
+  padding-left: 20px;
+}
+.getcLocation {
+  color: #000;
+}

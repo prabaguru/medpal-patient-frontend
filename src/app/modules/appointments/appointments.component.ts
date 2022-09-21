@@ -5,7 +5,8 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { PlatformLocation } from '@angular/common';
+import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import {
   FormBuilder,
@@ -55,6 +56,7 @@ const MY_DATE_FORMAT = {
 })
 export class AppointmentsComponent implements OnInit {
   @ViewChild('stepper') stepper!: MatStepper;
+
   editable: boolean = true;
   isEditable: boolean = false;
   clinicNumber: any = [];
@@ -108,8 +110,12 @@ export class AppointmentsComponent implements OnInit {
     public commonService: CommonService,
     public medpalService: MedpalService,
     private _formBuilder: FormBuilder,
-    public authService: AuthService
+    public authService: AuthService,
+    location: PlatformLocation
   ) {
+    location.onPopState(() => {
+      $('#staticBackdropAppointments').modal('hide');
+    });
     this.minDate = moment(moment.now()).toDate();
     this.maxDate = moment(this.minDate, 'DD/MM/YYYY').add(10, 'days').toDate();
 

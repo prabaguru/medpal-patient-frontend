@@ -33,6 +33,7 @@ import {
   AuthGuard,
 } from './services/';
 import { NgOtpInputModule } from 'ng-otp-input';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +66,7 @@ import { NgOtpInputModule } from 'ng-otp-input';
     AppRoutingModule,
     NgHttpLoaderModule.forRoot(),
     NgOtpInputModule,
+    GooglePlaceModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

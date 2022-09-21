@@ -31,6 +31,7 @@
     "ng-http-loader": "^11.0.1",
     "ng-otp-input": "^1.8.5",
     "ngx-bootstrap": "^8.0.0",
+    "ngx-google-places-autocomplete": "^2.0.5",
     "ngx-intl-tel-input": "^3.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",

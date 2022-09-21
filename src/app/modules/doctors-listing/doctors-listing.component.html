@@ -1,29 +1,55 @@
-<!-- <div class="container-fluid bg">
+<div class="container-fluid bg">
   <div class="row">
     <div class="aon-search2-bar-wrap">
       <div class="container">
         <div class="aon-search2-row">
-          <form class="aon-search2-form no-p-lr row justify-content-between">
-            <div class="col-md-5">
-              <mat-form-field appearance="outline" class="full-width-field">
-                <mat-label>Search doctors, clinics, hospitals, etc.</mat-label>
-                <input type="text" matInput maxlength="20" />
-                <mat-icon matPrefix class="my-icon">local_hospital</mat-icon>
-              </mat-form-field>
-            </div>
-
-            <div class="col-md-5">
+          <form class="aon-search2-form no-p-lr row justify-content-center">
+            <div class="col-md-8">
               <mat-form-field
                 appearance="outline"
                 class="full-width-field border-red"
               >
-                <mat-label>Search Location.</mat-label>
-                <input type="text" matInput maxlength="20" />
-                <mat-icon matPrefix class="my-icon">my_location</mat-icon>
+                <mat-label class="matlabel"
+                  >Search Doctors By Location</mat-label
+                >
+                <input
+                  type="text"
+                  matInput
+                  ngx-google-places-autocomplete
+                  [options]="options"
+                  class="searchmain"
+                  (onAddressChange)="AddressChange($event)"
+                />
+                <mat-icon
+                  matPrefix
+                  class="my-icon"
+                  (click)="getLocation()"
+                  matTooltipPosition="above"
+                  ><span class="material-symbols-outlined">
+                    travel_explore
+                  </span></mat-icon
+                >
+                <mat-icon
+                  matSuffix
+                  matTooltip="You are searching locations in India"
+                  matTooltipPosition="above"
+                  (click)="getLocation()"
+                  class="infomargin"
+                  >info</mat-icon
+                >
               </mat-form-field>
             </div>
+            <div class="col-md-2 getcLocation pt-4">
+              <a href="javascript:void(0)" (click)="getLocation()"
+                ><mat-icon
+                  matTooltip="Get Current Location"
+                  matTooltipPosition="above"
+                  >my_location</mat-icon
+                >Get Current Location</a
+              >
+            </div>
 
-            <div class="col-md-2">
+            <!-- <div class="col-md-2">
               <button
                 mat-raised-button
                 color="primary"
@@ -32,19 +58,19 @@
               >
                 Search
               </button>
-            </div>
+            </div> -->
           </form>
         </div>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 <div class="aon-search-info-wrap">
   <div class="container">
     <h3 class="aon-searchInfo-title">
-      {{ doctorsListing.length }}
-      <span *ngIf="doctorsListing.length == 1">Doctor</span>
-      <span *ngIf="doctorsListing.length > 1 || doctorsListing.length == 0"
+      {{ doctorsListing?.length }}
+      <span *ngIf="doctorsListing?.length == 1">Doctor</span>
+      <span *ngIf="doctorsListing?.length > 1 || doctorsListing?.length == 0"
         >Doctors</span
       >
       available
@@ -99,7 +125,7 @@
                   </a>
                   <i class="fa fa-check"></i>
                 </div>
-                <div class="sf-grid-info">
+                <div class="sf-grid-info text-break">
                   <a
                     href="javascript:void(0)"
                     [routerLink]="['/medpal/doctors-profile']"
@@ -107,7 +133,10 @@
                     class="sf-doc-profile-view"
                     >View Profile</a
                   >
-                  <h3>Dr. {{ doc.firstName }}</h3>
+                  <h3 class="text-capitalize">
+                    Dr. {{ doc.firstName }}
+                    <span *ngIf="doc.lastName">{{ doc.lastName }}</span>
+                  </h3>
                   <p *ngIf="doc.graduation.DoctorType.name" class="m-0">
                     {{ doc.graduation.DoctorType.name }}
                   </p>

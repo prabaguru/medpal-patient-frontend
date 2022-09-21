@@ -95,6 +95,13 @@ export class MedpalService {
       .pipe(catchError(this.handleError));
   }
 
+  getDoctorsLIstingGeo(data: any) {
+    let params = new HttpParams({ fromObject: data });
+    return this.http
+      .get(`${this.baseUrl}/doctors/getAllGeo`, { params })
+      .pipe(catchError(this.handleError));
+  }
+
   getDoctorData(data: any) {
     let params = new HttpParams({ fromObject: data });
     return this.http
