@@ -37,17 +37,17 @@ export class DoctorsListingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getLocation();
-    // this.medpalService.getDoctorsLIsting().subscribe({
-    //   next: (data: any) => {
-    //     this.doctorsListing = [];
-    //     this.doctorsListing = data;
-    //     //console.log(this.doctorsListing);
-    //   },
-    //   error: (err) => {
-    //     this.commonService.showNotification(err);
-    //   },
-    // });
+    //this.getLocation();
+    this.medpalService.getDoctorsLIsting().subscribe({
+      next: (data: any) => {
+        this.doctorsListing = [];
+        this.doctorsListing = data;
+        //console.log(this.doctorsListing);
+      },
+      error: (err) => {
+        this.commonService.showNotification(err);
+      },
+    });
   }
 
   public AddressChange(address: any) {
@@ -62,7 +62,7 @@ export class DoctorsListingComponent implements OnInit {
       lng: this.lng,
       lat: this.lat,
     };
-    this.geoQueryDoctors(obj);
+    //this.geoQueryDoctors(obj);
   }
   getLocation() {
     if (navigator.geolocation) {

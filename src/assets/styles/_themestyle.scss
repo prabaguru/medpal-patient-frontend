@@ -17134,12 +17134,14 @@ div.dataTables_wrapper div.dataTables_filter input {
     border-radius: 0.25rem;
   }
 }
-
+.br {
+  border-radius: 0% !important;
+}
 @media only screen and (max-width: 600px) {
   .aon-form-doc-pic {
     width: 80px;
     height: 45px;
-    border-radius: 100%;
+    border-radius: 0% !important;
     overflow: hidden;
     margin-right: 15px;
   }
