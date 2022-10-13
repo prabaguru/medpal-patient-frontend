@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/services';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   currentUser: any = {};
   isLoggenIn: boolean = false;
+  private subscriptions = new Subscription();
   constructor(private authService: AuthService, private router: Router) {
     this.authService.currentUser.subscribe((x) => {
       this.currentUser = x;
@@ -20,11 +22,16 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {}
   logout() {
-    this.authService.logout().subscribe((res) => {
-      if (!res.success) {
-        this.router.navigate(['/medpal/home']);
-      }
-      this.isLoggenIn = false;
-    });
+    this.subscriptions.add(
+      this.authService.logout().subscribe((res) => {
+        if (!res.success) {
+          this.router.navigate(['/medpal/home']);
+        }
+        this.isLoggenIn = false;
+      })
+    );
+  }
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

@@ -39,7 +39,7 @@
             <i class="fa fa-medkit icosize"></i> My Appointments
           </a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="!isLoggenIn">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -75,7 +75,7 @@
           </ul>
         </li>
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="!isLoggenIn">
           <a
             class="nav-link dropdown-toggle"
             href="#"
