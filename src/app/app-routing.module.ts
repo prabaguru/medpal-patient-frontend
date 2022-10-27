@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './modules/home/header/header.component';
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
+import { MedpalAboutUsComponent } from './modules/home/aboutus/aboutus.component';
 import { PatientLoginComponent } from './modules/login/patient-login/patient-login.component';
 import { PatientSignupComponent } from './modules/login/patient-signup/patient-signup.component';
 import { ResetPasswordComponent } from './modules/login/reset-password/reset-password.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'home',
         component: MedpalHomeComponent,
+      },
+      {
+        path: 'aboutus',
+        component: MedpalAboutUsComponent,
       },
       {
         path: 'doctors-listing/doctors',

@@ -22,6 +22,7 @@ import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { PatientHomeComponent } from './modules/patient/patient-home/patient-home.component';
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
+import { MedpalAboutUsComponent } from './modules/home/aboutus/aboutus.component';
 import { DoctorsListingComponent } from './modules/doctors-listing/doctors-listing.component';
 import { DoctorsProfileComponent } from './modules/doctors-profile/doctors-profile.component';
 import { AppointmentsComponent } from './modules/appointments/appointments.component';
@@ -48,6 +49,7 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     PatientHomeComponent,
     PatientProfileComponent,
     MedpalHomeComponent,
+    MedpalAboutUsComponent,
     PatientProfileResetPasswordComponent,
     DoctorsListingComponent,
     DoctorsProfileComponent,
