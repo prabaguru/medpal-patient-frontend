@@ -1,3 +1,4 @@
+@import "../../../assets/styles/_variables.scss";
 .capitalize {
   text-transform: capitalize !important;
 }
@@ -9,5 +10,5 @@
   font-size: 14px !important;
 }
 .timings2 {
-  color: red;
+  color: $med-core2;
 }

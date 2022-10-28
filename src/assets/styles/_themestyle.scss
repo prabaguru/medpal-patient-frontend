@@ -3180,7 +3180,7 @@ THEMEFOREST REQUIRED CLASSES
   color: $med-core;
 }
 button.scroltop {
-  background: #161616;
+  background: $med-core2;
   border: none;
   position: fixed;
   right: 10px;
@@ -7149,7 +7149,7 @@ body[class*="active-"] .cs-message-panel {
 .sf-medi-rate span {
   display: inline-block;
   padding-right: 2px;
-  color: $med-core;
+  color: $med-core2;
   font-size: 16px;
 }
 .sf-medi-rate span.sf-rating-lable {
@@ -7163,7 +7163,7 @@ body[class*="active-"] .cs-message-panel {
 }
 .bage-green {
   border-radius: 6px;
-  background-color: $med-core3;
+  background-color: $med-core2;
   color: #fff;
   padding: 2px 6px;
 }
@@ -7651,7 +7651,7 @@ body[class*="active-"] .cs-message-panel {
   position: absolute;
   bottom: -10px;
   left: 50%;
-  background: $med-core3;
+  background: $med-core2;
   color: #fff;
   width: 30px;
   height: 30px;
@@ -7740,7 +7740,7 @@ body[class*="active-"] .cs-message-panel {
 .aon-doctorAbout-rating {
   display: inline-block;
   padding-right: 2px;
-  color: $med-core;
+  color: $med-core2;
   font-size: 16px;
 }
 .aon-doctorAbout-rating .aon-rating-lable {
@@ -7774,7 +7774,7 @@ body[class*="active-"] .cs-message-panel {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: $med-core3;
+  background: $med-core2;
   color: #ffffff;
   font-weight: 600;
   padding: 10px 20px;
@@ -9345,7 +9345,7 @@ body[class*="active-"] .cs-message-panel {
   text-align: center;
 }
 .aon-addmore-btn-section .aon-addplus {
-  border: 1px solid $med-core;
+  border: 1px solid $med-core2;
   border-radius: 6px;
   background-color: #fff;
   width: 46px;
@@ -9354,7 +9354,7 @@ body[class*="active-"] .cs-message-panel {
   position: relative;
 }
 .aon-addmore-btn-section .aon-addplus i {
-  color: $med-core;
+  color: $med-core2;
   font-size: 20px;
   line-height: 40px;
   display: inline-block;
@@ -9365,7 +9365,7 @@ body[class*="active-"] .cs-message-panel {
   position: absolute;
   width: 80px;
   height: 1px;
-  background-color: $med-core;
+  background-color: $med-core2;
   top: 50%;
   transform: translateY(-50%);
   -webkit-transition: all 0.5s ease;
@@ -9476,7 +9476,7 @@ body[class*="active-"] .cs-message-panel {
   color: #2f6759;
 }
 .aon-med-sevices-cat:hover {
-  background-color: $med-core;
+  background-color: $med-core2;
   box-shadow: 10px 10px 0px 0px rgba(0, 0, 0, 0.1);
 }
 .aon-med-sevices-cat:hover .aon-med-serices-cat-info a,
@@ -10645,11 +10645,11 @@ body[class*="active-"] .cs-message-panel {
 }
 
 .aon-sub-title {
-  color: $med-core;
+  color: $med-core2;
   text-transform: uppercase;
   font-size: 16px;
   letter-spacing: 5px;
-  font-weight: 600;
+  font-weight: bold;
 }
 .section-head.white {
   color: #fff;

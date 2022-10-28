@@ -1,3 +1,11 @@
+@import "../../../../assets/styles/_variables.scss";
 .bg {
   background-color: #fff;
+}
+.medpal {
+  letter-spacing: 2.5px;
+  color: $med-core2;
+}
+.site-button {
+  background-color: $med-core2;
 }

@@ -21,6 +21,7 @@ export class CommonService {
       duration: duaration,
       verticalPosition: 'top',
       horizontalPosition: 'center',
+      panelClass: ['mat-toolbar'],
     });
   }
 

@@ -1,5 +1,6 @@
+@import "../../../../assets/styles/_variables.scss";
 .footer-wrapper {
-  background-color: #7c4bd2;
+  background-color: $med-core;
   border-top: 1px solid #647772;
   color: #fff !important;
   margin-top: 50px;
@@ -18,7 +19,7 @@
       content: "";
       width: 60px;
       height: 2px;
-      background: #c17bf8;
+      background: $med-core2;
       display: table;
     }
   }
@@ -46,5 +47,9 @@
     color: #fff;
     padding-top: 30px;
     text-align: center;
+  }
+  .primary,
+  .relative {
+    color: $med-core2;
   }
 }
