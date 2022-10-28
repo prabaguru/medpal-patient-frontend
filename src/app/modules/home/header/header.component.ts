@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.authService.logout().subscribe((res) => {
         if (!res.success) {
-          this.router.navigate(['/medpal/home']);
+          this.router.navigate(['/home']);
         }
         this.isLoggenIn = false;
       })

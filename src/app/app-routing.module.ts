@@ -16,9 +16,9 @@ import { PatientAppointmentsComponent } from './modules/patient/patient-appointm
 import { AuthGuard } from './services';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'medpal', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
-    path: 'medpal',
+    path: '',
     component: HeaderComponent,
 
     children: [

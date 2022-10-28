@@ -93,7 +93,7 @@ export class PatientProfileResetPasswordComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(() => {
           this.authService.logout();
-          this.router.navigate(['medpal/patient/login']);
+          this.router.navigate(['patient/login']);
         });
       },
       error: (err) => {

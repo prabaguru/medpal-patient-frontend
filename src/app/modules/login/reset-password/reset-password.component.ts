@@ -39,7 +39,7 @@ export class ResetPasswordComponent implements OnInit {
       this.commonService.showNotification(
         'Password reset link expired. Resend the link to reset your password...!'
       );
-      this.router.navigate(['./medpal/patient/forget-password']);
+      this.router.navigate(['./patient/forget-password']);
     }
 
     this.resetForm = new FormGroup({
@@ -97,7 +97,7 @@ export class ResetPasswordComponent implements OnInit {
           autoFocus: false,
         });
         dialogRef.afterClosed().subscribe(() => {
-          this.router.navigate(['/medpal/patient/login'], {
+          this.router.navigate(['/patient/login'], {
             queryParams: { email: this.userEmail },
           });
         });

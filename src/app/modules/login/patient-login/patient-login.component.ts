@@ -51,7 +51,7 @@ export class PatientLoginComponent implements OnInit {
     this.userEmail = this.router.snapshot.queryParams['email'] || '';
     this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || '/';
     if (this.authService.currentUserValue) {
-      this.route.navigate(['/medpal'], {
+      this.route.navigate(['/'], {
         queryParams: { returnUrl: this.returnUrl },
       });
     }
@@ -213,7 +213,7 @@ export class PatientLoginComponent implements OnInit {
           if (res) {
             const token = this.authService.currentUserValue.token;
             if (token) {
-              this.route.navigate(['medpal/patient/profile']);
+              this.route.navigate(['patient/profile']);
               this.commonService.showNotification(`Welcome ${res.firstName}!`);
             }
           } else {
@@ -243,7 +243,7 @@ export class PatientLoginComponent implements OnInit {
           if (res) {
             const token = this.authService.currentUserValue.token;
             if (token) {
-              this.route.navigate(['medpal/patient/profile']);
+              this.route.navigate(['patient/profile']);
               this.commonService.showNotification(`Welcome ${res.firstName}!`);
             }
           } else {

@@ -57,7 +57,7 @@ export class ResetPasswordEmailComponent implements OnInit {
           autoFocus: false,
         });
         dialogRef.afterClosed().subscribe(() => {
-          this.route.navigate(['medpal/home']);
+          this.route.navigate(['/home']);
         });
         this.resetForm.reset();
       },

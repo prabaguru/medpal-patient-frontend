@@ -69,7 +69,7 @@ export class PatientSignupComponent implements OnInit {
   ngOnInit(): void {
     this.returnUrl = this.router.snapshot.queryParams['returnUrl'] || '/';
     if (this.authService.currentUserValue) {
-      this.route.navigate(['/medpal'], {
+      this.route.navigate(['/home'], {
         queryParams: { returnUrl: this.returnUrl },
       });
     }
@@ -145,7 +145,7 @@ export class PatientSignupComponent implements OnInit {
               if (res) {
                 const token = this.authService.currentUserValue.token;
                 if (token) {
-                  this.route.navigate(['medpal/patient/profile']);
+                  this.route.navigate(['patient/profile']);
                   this.commonService.showNotification(
                     `Welcome ${res.firstName}!`
                   );
