@@ -35,7 +35,7 @@ export class PatientAppointmentsComponent implements OnInit {
   currentUser: any;
   getAppointments = [];
   dataSource: any = [];
-  columnsToDisplay = ['doctorName', 'bookedDate', 'AppointmentStatus'];
+  columnsToDisplay = ['doctorName', 'AppointmentDate', 'AppointmentStatus'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: any;
   getAppointmentsflag: boolean = false;

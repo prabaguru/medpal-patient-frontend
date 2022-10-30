@@ -78,6 +78,7 @@ const routes: Routes = [
         component: PatientAppointmentsComponent,
         canActivate: [AuthGuard],
       },
+      { path: '**', component: MedpalHomeComponent },
     ],
   },
 ];

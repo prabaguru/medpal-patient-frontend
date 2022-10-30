@@ -352,9 +352,9 @@ export class AppointmentsComponent implements OnInit {
     //console.log(halfAnHourAgo);
 
     this.finalTimeslot = [];
-    this.bookedTimeslot = this.doc.clinic1
-      ? this.doc.clinic1appointments
-      : this.doc.clinic2appointments;
+    // this.bookedTimeslot = this.doc.clinic1
+    //   ? this.doc.clinic1appointments
+    //   : this.doc.clinic2appointments;
     let arrLength = this.timingSlots.length;
     let barrLength = this.bookedTimeslot.length;
     for (let i = 0; i < arrLength; i++) {
@@ -468,6 +468,7 @@ export class AppointmentsComponent implements OnInit {
       error: (err) => {
         this.commonService.showNotification(err);
         this.g['confirmbooking'].setValue(false);
+        this.editable = true;
       },
     });
   }
@@ -480,7 +481,7 @@ export class AppointmentsComponent implements OnInit {
     let getdate = moment().format('DD/MM/YYYY');
     let currentDate = moment(getdate, 'DD/MM/YYYY').unix();
     if (updateObj.clinic === 'Clinic1') {
-      docAppo = this.doc.clinic1appointments;
+      docAppo = this.bookedTimeslot;
       docAppo.push(updateObj.appointmentDate);
       arr = docAppo.length;
       for (let i = 0; i < arr; i++) {
@@ -495,7 +496,7 @@ export class AppointmentsComponent implements OnInit {
         clinic1appointments: clinic1app,
       };
     } else {
-      docAppo = this.doc.clinic2appointments;
+      docAppo = this.bookedTimeslot;
       docAppo.push(updateObj.appointmentDate);
       arr = docAppo.length;
       for (let i = 0; i < arr; i++) {
