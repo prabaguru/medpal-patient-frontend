@@ -98,7 +98,7 @@ export class DoctorsListingComponent implements OnInit {
       next: (data: any) => {
         this.doctorsListing = [];
         this.doctorsListing = data;
-        console.log(this.doctorsListing);
+        // console.log(this.doctorsListing);
       },
       error: (err) => {
         this.commonService.showNotification(err);
