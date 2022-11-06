@@ -108,8 +108,8 @@
               </mat-form-field>
               <small
                 class="custom-error"
-                *ngIf="loginForm.controls['email'].errors?.pattern"
-                >Email address is invalid</small
+                *ngIf="loginForm.controls['email'].errors"
+                >Enter valid Email address with @ and . included</small
               >
             </div>
             <div class="col-md-12">

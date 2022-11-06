@@ -737,8 +737,24 @@ export class AppointmentsComponent implements OnInit {
     this.g['email'].setValue('');
     this.g['email'].enable();
   }
-  slotToggle() {
-    this.stepper.next();
+  slotToggle(time: any) {
+    let bTime = moment.unix(time.time).format('DD/MM/YYYY');
+    let curdate = moment(new Date()).format('DD/MM/YYYY');
+    let check = moment(bTime).isSame(curdate, 'day');
+    if (check) {
+      let curTime = moment().unix();
+      let ct = moment.unix(curTime).format('hh.mm a');
+      let bt = moment.unix(time.time).format('hh.mm a');
+      console.log(`current: ${ct} - bookedtime: ${bt}`);
+      if (curTime > time.time) {
+        this.commonService.showNotification('This Timeslot has elapsed');
+        this.getAppointmentsById();
+      } else {
+        this.stepper.next();
+      }
+    } else {
+      this.stepper.next();
+    }
   }
   stepperChange(e: any) {
     if (e.selectedIndex === 1) {

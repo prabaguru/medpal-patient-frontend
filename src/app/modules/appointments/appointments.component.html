@@ -139,7 +139,7 @@
                     aria-label="Available Slots"
                   >
                     <mat-button-toggle
-                      (click)="slotToggle()"
+                      (click)="slotToggle(time)"
                       *ngFor="let time of finalTimeslot"
                       [disabled]="time.disabled"
                       value="{{ time.Stime }}"

@@ -56,9 +56,9 @@
             </mat-form-field>
             <div
               class="custom-error"
-              *ngIf="signupForm.controls['email'].errors?.pattern"
+              *ngIf="signupForm.controls['email'].errors"
             >
-              Email address is invalid
+              Enter valid Email address with @ and . included
             </div>
           </div>
           <div class="col-md-12 flag-mobile">
