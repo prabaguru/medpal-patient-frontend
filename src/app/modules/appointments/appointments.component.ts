@@ -22,6 +22,7 @@ import {
 } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import * as moment from 'moment';
+(moment as any).suppressDeprecationWarnings = true;
 import { first } from 'rxjs/operators';
 import { MatStepper } from '@angular/material/stepper';
 declare var $: any;
@@ -843,23 +844,23 @@ export class AppointmentsComponent implements OnInit {
     let docName = this.doc.firstName;
     let apiKey = 'c8799b6ce5a546d65f9af7fe82ae42ce626ae8bdaf12c994';
     let apiToken = 'd8feca523bd8edbef6b22c146a32deb9512a003436eaf59d';
-    let domain = 'api.in.exotel.com';
+    let domain = '@api.in.exotel.com';
     let accountSid = 'weisermannerhealthcare1';
     //let glink = 'https://maps.google.com/maps?q=';
     //let gmap = `Clinic Map location: ${glink}${this.appoinmentDetails.ClinicAddress.loc.y},${this.appoinmentDetails.ClinicAddress.loc.x}`;
     let mob = `93531 05105`;
     let bookedfor = `${this.g['firstName'].value} on ${this.f['bookedDate'].value} - ${this.f['bookedDay'].value} at ${this.f['slot'].value}`;
     let msgString = '';
-    //msgString = `The consult with Dr. ${docName} is booked for ${bookedfor} . Our Helpline no is ${mob} . Plz carry your case no. Thank you. Medpal - Weisermanner`;
+    msgString = `The consult with Dr. ${docName} is booked for ${bookedfor} . Our Helpline no is ${mob} . Plz carry your case no. Thank you. Medpal - Weisermanner`;
     //let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobileNo}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000226781`;
-    msgString =
-      'This is a test message powered by Exotel. Report abuse to +918088919888 -Exotel';
-    let smsUrl = `https://${apiKey}:${apiToken}${domain}/v1/Accounts/${accountSid}/Sms/send.json?from=08047360080&to=${mobileNo}&content=${msgString}&dltentityid=1601335161674716856&dlttemplateid=1607100000000226781`;
+    // msgString =
+    //   'This is a test message powered by Exotel. Report abuse to +918088919888 -Exotel';
+    let smsUrl = `https://${apiKey}:${apiToken}${domain}/v1/Accounts/${accountSid}/Sms/send.json?from=WEISER&to=${mobileNo}&content=${msgString}&dltentityid=1601335161674716856&dlttemplateid=1607100000000226781&CSRFToken=opopopo`;
     $.ajax({
       type: 'POST',
       url: smsUrl,
-      crossDomain: true,
-      dataType: 'json',
+      dataType: 'jsonp',
+      contentType: 'application/json',
       success: function () {
         //this.commonService.showNotification('OTP sent successfully...');
       },

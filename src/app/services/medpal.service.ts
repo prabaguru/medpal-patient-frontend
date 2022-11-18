@@ -115,6 +115,18 @@ export class MedpalService {
       .put(`${this.baseUrl}/doctors/update`, payload)
       .pipe(catchError(this.handleError));
   }
+
+  sendSMS(payload: any) {
+    let apiKey = 'c8799b6ce5a546d65f9af7fe82ae42ce626ae8bdaf12c994';
+    let apiToken = 'd8feca523bd8edbef6b22c146a32deb9512a003436eaf59d';
+    let domain = '@api.exotel.com';
+    let accountSid = 'weisermannerhealthcare1';
+    let smsUrl = `https://${apiKey}:${apiToken}${domain}/v1/Accounts/${accountSid}/Sms/send.json`;
+    return this.http
+      .post(`${smsUrl}`, payload)
+      .pipe(catchError(this.handleError));
+  }
+
   private handleError(err: any) {
     //console.log("error caught in service");
     //console.error(err);
