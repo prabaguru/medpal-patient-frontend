@@ -14,6 +14,7 @@ import {
 } from '@angular/forms';
 import { CommonService, MedpalService } from 'src/app/services';
 import { NgOtpInputComponent, NgOtpInputConfig } from 'ng-otp-input';
+import { first } from 'rxjs/operators';
 declare var $: any;
 @Component({
   selector: 'app-otp-verify',
@@ -43,7 +44,8 @@ export class OtpVerifyComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _formBuilder: FormBuilder,
     public commonService: CommonService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public medpalService: MedpalService
   ) {
     if (this.data) {
       this.title = data.title;
@@ -121,23 +123,27 @@ export class OtpVerifyComponent implements OnInit {
 
   onSubmitOtp(otp: string) {
     let msgString = `Your OTP for login into Medpal  is  - ${otp} . OTP will expire in 90 sec. Thank you. Medpal - Weisermanner`;
+    let payload = {
+      From: 'WEISER',
+      To: this.data.mobileNo,
+      Body: msgString,
+      dltentityid: 1601335161674716856,
+      dlttemplateid: 1607100000000226780,
+    };
+    this.sendSMSafterBooking(payload);
+  }
 
-    let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${this.data.mobileNo}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000226780`;
-
-    $.ajax({
-      type: 'GET',
-      url: smsUrl,
-      crossDomain: true,
-      dataType: 'jsonp',
-      jsonpCallback: 'callback',
-      success: function () {
-        //this.commonService.showNotification('OTP sent successfully...');
-      },
-      error: function (xhr: any, status: any) {
-        // this.commonService.showNotification(
-        //   'OTP not sent successfully. Check some time later...'
-        // );
-      },
-    });
+  sendSMSafterBooking(payload: any) {
+    this.medpalService
+      .sendSMS(payload)
+      .pipe(first())
+      .subscribe(
+        (data: any) => {
+          //console.log(this.bookedTimeslot);
+        },
+        (error) => {
+          this.commonService.showNotification(error);
+        }
+      );
   }
 }

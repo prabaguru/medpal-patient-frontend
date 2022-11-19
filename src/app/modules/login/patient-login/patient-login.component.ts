@@ -262,26 +262,29 @@ export class PatientLoginComponent implements OnInit {
   onSubmitOtp(otp: string) {
     let mobileNo = this.loginForm.controls['mobile'].value;
     let msgString = `Your OTP for login into Medpal  is  - ${otp} . OTP will expire in 90 sec. Thank you. Medpal - Weisermanner`;
-
-    let smsUrl = `http://185.136.166.131/domestic/sendsms/bulksms.php?username=joykj&password=joykj@1&type=TEXT&sender=WEISER&mobile=${mobileNo}&message=${msgString}&entityId=1601335161674716856&templateId=1607100000000226780`;
-
-    $.ajax({
-      type: 'GET',
-      url: smsUrl,
-      crossDomain: true,
-      dataType: 'jsonp',
-      jsonpCallback: 'callback',
-      success: function () {
-        //this.commonService.showNotification('OTP sent successfully...');
-      },
-      error: function (xhr: any, status: any) {
-        // this.commonService.showNotification(
-        //   'OTP not sent successfully. Check some time later...'
-        // );
-      },
-    });
+    let payload = {
+      From: 'WEISER',
+      To: mobileNo,
+      Body: msgString,
+      dltentityid: 1601335161674716856,
+      dlttemplateid: 1607100000000226780,
+    };
+    this.sendSMSafterBooking(payload);
   }
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
+  }
+  sendSMSafterBooking(payload: any) {
+    this.healthService
+      .sendSMS(payload)
+      .pipe(first())
+      .subscribe(
+        (data: any) => {
+          //console.log(this.bookedTimeslot);
+        },
+        (error) => {
+          this.commonService.showNotification(error);
+        }
+      );
   }
 }
