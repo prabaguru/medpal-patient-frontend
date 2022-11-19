@@ -15,13 +15,17 @@ import {
 import { CommonService, MedpalService } from 'src/app/services';
 import { NgOtpInputComponent, NgOtpInputConfig } from 'ng-otp-input';
 import { first } from 'rxjs/operators';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 declare var $: any;
 @Component({
   selector: 'app-otp-verify',
   templateUrl: './otp-verify.component.html',
   styleUrls: ['./otp-verify.component.scss'],
 })
-export class OtpVerifyComponent implements OnInit {
+export class OtpVerifyComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   public title = '';
   submitted: boolean = false;
   isOtpVisible: boolean = true;
@@ -47,6 +51,7 @@ export class OtpVerifyComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public medpalService: MedpalService
   ) {
+    super();
     if (this.data) {
       this.title = data.title;
     }
@@ -134,7 +139,7 @@ export class OtpVerifyComponent implements OnInit {
   }
 
   sendSMSafterBooking(payload: any) {
-    this.medpalService
+    this.subs.sink = this.medpalService
       .sendSMS(payload)
       .pipe(first())
       .subscribe(

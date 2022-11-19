@@ -4,13 +4,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MedpalService, CommonService } from 'src/app/services';
 import { PopupComponent } from 'src/app/shared/components/popup/popup.component';
-
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.scss'],
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   isDoctor = false;
   public showPassword: boolean = false;
   resetForm: FormGroup = new FormGroup({});
@@ -26,7 +29,9 @@ export class ResetPasswordComponent implements OnInit {
     private commonService: CommonService,
     private dialog: MatDialog,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.queryParamMap.get('_id');
@@ -81,7 +86,7 @@ export class ResetPasswordComponent implements OnInit {
     //this.enableLoader = true;
     const postData = this.resetForm.value;
 
-    this.healthService.updatePassword(postData).subscribe({
+    this.subs.sink = this.healthService.updatePassword(postData).subscribe({
       next: (data: any) => {
         //this.enableLoader = false;
         this.submitted = false;
@@ -96,7 +101,7 @@ export class ResetPasswordComponent implements OnInit {
           },
           autoFocus: false,
         });
-        dialogRef.afterClosed().subscribe(() => {
+        this.subs.sink = dialogRef.afterClosed().subscribe(() => {
           this.router.navigate(['/patient/login'], {
             queryParams: { email: this.userEmail },
           });

@@ -2,17 +2,22 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/services';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit, OnDestroy
+{
   currentUser: any = {};
   isLoggenIn: boolean = false;
   private subscriptions = new Subscription();
   constructor(private authService: AuthService, private router: Router) {
-    this.authService.currentUser.subscribe((x) => {
+    super();
+    this.subs.sink = this.authService.currentUser.subscribe((x) => {
       this.currentUser = x;
       this.currentUser?.token
         ? (this.isLoggenIn = true)

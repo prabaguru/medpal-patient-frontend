@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService, MedpalService } from 'src/app/services';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 declare var $: any;
 @Component({
   templateUrl: './doctors-profile.component.html',
   styleUrls: ['./doctors-profile.component.scss'],
 })
-export class DoctorsProfileComponent implements OnInit {
+export class DoctorsProfileComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   public inputToChild: any;
   docName: string = '';
   docId: string = '';
@@ -25,7 +29,8 @@ export class DoctorsProfileComponent implements OnInit {
     public commonService: CommonService,
     public medpalService: MedpalService
   ) {
-    this.route.queryParams.subscribe((p) => {
+    super();
+    this.subs.sink = this.route.queryParams.subscribe((p) => {
       let doctype = null;
       let doc = null;
       if (p['doctor']) {
@@ -43,7 +48,7 @@ export class DoctorsProfileComponent implements OnInit {
         getdoctor: doc,
       };
     });
-    this.medpalService.getDoctorData(this.obj).subscribe({
+    this.subs.sink = this.medpalService.getDoctorData(this.obj).subscribe({
       next: (data: any) => {
         this.doc = [];
         this.doc = data[0];

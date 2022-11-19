@@ -13,6 +13,7 @@ import {
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 @Component({
   selector: 'patient-appointments-component',
   templateUrl: './patient-appointments.component.html',
@@ -28,7 +29,10 @@ import { MatTableDataSource } from '@angular/material/table';
     ]),
   ],
 })
-export class PatientAppointmentsComponent implements OnInit {
+export class PatientAppointmentsComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   //@ViewChild(MatSort, { static: false }) sort!: MatSort;
   submitted = false;
@@ -46,6 +50,7 @@ export class PatientAppointmentsComponent implements OnInit {
     public commonService: CommonService,
     public medpalService: MedpalService
   ) {
+    super();
     this.currentUser = this.authService.currentUserValue;
     this.getAppointmentsById();
   }
@@ -66,7 +71,7 @@ export class PatientAppointmentsComponent implements OnInit {
     let obj: any = {
       id: userId,
     };
-    this.medpalService
+    this.subs.sink = this.medpalService
       .getAppointmentsById(obj)
       .pipe(first())
       .subscribe(

@@ -25,6 +25,7 @@ import * as moment from 'moment';
 (moment as any).suppressDeprecationWarnings = true;
 import { first } from 'rxjs/operators';
 import { MatStepper } from '@angular/material/stepper';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 declare var $: any;
 const MY_DATE_FORMAT = {
   parse: {
@@ -55,7 +56,10 @@ const MY_DATE_FORMAT = {
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMAT },
   ],
 })
-export class AppointmentsComponent implements OnInit {
+export class AppointmentsComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   @ViewChild('stepper') stepper!: MatStepper;
 
   editable: boolean = true;
@@ -114,6 +118,7 @@ export class AppointmentsComponent implements OnInit {
     public authService: AuthService,
     location: PlatformLocation
   ) {
+    super();
     location.onPopState(() => {
       $('#staticBackdropAppointments').modal('hide');
     });
@@ -460,7 +465,7 @@ export class AppointmentsComponent implements OnInit {
       cord: cord,
     };
 
-    this.medpalService.bookAppointment(apiobj).subscribe({
+    this.subs.sink = this.medpalService.bookAppointment(apiobj).subscribe({
       next: (data: any) => {
         this.stepper.next();
         this.commonService.showNotification(data.message);
@@ -513,15 +518,17 @@ export class AppointmentsComponent implements OnInit {
       };
     }
 
-    this.medpalService.updateDoctorAppointments(obj).subscribe({
-      next: (data: any) => {
-        this.confirmBookingSms();
-        //this.commonService.showNotification(data.message);
-      },
-      error: (err) => {
-        //this.commonService.showNotification(err);
-      },
-    });
+    this.subs.sink = this.medpalService
+      .updateDoctorAppointments(obj)
+      .subscribe({
+        next: (data: any) => {
+          this.confirmBookingSms();
+          //this.commonService.showNotification(data.message);
+        },
+        error: (err) => {
+          //this.commonService.showNotification(err);
+        },
+      });
   }
 
   updateUserFNE() {
@@ -541,7 +548,7 @@ export class AppointmentsComponent implements OnInit {
     if (!updateObj.id || !updateObj.firstName || !updateObj.email) {
       return;
     }
-    this.medpalService.updatePatientFNE(updateObj).subscribe({
+    this.subs.sink = this.medpalService.updatePatientFNE(updateObj).subscribe({
       next: (data: any) => {
         let obj = {
           firstName: updateObj.firstName,
@@ -680,7 +687,7 @@ export class AppointmentsComponent implements OnInit {
   }
 
   regNLogin(obj: any) {
-    this.authService
+    this.subs.sink = this.authService
       .reglogin(obj)
       .pipe(first())
       .subscribe({
@@ -777,7 +784,7 @@ export class AppointmentsComponent implements OnInit {
       id: this.doc._id,
       clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
     };
-    this.medpalService
+    this.subs.sink = this.medpalService
       .getDoctorAppointments(obj)
       .pipe(first())
       .subscribe(
@@ -848,7 +855,7 @@ export class AppointmentsComponent implements OnInit {
   }
 
   sendSMSafterBooking(payload: any) {
-    this.medpalService
+    this.subs.sink = this.medpalService
       .sendSMS(payload)
       .pipe(first())
       .subscribe(

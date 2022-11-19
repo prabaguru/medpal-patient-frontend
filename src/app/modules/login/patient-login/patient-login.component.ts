@@ -10,13 +10,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import { first } from 'rxjs/operators';
 import { NgOtpInputComponent, NgOtpInputConfig } from 'ng-otp-input';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
+
 declare var $: any;
 @Component({
   selector: 'app-patient-login',
   templateUrl: './patient-login.component.html',
   styleUrls: ['./patient-login.component.scss'],
 })
-export class PatientLoginComponent implements OnInit {
+export class PatientLoginComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   //enableLoader = false;
   public showPassword: boolean = false;
   returnUrl: any;
@@ -45,7 +50,9 @@ export class PatientLoginComponent implements OnInit {
     private commonService: CommonService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.userEmail = this.router.snapshot.queryParams['email'] || '';
@@ -165,7 +172,7 @@ export class PatientLoginComponent implements OnInit {
     clearInterval(this.interval);
   }
   checkMobile(): void {
-    this.healthService
+    this.subs.sink = this.healthService
       .patientCheckMobile({ primaryMobile: this.f['mobile'].value })
       .pipe(first())
       .subscribe({
@@ -202,7 +209,7 @@ export class PatientLoginComponent implements OnInit {
     }
     //this.enableLoader = true;
 
-    this.authService
+    this.subs.sink = this.authService
       .login(
         this.loginForm.controls['email'].value,
         this.loginForm.controls['password'].value
@@ -235,7 +242,7 @@ export class PatientLoginComponent implements OnInit {
     }
     //this.enableLoader = true;
 
-    this.authService
+    this.subs.sink = this.authService
       .loginMobile(this.loginForm.controls['mobile'].value)
       .pipe(first())
       .subscribe({
@@ -275,7 +282,7 @@ export class PatientLoginComponent implements OnInit {
     this.showPassword = !this.showPassword;
   }
   sendSMSafterBooking(payload: any) {
-    this.healthService
+    this.subs.sink = this.healthService
       .sendSMS(payload)
       .pipe(first())
       .subscribe(

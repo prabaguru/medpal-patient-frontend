@@ -10,12 +10,16 @@ import {
 import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import { PopupComponent } from 'src/app/shared/components/popup/popup.component';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 @Component({
   selector: 'app-patient-profile',
   templateUrl: './patient-profile.component.html',
   styleUrls: ['./patient-profile.component.scss'],
 })
-export class PatientProfileComponent implements OnInit {
+export class PatientProfileComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   //public enableLoader = false;
   public displayImgData = { image: '', imageFileName: '' };
   public separateDialCode = true;
@@ -44,6 +48,7 @@ export class PatientProfileComponent implements OnInit {
     public datePipe: DatePipe,
     public authService: AuthService
   ) {
+    super();
     this.currentUser = this.authService.currentUserValue;
     //console.log(this.currentUser);
     let uemail = this.validateEmail(this.currentUser.email);
@@ -142,37 +147,41 @@ export class PatientProfileComponent implements OnInit {
       ? this.currentUser.image.imageName
       : null;
 
-    this.healthService.uploadImage(id, img, imgUnlink).subscribe(
-      (event: HttpEvent<any>) => {
-        switch (event.type) {
-          case HttpEventType.Sent:
-            //console.log("Request has been made!");
-            break;
-          case HttpEventType.ResponseHeader:
-            //console.log("Response header has been received!");
-            break;
-          case HttpEventType.UploadProgress:
-            if (event.total) {
-              this.percentDone = Math.round((event.loaded / event.total) * 100);
-            }
-            //console.log(`Uploaded! ${this.percentDone}%`);
-            break;
-          case HttpEventType.Response:
-            //console.log("Upload successfull!", event.body.result);
-            this.commonService.showNotification(
-              'Image uploaded successfully...'
-            );
-            let image = {};
-            image = { image: event.body.result };
-            this.percentDone = false;
-            this.updateCurrentUserData(image);
+    this.subs.sink = this.healthService
+      .uploadImage(id, img, imgUnlink)
+      .subscribe(
+        (event: HttpEvent<any>) => {
+          switch (event.type) {
+            case HttpEventType.Sent:
+              //console.log("Request has been made!");
+              break;
+            case HttpEventType.ResponseHeader:
+              //console.log("Response header has been received!");
+              break;
+            case HttpEventType.UploadProgress:
+              if (event.total) {
+                this.percentDone = Math.round(
+                  (event.loaded / event.total) * 100
+                );
+              }
+              //console.log(`Uploaded! ${this.percentDone}%`);
+              break;
+            case HttpEventType.Response:
+              //console.log("Upload successfull!", event.body.result);
+              this.commonService.showNotification(
+                'Image uploaded successfully...'
+              );
+              let image = {};
+              image = { image: event.body.result };
+              this.percentDone = false;
+              this.updateCurrentUserData(image);
+          }
+        },
+        (error) => {
+          this.percentDone = false;
+          this.commonService.showNotification(error);
         }
-      },
-      (error) => {
-        this.percentDone = false;
-        this.commonService.showNotification(error);
-      }
-    );
+      );
   }
 
   saveChanges() {
@@ -188,29 +197,31 @@ export class PatientProfileComponent implements OnInit {
     //this.enableLoader = true;
     const postData = this.profileForm.value;
 
-    this.healthService.updatePatientProfile(postData).subscribe({
-      next: (data: any) => {
-        //this.enableLoader = false;
-        this.dialog.open(PopupComponent, {
-          minWidth: '20vw',
-          data: {
-            successIcon: true,
-            content: 'Profile Updated Successfully!',
-            isAlert: true,
-          },
-          autoFocus: false,
-        });
-        this.submitted = false;
-        this.updateCurrentUserData(this.profileForm.value);
-        //this.commonService.updateCurrentUser(this.currentUser);
-        //this.commonService.updateProfileImg();
-      },
-      error: (err) => {
-        //this.enableLoader = false;
-        this.submitted = false;
-        this.commonService.showNotification(err);
-      },
-    });
+    this.subs.sink = this.healthService
+      .updatePatientProfile(postData)
+      .subscribe({
+        next: (data: any) => {
+          //this.enableLoader = false;
+          this.dialog.open(PopupComponent, {
+            minWidth: '20vw',
+            data: {
+              successIcon: true,
+              content: 'Profile Updated Successfully!',
+              isAlert: true,
+            },
+            autoFocus: false,
+          });
+          this.submitted = false;
+          this.updateCurrentUserData(this.profileForm.value);
+          //this.commonService.updateCurrentUser(this.currentUser);
+          //this.commonService.updateProfileImg();
+        },
+        error: (err) => {
+          //this.enableLoader = false;
+          this.submitted = false;
+          this.commonService.showNotification(err);
+        },
+      });
   }
   validateEmail(email: string) {
     var re = /\S+@\S+\.\S+/;

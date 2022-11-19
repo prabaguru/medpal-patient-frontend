@@ -4,13 +4,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import { PopupComponent } from 'src/app/shared/components/popup/popup.component';
-
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 @Component({
   selector: 'app-patient-reset-password',
   templateUrl: './patient-reset-password.component.html',
   styleUrls: ['./patient-reset-password.component.scss'],
 })
-export class PatientProfileResetPasswordComponent implements OnInit {
+export class PatientProfileResetPasswordComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   isDoctor = false;
   public showPassword: boolean = false;
   public showPasswordC: boolean = false;
@@ -26,6 +29,7 @@ export class PatientProfileResetPasswordComponent implements OnInit {
     public authService: AuthService,
     public commonService: CommonService
   ) {
+    super();
     this.currentUser = this.authService.currentUserValue;
   }
 
@@ -77,31 +81,33 @@ export class PatientProfileResetPasswordComponent implements OnInit {
     //this.enableLoader = true;
     const postData = this.resetForm.value;
 
-    this.healthService.updatePatientProfile(postData).subscribe({
-      next: (data: any) => {
-        //this.enableLoader = false;
-        this.submitted = false;
-        const dialogRef = this.dialog.open(PopupComponent, {
-          minWidth: '20vw',
-          data: {
-            title: 'Password Changed',
-            successIcon: true,
-            content: 'Your password has been changed successfully!',
-            isAlert: true,
-          },
-          autoFocus: false,
-        });
-        dialogRef.afterClosed().subscribe(() => {
-          this.authService.logout();
-          this.router.navigate(['patient/login']);
-        });
-      },
-      error: (err) => {
-        //this.enableLoader = false;
-        this.submitted = false;
-        this.commonService.showNotification(err);
-      },
-    });
+    this.subs.sink = this.healthService
+      .updatePatientProfile(postData)
+      .subscribe({
+        next: (data: any) => {
+          //this.enableLoader = false;
+          this.submitted = false;
+          const dialogRef = this.dialog.open(PopupComponent, {
+            minWidth: '20vw',
+            data: {
+              title: 'Password Changed',
+              successIcon: true,
+              content: 'Your password has been changed successfully!',
+              isAlert: true,
+            },
+            autoFocus: false,
+          });
+          this.subs.sink = dialogRef.afterClosed().subscribe(() => {
+            this.authService.logout();
+            this.router.navigate(['patient/login']);
+          });
+        },
+        error: (err) => {
+          //this.enableLoader = false;
+          this.submitted = false;
+          this.commonService.showNotification(err);
+        },
+      });
   }
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;

@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService, MedpalService } from 'src/app/services';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
-
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 declare var $: any;
 @Component({
   selector: 'doctors-listing',
   templateUrl: './doctors-listing.component.html',
   styleUrls: ['./doctors-listing.component.scss'],
 })
-export class DoctorsListingComponent implements OnInit {
+export class DoctorsListingComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   //public enableLoader = false;
   public inputToChild: any;
   doctorsListing = [];
@@ -19,6 +22,7 @@ export class DoctorsListingComponent implements OnInit {
     public commonService: CommonService,
     public medpalService: MedpalService
   ) {
+    super();
     const center = { lat: 12.972442, lng: 77.580643 };
     // Create a bounding box with sides ~10km away from the center point
     const defaultBounds = {
@@ -38,7 +42,7 @@ export class DoctorsListingComponent implements OnInit {
 
   ngOnInit(): void {
     //this.getLocation();
-    this.medpalService.getDoctorsLIsting().subscribe({
+    this.subs.sink = this.medpalService.getDoctorsLIsting().subscribe({
       next: (data: any) => {
         this.doctorsListing = [];
         this.doctorsListing = data;
@@ -94,7 +98,7 @@ export class DoctorsListingComponent implements OnInit {
   }
 
   geoQueryDoctors(obj: any) {
-    this.medpalService.getDoctorsLIstingGeo(obj).subscribe({
+    this.subs.sink = this.medpalService.getDoctorsLIstingGeo(obj).subscribe({
       next: (data: any) => {
         this.doctorsListing = [];
         this.doctorsListing = data;

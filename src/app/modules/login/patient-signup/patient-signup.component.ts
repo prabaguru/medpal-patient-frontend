@@ -11,12 +11,16 @@ import { CommonService, MedpalService, AuthService } from 'src/app/services';
 import { OtpVerifyComponent } from 'src/app/shared/components/otp-verify/otp-verify.component';
 import { PopupComponent } from 'src/app/shared/components/popup/popup.component';
 import { first } from 'rxjs/operators';
+import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 @Component({
   selector: 'app-patient-signup',
   templateUrl: './patient-signup.component.html',
   styleUrls: ['./patient-signup.component.scss'],
 })
-export class PatientSignupComponent implements OnInit {
+export class PatientSignupComponent
+  extends UnsubscribeOnDestroyAdapter
+  implements OnInit
+{
   isDoctor = false;
   public showPassword: boolean = false;
   //enableLoader = false;
@@ -59,7 +63,9 @@ export class PatientSignupComponent implements OnInit {
     private dialog: MatDialog,
     public commonService: CommonService,
     public authService: AuthService
-  ) {}
+  ) {
+    super();
+  }
   get f() {
     return this.signupForm.controls;
   }
@@ -107,7 +113,7 @@ export class PatientSignupComponent implements OnInit {
   }
 
   checkemail(): void {
-    this.healthService
+    this.subs.sink = this.healthService
       .patientCheckEmail({ email: this.f['email'].value })
       .pipe(first())
       .subscribe({
@@ -132,9 +138,9 @@ export class PatientSignupComponent implements OnInit {
       },
       autoFocus: false,
     });
-    dialogRef.afterClosed().subscribe((result: any) => {
+    this.subs.sink = dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        this.authService
+        this.subs.sink = this.authService
           .reglogin(this.signupForm.value)
           .pipe(first())
           .subscribe({
