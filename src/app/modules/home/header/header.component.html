@@ -28,6 +28,8 @@
             class="nav-link active"
             aria-current="page"
             href="javascript:void(0)"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
             ><i class="fa fa-address-book icosize"></i> Book Appointments
           </a>
         </li>
@@ -37,6 +39,8 @@
             class="nav-link"
             href="javascript:void(0)"
             [routerLink]="['/patient/Appointments']"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
           >
             <i class="fa fa-medkit icosize"></i> My Appointments
           </a>
@@ -58,6 +62,8 @@
                 class="dropdown-item"
                 href="javascript:void(0)"
                 [routerLink]="['patient/signup']"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
                 >Patient</a
               >
             </li>
@@ -94,6 +100,8 @@
                 class="dropdown-item"
                 href="javascript:void(0)"
                 [routerLink]="['patient/login']"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
                 >Patient Login</a
               >
             </li>
@@ -137,6 +145,8 @@
                 class="dropdown-item"
                 href="javascript:void(0)"
                 [routerLink]="['patient/profile']"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
                 ><i class="fa fa-user"></i>&nbsp;Profile Settings</a
               >
             </li>
@@ -146,6 +156,8 @@
                 class="dropdown-item"
                 href="javascript:void(0)"
                 (click)="logout()"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
                 ><i class="fa fa-sign-out"></i>&nbsp;Logout</a
               >
             </li>

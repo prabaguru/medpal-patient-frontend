@@ -754,10 +754,10 @@ export class AppointmentsComponent
     let check = bTime.toDateString() == curdate.toDateString();
     if (check) {
       let curTime = moment().unix();
-      // let ct = moment.unix(curTime).format('hh.mm a');
-      // let bt = moment.unix(time.time).format('hh.mm a');
-      // console.log(`current: ${ct} - bookedtime: ${bt}`);
-      if (curTime > time.time) {
+      let startTime = moment.unix(curTime);
+      let endTime = moment.unix(time.time);
+      let dif = moment(endTime).diff(moment(startTime), 'minutes');
+      if (dif < 30) {
         this.commonService.showNotification('This Timeslot has elapsed');
         this.getAppointmentsById();
       } else {
@@ -834,8 +834,8 @@ export class AppointmentsComponent
       From: 'WEISER',
       To: mobileNo,
       Body: msgString,
-      dltentityid: 1601335161674716856,
-      dlttemplateid: 1607100000000226779,
+      dltentityid: '1601335161674716856',
+      dlttemplateid: '1607100000000226779',
     };
     this.sendSMSafterBooking(payload);
   }
@@ -851,8 +851,8 @@ export class AppointmentsComponent
       From: 'WEISER',
       To: mobileNo,
       Body: msgString,
-      dltentityid: 1601335161674716856,
-      dlttemplateid: 1607100000000226781,
+      dltentityid: '1601335161674716856',
+      dlttemplateid: '1607100000000226781',
     };
     return payload;
   }

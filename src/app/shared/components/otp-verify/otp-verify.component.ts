@@ -132,8 +132,8 @@ export class OtpVerifyComponent
       From: 'WEISER',
       To: this.data.mobileNo,
       Body: msgString,
-      dltentityid: 1601335161674716856,
-      dlttemplateid: 1607100000000226780,
+      dltentityid: '1601335161674716856',
+      dlttemplateid: '1607100000000226780',
     };
     this.sendSMSafterBooking(payload);
   }
