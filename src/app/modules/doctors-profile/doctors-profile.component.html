@@ -140,7 +140,7 @@
                             *ngIf="doc.ClinicOneTimings.ClinicLocation.name"
                           >
                             -
-                            {{ doc.ClinicOneTimings.ClinicLocation.name }}</span
+                            {{ doc.ClinicOneTimings.clinicArea }}</span
                           ></a
                         >
                       </li>
@@ -156,7 +156,7 @@
                             *ngIf="doc.ClinicTwoTimings.ClinicLocation.name"
                           >
                             -
-                            {{ doc.ClinicTwoTimings.ClinicLocation.name }}</span
+                            {{ doc.ClinicTwoTimings.clinicArea }}</span
                           ></a
                         >
                       </li>
@@ -580,7 +580,7 @@
                         class="aon-doctorAbout-text"
                         *ngIf="doc.services"
                         [innerHTML]="doc.services"
-                        style="text-transform: capitalize"
+                        style="text-transform: capitalize; font-size: 14px"
                       ></div>
                     </li>
                   </ul>
@@ -992,9 +992,7 @@
                                 *ngIf="doc.ClinicOneTimings.ClinicLocation.name"
                               >
                                 -
-                                {{
-                                  doc.ClinicOneTimings.ClinicLocation.name
-                                }}</span
+                                {{ doc.ClinicOneTimings.clinicArea }}</span
                               ></a
                             >
                           </li>
@@ -1010,9 +1008,7 @@
                                 *ngIf="doc.ClinicTwoTimings.ClinicLocation.name"
                               >
                                 -
-                                {{
-                                  doc.ClinicTwoTimings.ClinicLocation.name
-                                }}</span
+                                {{ doc.ClinicTwoTimings.clinicArea }}</span
                               ></a
                             >
                           </li>

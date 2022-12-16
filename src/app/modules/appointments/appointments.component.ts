@@ -584,6 +584,10 @@ export class AppointmentsComponent
       bookedDate: this.f['bookedDate'].value,
       bookedDay: this.f['bookedDay'].value,
       appointmentFor: this.g['appointmentFor'].value,
+      appointmentType:
+        this.g['appointmentType'].value == true
+          ? 'Online Video Consulting'
+          : 'Clinic Visit',
       email: this.g['email'].value,
       firstName: this.g['firstName'].value,
       primaryMobile: this.g['primaryMobile'].value,
