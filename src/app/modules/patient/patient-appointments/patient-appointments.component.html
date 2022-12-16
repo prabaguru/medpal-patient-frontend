@@ -60,7 +60,7 @@
             <a
               class="sf-doc-profile-view float-end"
               href="javascript:void(0)"
-              [routerLink]="['/medpal/doctors-profile']"
+              [routerLink]="['/doctors-profile']"
               [queryParams]="{ docId: element.d_id }"
               >Book Again</a
             >
@@ -93,7 +93,7 @@
                     <th scope="row">Appointment details</th>
                     <td>
                       {{ element.bookedDate }} - {{ element.bookedDay }} -
-                      {{ element.slot }}
+                      {{ element.slot }} - <b>{{ element.appointmentType }}</b>
                     </td>
                   </tr>
                   <tr>

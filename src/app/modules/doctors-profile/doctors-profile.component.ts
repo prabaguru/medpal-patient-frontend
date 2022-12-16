@@ -55,7 +55,7 @@ export class DoctorsProfileComponent
         this.pushPage = true;
         if (!this.doc) {
           this.commonService.showNotification('Doctor not found...');
-          this.router.navigate(['/medpal/doctors-listing/doctors']);
+          this.router.navigate(['/doctors-listing/doctors']);
         }
         //console.log(this.doc);
       },
