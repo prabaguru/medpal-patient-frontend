@@ -40,7 +40,7 @@ export class PatientProfileComponent
   bloodGroupObj = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
   submitted = false;
   percentDone?: any = 0;
-
+  emailflag: boolean = false;
   constructor(
     public commonService: CommonService,
     public healthService: MedpalService,
@@ -52,7 +52,7 @@ export class PatientProfileComponent
     this.currentUser = this.authService.currentUserValue;
     //console.log(this.currentUser);
     let uemail = this.validateEmail(this.currentUser.email);
-
+    this.emailflag = uemail;
     this.profileForm = new FormGroup({
       id: new FormControl(this.currentUser._id ? this.currentUser._id : '', [
         Validators.required,

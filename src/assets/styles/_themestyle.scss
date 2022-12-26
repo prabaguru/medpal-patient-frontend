@@ -17134,10 +17134,10 @@ div.dataTables_wrapper div.dataTables_filter input {
     border-radius: 0.25rem;
   }
 }
-.br {
-  // border-radius: 0% !important;
+.hd {
+  display: none !important;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 786px) {
   .aon-form-doc-pic {
     width: 80px;
     height: 45px;
@@ -17147,5 +17147,11 @@ div.dataTables_wrapper div.dataTables_filter input {
   }
   .hm {
     display: none !important;
+  }
+  .hd {
+    display: block !important;
+  }
+  .selectImg {
+    width: 100px;
   }
 }

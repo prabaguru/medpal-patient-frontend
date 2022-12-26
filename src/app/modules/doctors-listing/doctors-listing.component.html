@@ -154,23 +154,24 @@
                     <span>{{ doc.graduation.qualificationPG.sName }} - </span>
                     ({{ doc.graduation.specialisationPG.name }})
                   </div>
-                  <div class="sf-doc-exp m-b20">
+                  <div class="sf-doc-exp">
                     {{ doc.graduation.overallExperience }} - Years experience
                     overall
+                  </div>
+                  <div class="sf-doc-exp m-b20">
+                    {{ doc.ClinicOneTimings.ClinicName }} -
+                    {{ doc.ClinicOneTimings.clinicArea }}
                   </div>
                   <a
                     href="javascript:void(0)"
                     (click)="openModal(doc, 'clinic1')"
-                    *ngIf="
-                      doc.ClinicOneTimings.active &&
-                      !doc.ClinicTwoTimings.active
-                    "
+                    *ngIf="doc.ClinicOneTimings.active"
                     class="site-button"
                   >
                     <i class="fa fa-calendar"></i> Book Appointment
                   </a>
                   <!-- Example single danger button -->
-                  <div
+                  <!-- <div
                     class="btn-group"
                     *ngIf="
                       doc.ClinicOneTimings.active && doc.ClinicTwoTimings.active
@@ -220,7 +221,7 @@
                         >
                       </li>
                     </ul>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>

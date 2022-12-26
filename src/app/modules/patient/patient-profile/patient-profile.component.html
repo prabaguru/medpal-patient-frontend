@@ -114,7 +114,7 @@
                   <mat-form-field appearance="outline">
                     <mat-label>Email</mat-label>
                     <mat-icon matPrefix class="form-icon">email</mat-icon>
-                    <span *ngIf="currentUser.email != ''">
+                    <span *ngIf="emailflag">
                       <input
                         type="email"
                         matInput
@@ -122,7 +122,7 @@
                         autocomplete="off"
                         readonly
                     /></span>
-                    <span *ngIf="currentUser.email == ''">
+                    <span *ngIf="!emailflag">
                       <input
                         type="email"
                         matInput
@@ -130,7 +130,7 @@
                         autocomplete="off"
                     /></span>
                     <mat-icon
-                      *ngIf="currentUser.email != ''"
+                      *ngIf="emailflag"
                       matSuffix
                       matTooltip="Email is not editable..."
                       matTooltipPosition="above"

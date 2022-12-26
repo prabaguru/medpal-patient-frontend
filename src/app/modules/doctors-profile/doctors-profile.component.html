@@ -83,24 +83,19 @@
                     <i class="fa fa-phone icons"></i> {{ doc.mobile.number }}
                   </li>
                 </ul>
-                <!-- <div
-                  class="aon-doctorAbout-text"
-                  *ngIf="doc.services"
-                  [innerHTML]="doc.services"
-                  style="text-transform: capitalize"
-                ></div> -->
+
                 <ul class="aon-doctorAddto-share">
                   <!-- <li>
                     <a href="javascript:void(0)"
                       ><i class="fa fa-share icons"></i> Share</a
                     >
                   </li> -->
-                  <li
-                    *ngIf="
-                      doc.ClinicOneTimings.active &&
-                      !doc.ClinicTwoTimings.active
-                    "
-                  >
+                  <li>
+                    <i class="fa fa-map-marker"></i>
+                    {{ doc.ClinicOneTimings.ClinicName }} -
+                    {{ doc.ClinicOneTimings.clinicArea }}
+                  </li>
+                  <li *ngIf="doc.ClinicOneTimings.active">
                     <button
                       type="button"
                       class="site-button"
@@ -110,7 +105,7 @@
                       <i class="fa fa-calendar icons"></i> Book Appointment
                     </button>
                   </li>
-                  <li
+                  <!-- <li
                     class="btn-group"
                     *ngIf="
                       doc.ClinicOneTimings.active && doc.ClinicTwoTimings.active
@@ -161,7 +156,7 @@
                         >
                       </li>
                     </ul>
-                  </li>
+                  </li> -->
                 </ul>
                 <div class="aon-doctorAbout-label text-center">
                   <span *ngIf="doc.graduation.DoctorType.name" class="">
@@ -234,10 +229,140 @@
                 role="tabpanel"
                 aria-labelledby="Experience"
               >
-                <div class="container">
+                <div class="container" *ngIf="doc.ClinicOneTimings.active">
                   <div class="row">
                     <div class="col-sm-6">
-                      <ul
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td>Monday</td>
+                            <td>
+                              <span
+                                class="timings"
+                                *ngIf="doc.ClinicOneTimings.Monday"
+                              >
+                                {{ doc.ClinicOneTimings.MonStarttime }} -
+                                {{ doc.ClinicOneTimings.MonEndtime }}
+                              </span>
+                              <span
+                                class="timings2"
+                                *ngIf="!doc.ClinicOneTimings.Monday"
+                              >
+                                Holiday
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Tuesday</td>
+                            <td>
+                              <span
+                                class="timings"
+                                *ngIf="doc.ClinicOneTimings.Tuesday"
+                              >
+                                {{ doc.ClinicOneTimings.TueStarttime }} -
+                                {{ doc.ClinicOneTimings.TueEndtime }}
+                              </span>
+                              <span
+                                class="timings2"
+                                *ngIf="!doc.ClinicOneTimings.Tuesday"
+                              >
+                                Holiday
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Wednesday</td>
+                            <td>
+                              <span
+                                class="timings"
+                                *ngIf="doc.ClinicOneTimings.Wednesday"
+                              >
+                                {{ doc.ClinicOneTimings.WedStarttime }} -
+                                {{ doc.ClinicOneTimings.WedEndtime }}
+                              </span>
+                              <span
+                                class="timings2"
+                                *ngIf="!doc.ClinicOneTimings.Wednesday"
+                              >
+                                Holiday
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Thursday</td>
+                            <td>
+                              <span
+                                class="timings"
+                                *ngIf="doc.ClinicOneTimings.Thursday"
+                              >
+                                {{ doc.ClinicOneTimings.ThuStarttime }} -
+                                {{ doc.ClinicOneTimings.ThuEndtime }}
+                              </span>
+                              <span
+                                class="timings2"
+                                *ngIf="!doc.ClinicOneTimings.Thursday"
+                              >
+                                Holiday
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Friday</td>
+                            <td>
+                              <span
+                                class="timings"
+                                *ngIf="doc.ClinicOneTimings.Friday"
+                              >
+                                {{ doc.ClinicOneTimings.FriStarttime }} -
+                                {{ doc.ClinicOneTimings.FriEndtime }}
+                              </span>
+                              <span
+                                class="timings2"
+                                *ngIf="!doc.ClinicOneTimings.Friday"
+                              >
+                                Holiday
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Saturday</td>
+                            <td>
+                              <span
+                                class="timings"
+                                *ngIf="doc.ClinicOneTimings.Saturday"
+                              >
+                                {{ doc.ClinicOneTimings.SatStarttime }} -
+                                {{ doc.ClinicOneTimings.SatEndtime }}
+                              </span>
+                              <span
+                                class="timings2"
+                                *ngIf="!doc.ClinicOneTimings.Saturday"
+                              >
+                                Holiday
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>Sunday</td>
+                            <td>
+                              <span
+                                class="timings"
+                                *ngIf="doc.ClinicOneTimings.Sunday"
+                              >
+                                {{ doc.ClinicOneTimings.SunStarttime }} -
+                                {{ doc.ClinicOneTimings.SunEndtime }}
+                              </span>
+                              <span
+                                class="timings2"
+                                *ngIf="!doc.ClinicOneTimings.Sunday"
+                              >
+                                Holiday
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <!-- <ul
                         class="timeslot m-0"
                         *ngIf="doc.ClinicOneTimings.active"
                       >
@@ -376,9 +501,9 @@
                             </span>
                           </h4>
                         </li>
-                      </ul>
+                      </ul> -->
                     </div>
-                    <div class="col-sm-6">
+                    <!-- <div class="col-sm-6">
                       <ul
                         class="timeslot m-0"
                         *ngIf="doc.ClinicTwoTimings.active"
@@ -519,7 +644,7 @@
                           </h4>
                         </li>
                       </ul>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -681,7 +806,7 @@
                   </a>
                 </div>
               </div>
-              <div class="row" *ngIf="doc.ClinicTwoTimings.active">
+              <!-- <div class="row" *ngIf="doc.ClinicTwoTimings.active">
                 <div class="col-lg-6">
                   <ul class="sf-doc-contacts">
                     <li>
@@ -710,7 +835,7 @@
                     View Clinic map location
                   </a>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
 
@@ -911,58 +1036,165 @@
                   id="pills-home"
                   role="tabpanel"
                 >
-                  <div class="sf-doc-timing-slots">
-                    <!-- <div class="row">
+                  <div
+                    class="sf-doc-timing-slots"
+                    *ngIf="doc.ClinicOneTimings.active"
+                  >
+                    <div class="row mb-3">
                       <div class="col-lg-6">
-                        <div class="sf-doc-timing-slots-detail active">
-                          <span>9AM - 12PM</span>
-                          <p>0 available</p>
+                        <div
+                          class="sf-doc-timing-slots-detail"
+                          *ngIf="doc.ClinicOneTimings.Monday"
+                        >
+                          <span>
+                            {{ doc.ClinicOneTimings.MonStarttime }} -
+                            {{ doc.ClinicOneTimings.MonEndtime }}
+                          </span>
+                          <p>Monday</p>
+                        </div>
+                        <div
+                          class="sf-doc-timing-slots-detail active"
+                          *ngIf="!doc.ClinicOneTimings.Monday"
+                        >
+                          <span> Holiday </span>
+                          <p>Monday</p>
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <div class="sf-doc-timing-slots-detail">
-                          <span>9AM - 12PM</span>
-                          <p>0 available</p>
+                        <div
+                          class="sf-doc-timing-slots-detail"
+                          *ngIf="doc.ClinicOneTimings.Tuesday"
+                        >
+                          <span>
+                            {{ doc.ClinicOneTimings.TueStarttime }} -
+                            {{ doc.ClinicOneTimings.TueEndtime }}
+                          </span>
+                          <p>Tuesday</p>
+                        </div>
+                        <div
+                          class="sf-doc-timing-slots-detail active"
+                          *ngIf="!doc.ClinicOneTimings.Tuesday"
+                        >
+                          <span> Holiday </span>
+                          <p>Tuesday</p>
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <div class="sf-doc-timing-slots-detail">
-                          <span>9AM - 12PM</span>
-                          <p>0 available</p>
+                        <div
+                          class="sf-doc-timing-slots-detail"
+                          *ngIf="doc.ClinicOneTimings.Wednesday"
+                        >
+                          <span>
+                            {{ doc.ClinicOneTimings.WedStarttime }} -
+                            {{ doc.ClinicOneTimings.WedEndtime }}
+                          </span>
+                          <p>Wednesday</p>
+                        </div>
+                        <div
+                          class="sf-doc-timing-slots-detail active"
+                          *ngIf="!doc.ClinicOneTimings.Wednesday"
+                        >
+                          <span> Holiday </span>
+                          <p>Wednesday</p>
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <div class="sf-doc-timing-slots-detail">
-                          <span>9AM - 12PM</span>
-                          <p>0 available</p>
+                        <div
+                          class="sf-doc-timing-slots-detail"
+                          *ngIf="doc.ClinicOneTimings.Thursday"
+                        >
+                          <span>
+                            {{ doc.ClinicOneTimings.ThuStarttime }} -
+                            {{ doc.ClinicOneTimings.ThuEndtime }}
+                          </span>
+                          <p>Thursday</p>
+                        </div>
+                        <div
+                          class="sf-doc-timing-slots-detail active"
+                          *ngIf="!doc.ClinicOneTimings.Thursday"
+                        >
+                          <span> Holiday </span>
+                          <p>Thursday</p>
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <div class="sf-doc-timing-slots-detail">
-                          <span>9AM - 12PM</span>
-                          <p>0 available</p>
+                        <div
+                          class="sf-doc-timing-slots-detail"
+                          *ngIf="doc.ClinicOneTimings.Friday"
+                        >
+                          <span>
+                            {{ doc.ClinicOneTimings.FriStarttime }} -
+                            {{ doc.ClinicOneTimings.FriEndtime }}
+                          </span>
+                          <p>Friday</p>
+                        </div>
+                        <div
+                          class="sf-doc-timing-slots-detail active"
+                          *ngIf="!doc.ClinicOneTimings.Friday"
+                        >
+                          <span> Holiday </span>
+                          <p>Friday</p>
                         </div>
                       </div>
                       <div class="col-lg-6">
-                        <div class="sf-doc-timing-slots-detail">
-                          <span>9AM - 12PM</span>
-                          <p>0 available</p>
+                        <div
+                          class="sf-doc-timing-slots-detail"
+                          *ngIf="doc.ClinicOneTimings.Saturday"
+                        >
+                          <span>
+                            {{ doc.ClinicOneTimings.SatStarttime }} -
+                            {{ doc.ClinicOneTimings.SatEndtime }}
+                          </span>
+                          <p>Saturday</p>
+                        </div>
+                        <div
+                          class="sf-doc-timing-slots-detail active"
+                          *ngIf="!doc.ClinicOneTimings.Saturday"
+                        >
+                          <span> Holiday </span>
+                          <p>Saturday</p>
                         </div>
                       </div>
-                    </div> -->
-                    <div class="sf-doc-timing-slots-btn">
-                      <a
-                        href="javascript:void(0)"
-                        (click)="openModal(doc, 'clinic1')"
-                        *ngIf="
-                          doc.ClinicOneTimings.active &&
-                          !doc.ClinicTwoTimings.active
-                        "
-                        class="site-button"
-                      >
-                        <i class="fa fa-calendar"></i> Book Appointment
-                      </a>
-                      <div
+                      <div class="col-lg-6">
+                        <div
+                          class="sf-doc-timing-slots-detail"
+                          *ngIf="doc.ClinicOneTimings.Sunday"
+                        >
+                          <span>
+                            {{ doc.ClinicOneTimings.SunStarttime }} -
+                            {{ doc.ClinicOneTimings.SunEndtime }}
+                          </span>
+                          <p>Sunday</p>
+                        </div>
+                        <div
+                          class="sf-doc-timing-slots-detail active"
+                          *ngIf="!doc.ClinicOneTimings.Sunday"
+                        >
+                          <span> Holiday </span>
+                          <p>Sunday</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="sf-doc-timing-slots-btn mt-0 pt-2">
+                      <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                          <i class="fa fa-map-marker"></i>
+                          {{ doc.ClinicOneTimings.ClinicName }} -
+                          {{ doc.ClinicOneTimings.clinicArea }}
+                        </div>
+                        <div class="w-100"></div>
+                        <div class="col-lg-12">
+                          <a
+                            href="javascript:void(0)"
+                            (click)="openModal(doc, 'clinic1')"
+                            *ngIf="doc.ClinicOneTimings.active"
+                            class="site-button"
+                          >
+                            <i class="fa fa-calendar"></i> Book Appointment
+                          </a>
+                        </div>
+                      </div>
+                      <!-- <div
                         class="btn-group"
                         *ngIf="
                           doc.ClinicOneTimings.active &&
@@ -1013,7 +1245,7 @@
                             >
                           </li>
                         </ul>
-                      </div>
+                      </div> -->
                     </div>
                   </div>
                 </div>

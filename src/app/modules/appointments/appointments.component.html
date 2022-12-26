@@ -13,7 +13,7 @@
       <div class="modal-header">
         <!-- <h5 class="modal-title" id="staticBackdropLabel">Book Appointment</h5> -->
         <div
-          class="aon-form-top d-flex justify-content-between align-items-center"
+          class="aon-form-top d-flex justify-content-between align-items-center hm"
         >
           <div class="aon-form-top-left d-flex">
             <div class="aon-form-doc-pic br">
@@ -67,9 +67,54 @@
                   >&#8377; {{ doc.ClinicOneTimings.ConsultationFeesC1 }}</strong
                 ></span
               >
-              <span *ngIf="doc.clinic2"
+            </div>
+          </div>
+        </div>
+        <div class="container hd">
+          <div class="row text-center">
+            <div class="col-sm-4">
+              <img
+                *ngIf="doc.image.imageUrl"
+                class="selectImg img-thumbnail"
+                src="{{ doc.image.imageUrl }}"
+                alt="Medpal"
+              />
+              <img
+                *ngIf="!doc.image.imageUrl"
+                class="selectImg img-thumbnail"
+                src="../../../assets/images/user-doc.png"
+                alt="Medpal"
+              />
+            </div>
+            <div class="col-sm-4">
+              <strong
+                >Booking Appointment to
+                <p class="m-0">Dr. {{ doc.firstName }}</p></strong
+              >
+              <p class="m-0">
+                <span
+                  *ngIf="doc.graduation.Graduation === 'PG'"
+                  class="fst-italic font-monospace"
+                >
+                  ({{ doc.graduation.qualificationUG.sName }}
+                  -
+                  {{ doc.graduation.qualificationPG.sName }}
+                  -
+                  {{ doc.graduation.specialisationPG.name }})
+                </span>
+                <span
+                  *ngIf="doc.graduation.Graduation === 'UG'"
+                  class="fst-italic font-monospace"
+                >
+                  ({{ doc.graduation.qualificationUG.sName }})
+                </span>
+              </p>
+            </div>
+            <div class="col-sm-4">
+              <strong>Consulting Fee:</strong>
+              <span *ngIf="doc.clinic1"
                 ><strong
-                  >&#8377; {{ doc.ClinicTwoTimings.ConsultationFeesC1 }}</strong
+                  >&#8377; {{ doc.ClinicOneTimings.ConsultationFeesC1 }}</strong
                 ></span
               >
             </div>
@@ -133,6 +178,12 @@
                       Our clinic is not functioning today. Kindly select
                       different date.
                     </div>
+                  </div>
+                  <div class="col-md-12 text-center mb-3">
+                    <mat-button-toggle class="mattogBooked"></mat-button-toggle
+                    >-Booked
+                    <mat-button-toggle class="mattogBooked2"></mat-button-toggle
+                    >-Available
                   </div>
                   <mat-button-toggle-group
                     formControlName="slot"
