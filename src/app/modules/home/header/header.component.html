@@ -45,7 +45,7 @@
             <i class="fa fa-medkit icosize"></i> My Appointments
           </a>
         </li>
-        <li class="nav-item dropdown" *ngIf="!isLoggenIn">
+        <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -57,7 +57,7 @@
             Register
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
-            <li>
+            <li *ngIf="!isLoggenIn">
               <a
                 class="dropdown-item"
                 href="javascript:void(0)"
@@ -67,13 +67,13 @@
                 >Patient</a
               >
             </li>
-            <li><hr class="dropdown-divider" /></li>
+            <li *ngIf="!isLoggenIn"><hr class="dropdown-divider" /></li>
             <li>
               <a
                 class="dropdown-item"
-                href="http://medpal.live/doctors/#/authentication/signup?loginType=Doctor"
+                href="http://medpal.live/hospitals/#/authentication/signup"
                 target="_blank"
-                >Doctor</a
+                >Hospital/Clinic</a
               >
             </li>
             <!-- <li><hr class="dropdown-divider" /></li>
@@ -83,7 +83,7 @@
           </ul>
         </li>
 
-        <li class="nav-item dropdown" *ngIf="!isLoggenIn">
+        <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -95,7 +95,7 @@
             Login
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownlogin">
-            <li>
+            <li *ngIf="!isLoggenIn">
               <a
                 class="dropdown-item"
                 href="javascript:void(0)"
@@ -105,13 +105,22 @@
                 >Patient Login</a
               >
             </li>
-            <li><hr class="dropdown-divider" /></li>
+            <li *ngIf="!isLoggenIn"><hr class="dropdown-divider" /></li>
             <li>
               <a
                 class="dropdown-item"
                 href="http://medpal.live/doctors/#/authentication/signin?loginType=Doctor"
                 target="_blank"
                 >Doctor Login</a
+              >
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a
+                class="dropdown-item"
+                href="http://medpal.live/hospitals/#/authentication/signin"
+                target="_blank"
+                >Hospital/Clinic Login</a
               >
             </li>
             <!-- <li>
@@ -136,7 +145,7 @@
             aria-expanded="false"
             ><i class="fa fa-user-plus proImgFont"></i>&nbsp; Hi -
             <span class="proName">{{
-              currentUser.firstName | slice: 0:20
+              currentUser.firstName | slice : 0 : 20
             }}</span>
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
