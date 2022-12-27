@@ -170,7 +170,7 @@
           <!-- Doctor about Endf-->
 
           <!--Doctor Education-->
-          <div class="aon-doctoreducation-wrap" id="aon-education-area">
+          <div class="aon-doctoreducation-wrap" id="aon-education-area" #about>
             <ul
               class="nav nav-pills mb-3 aon-custom-nav aon-doctor-tabs"
               role="tablist"
@@ -732,7 +732,7 @@
               </div>
             </div>
 
-            <div class="aon-doctorReview-right">
+            <div class="aon-doctorReview-right" #reviews>
               <h3><i class="fa fa-child fs-2 icocolor"></i> Recent reviews</h3>
               <!-- Award List-->
               <ul class="aon-docReview-list">
@@ -949,19 +949,31 @@
           <aside class="aon-side-bar">
             <!-- About Me -->
             <ul class="aon-siderbar-nav">
-              <li><a href="#aon-about-area">About Me</a></li>
               <li>
-                <a href="#aon-education-area">Education &amp; Training</a>
+                <a href="javascript:void(0);" (click)="scroll(about)"
+                  >About Me</a
+                >
               </li>
-              <li><a href="#aon-education-area">Experience</a></li>
-              <!--<li><a href="#aon-languages-area">Languages</a></li>
-              <li><a href="#aon-ques-ans-area">Question &amp; Answer</a></li> -->
+              <li>
+                <a href="javascript:void(0);" (click)="scroll(about)"
+                  >Education &amp; Training</a
+                >
+              </li>
+              <li>
+                <a href="javascript:void(0);" (click)="scroll(about)"
+                  >Experience</a
+                >
+              </li>
               <li>
                 <a href="javascript:void(0);" (click)="scroll(doclocation)"
                   >Locations</a
                 >
               </li>
-              <li><a href="#aon-reviews-area">Reviews</a></li>
+              <li>
+                <a href="javascript:void(0);" (click)="scroll(reviews)"
+                  >Reviews</a
+                >
+              </li>
             </ul>
             <!-- About Me End-->
 
