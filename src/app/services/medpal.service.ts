@@ -101,6 +101,18 @@ export class MedpalService {
       .pipe(catchError(this.handleError));
   }
 
+  getHospitalDoctorsLIsting(id: any) {
+    return this.http
+      .get(`${this.baseUrl}/doctors/getAllDocForFrontEnd/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getHospitalsLIsting() {
+    return this.http
+      .get(`${this.baseUrl}/hospitals/getAllHospitals`)
+      .pipe(catchError(this.handleError));
+  }
+
   getDoctorsLIstingGeo(data: any) {
     let params = new HttpParams({ fromObject: data });
     return this.http

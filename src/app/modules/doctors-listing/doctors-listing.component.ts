@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService, MedpalService } from 'src/app/services';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
+import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 @Component({
   selector: 'doctors-listing',
@@ -18,9 +19,12 @@ export class DoctorsListingComponent
   options: any = {};
   public lat: number = 0;
   public lng: number = 0;
+  params: any = null;
   constructor(
     public commonService: CommonService,
-    public medpalService: MedpalService
+    public medpalService: MedpalService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
     super();
     const center = { lat: 12.972442, lng: 77.580643 };
@@ -38,10 +42,18 @@ export class DoctorsListingComponent
       types: [],
       componentRestrictions: { country: 'in' },
     };
+    this.subs.sink = this.route.queryParams.subscribe((p) => {
+      this.params = p ? p : null;
+    });
   }
 
   ngOnInit(): void {
     //this.getLocation();
+    this.params?.hid
+      ? this.getHospitalDoctorsLIsting(this.params?.hid)
+      : this.getdocListing();
+  }
+  getdocListing() {
     this.subs.sink = this.medpalService.getDoctorsLIsting().subscribe({
       next: (data: any) => {
         this.doctorsListing = [];
@@ -53,7 +65,25 @@ export class DoctorsListingComponent
       },
     });
   }
-
+  getHospitalDoctorsLIsting(hid: any) {
+    this.subs.sink = this.medpalService
+      .getHospitalDoctorsLIsting(hid)
+      .subscribe({
+        next: (data: any) => {
+          this.doctorsListing = [];
+          this.doctorsListing = data;
+          //console.log(this.doctorsListing);
+        },
+        error: (err) => {
+          this.commonService.showNotification(err);
+        },
+      });
+  }
+  resetSearch() {
+    this.params = null;
+    this.getdocListing();
+    this.router.navigate(['doctors-listing/doctors']);
+  }
   public AddressChange(address: any) {
     console.log(address);
     this.lng = 0;

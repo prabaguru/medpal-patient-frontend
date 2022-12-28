@@ -61,181 +61,55 @@
   </div>
 </div>
 
-<!-- <section class="aon-med-team-area aon-med-team-area1 bg-light-gray">
-  <div class="container">
-    <div class="section-head center">
-      <span class="aon-sub-title">Hospital Appointments</span>
-      <h2 class="aon-title">Top Rated Doctors</h2>
-      <p class="text-black">Coming Soon</p>
-    </div>
-
-    <div class="section-content">
-      <div class="aon-med-team-section">
-        <div class="row"></div>
-      </div>
-
-      <div class="aon-addmore-btn-section">
-        <a href="javascript:void(0)" class="aon-addplus"
-          ><i class="fa fa-plus"></i
-        ></a>
-      </div>
-    </div>
-  </div>
-</section> -->
 <hr />
 <section class="aon-med-srv-cat-area bg-white">
   <div class="container">
-    <!--Title Section Start-->
     <div class="section-head center">
-      <span class="aon-sub-title">Categories</span>
-      <h2 class="aon-title">Top Searched Specialties</h2>
-      <!-- <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry the standard dummy text ever since the when an printer took.
-      </p> -->
+      <span class="aon-sub-title">Book Appointments in Hospitals</span>
+      <h2 class="aon-title">Top Searched Hospitals</h2>
     </div>
-    <!--Title Section End-->
 
     <div class="section-content">
       <div class="aon-med-srv-cat-section">
-        <ul class="justify-content-center">
-          <li>
-            <!--one-->
+        <div class="text-center">
+          <mat-error *ngIf="hospitalListing.length == 0" class="fw-bold"
+            >No Hospitals found...</mat-error
+          >
+        </div>
+        <ul class="justify-content-center" *ngIf="hospitalListing.length > 0">
+          <li *ngFor="let hos of hospitalListing">
             <div class="aon-med-sevices-cat aon-icon-effect">
               <div class="media">
                 <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/1.png" alt="" />
+                  <a
+                    href="javascript:void(0)"
+                    *ngIf="!hos.image.imageUrl"
+                    [routerLink]="['/doctors-listing/doctors']"
+                    [queryParams]="{ hospital: hos.firstName, hid: hos._id }"
+                  >
+                    <img
+                      src="../../../assets/images/s-category/1.png"
+                      alt="Medpal"
+                  /></a>
+                  <a
+                    href="javascript:void(0)"
+                    *ngIf="hos.image.imageUrl"
+                    [routerLink]="['/doctors-listing/doctors']"
+                    [queryParams]="{ hospital: hos.firstName, hid: hos._id }"
+                    ><img src="{{ hos.image.imageUrl }}" alt="Medpal"
+                  /></a>
                 </span>
               </div>
               <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:void(0)">Primary Care</a></h4>
-                <p>24 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--two-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/2.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:void(0)">Cardiology</a></h4>
-                <p>27 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--three-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/3.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:void(0)">MRI Resonance</a></h4>
-                <p>47 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--four-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/4.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:void(0)">Blood Test</a></h4>
-                <p>32 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--five-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/5.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:void(0)">Laboratory</a></h4>
-                <p>45 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--six-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/6.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:void(0)">Dentistry</a></h4>
-                <p>78 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--seven-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/7.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:void(0)">X-Ray</a></h4>
-                <p>45 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--eight-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/8.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:void(0)">Piscologist</a></h4>
-                <p>35 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--nine-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/9.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:void(0)">Chiropractor</a></h4>
-                <p>78 listing</p>
-              </div>
-            </div>
-          </li>
-          <li>
-            <!--ten-->
-            <div class="aon-med-sevices-cat aon-icon-effect">
-              <div class="media">
-                <span class="aon-icon">
-                  <img src="../../../assets/images/s-category/10.png" alt="" />
-                </span>
-              </div>
-              <div class="aon-med-serices-cat-info">
-                <h4><a href="javascript:void(0)">Pediatrician</a></h4>
-                <p>41 listing</p>
+                <h4>
+                  <a
+                    href="javascript:void(0)"
+                    [routerLink]="['/doctors-listing/doctors']"
+                    [queryParams]="{ hospital: hos.firstName, hid: hos._id }"
+                    >{{ hos.firstName }}</a
+                  >
+                </h4>
+                <p>{{ hos.address | slice : 0 : 100 }}</p>
               </div>
             </div>
           </li>
