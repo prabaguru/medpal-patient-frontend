@@ -109,6 +109,7 @@ export class AppointmentsComponent
   finalTimeslot: any = [];
   bookedppointments: any = [];
   bookedTimeslot: any = [];
+  serverTime: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -353,8 +354,7 @@ export class AppointmentsComponent
     }
 
     //console.log(this.timingSlots);
-    let getTime = moment().add(30, 'minutes').toDate().getTime();
-    //let getTime = moment().toDate().getTime();
+    let getTime = moment(this.serverTime, 'hh:mm a').add(30, 'minutes');
     let halfAnHourAgo: any = moment(getTime).unix();
     //console.log(halfAnHourAgo);
 
@@ -794,6 +794,7 @@ export class AppointmentsComponent
   }
   getAppointmentsById(d?: any) {
     this.bookedTimeslot = [];
+    this.serverTime = null;
     let obj: any = {
       id: this.doc._id,
       clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
@@ -809,6 +810,7 @@ export class AppointmentsComponent
               ? data.data.clinic1appointments
               : data.data.clinic2appointments;
           this.bookedTimeslot = app;
+          this.serverTime = data.currentTime;
           if (Object.getOwnPropertyNames(this.doc).length > 0) {
             this.showtemplate = true;
             this.generateSlots(
