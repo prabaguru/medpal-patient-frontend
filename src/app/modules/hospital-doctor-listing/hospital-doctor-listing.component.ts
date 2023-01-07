@@ -3,6 +3,13 @@ import { CommonService, MedpalService } from 'src/app/services';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Router, ActivatedRoute } from '@angular/router';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
+import { SPECIALISATION } from '../../dropdwndata';
 declare var $: any;
 @Component({
   selector: 'hospital-doctor-listing',
@@ -13,18 +20,22 @@ export class HospitalDoctorsListingComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit
 {
-  //public enableLoader = false;
+  firstFormGroup: FormGroup;
   public inputToChild: any;
   doctorsListing = [];
+  maindoctorsArr = [];
   options: any = {};
   public lat: number = 0;
   public lng: number = 0;
   params: any = null;
+  gender = ['Male', 'Female', 'Show All'];
+  docSpl = SPECIALISATION;
   constructor(
     public commonService: CommonService,
     public medpalService: MedpalService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _formBuilder: FormBuilder
   ) {
     super();
     const center = { lat: 12.972442, lng: 77.580643 };
@@ -45,6 +56,10 @@ export class HospitalDoctorsListingComponent
     this.subs.sink = this.route.queryParams.subscribe((p) => {
       this.params = p ? p : null;
     });
+    this.firstFormGroup = this._formBuilder.group({
+      genderFltr: [],
+      splFilter: [''],
+    });
   }
 
   ngOnInit(): void {
@@ -53,17 +68,8 @@ export class HospitalDoctorsListingComponent
       ? this.getHospitalDoctorsLIsting(this.params?.hid)
       : this.router.navigate(['/home']);
   }
-  getdocListing() {
-    this.subs.sink = this.medpalService.getDoctorsLIsting().subscribe({
-      next: (data: any) => {
-        this.doctorsListing = [];
-        this.doctorsListing = data;
-        //console.log(this.doctorsListing);
-      },
-      error: (err) => {
-        this.commonService.showNotification(err);
-      },
-    });
+  get f() {
+    return this.firstFormGroup.controls;
   }
   getHospitalDoctorsLIsting(hid: any) {
     this.subs.sink = this.medpalService
@@ -71,6 +77,8 @@ export class HospitalDoctorsListingComponent
       .subscribe({
         next: (data: any) => {
           this.doctorsListing = [];
+          this.maindoctorsArr = [];
+          this.maindoctorsArr = data;
           this.doctorsListing = data;
           //console.log(this.doctorsListing);
         },
@@ -79,7 +87,53 @@ export class HospitalDoctorsListingComponent
         },
       });
   }
-
+  applyFilter(filter: String) {
+    if (filter === 'Show All') {
+      this.f['genderFltr'].setValue(null);
+      this.doctorsListing = this.maindoctorsArr;
+    } else {
+      this.doctorsListing = this.maindoctorsArr.filter(
+        (obj: any) => obj.gender == filter
+      );
+    }
+    this.f['splFilter'].setValue('');
+  }
+  applySpecialisationFilter(filter: String) {
+    let gender =
+      this.f['genderFltr'].value === 'Show All'
+        ? null
+        : this.f['genderFltr'].value;
+    if (filter === 'MBBS - General') {
+      if (filter && !gender) {
+        this.doctorsListing = this.maindoctorsArr.filter(
+          (obj: any) =>
+            obj.graduation.qualificationUG.sName == 'MBBS' &&
+            obj.graduation.Graduation === 'UG'
+        );
+      }
+      if (filter && gender) {
+        this.doctorsListing = this.maindoctorsArr.filter(
+          (obj: any) =>
+            obj.graduation.qualificationUG.sName == 'MBBS' &&
+            obj.graduation.Graduation === 'UG' &&
+            obj.gender === gender
+        );
+      }
+    } else {
+      if (filter && !gender) {
+        this.doctorsListing = this.maindoctorsArr.filter(
+          (obj: any) => obj.graduation.specialisationPG.name === filter
+        );
+      }
+      if (filter && gender) {
+        this.doctorsListing = this.maindoctorsArr.filter(
+          (obj: any) =>
+            obj.graduation.specialisationPG.name === filter &&
+            obj.gender === gender
+        );
+      }
+    }
+  }
   public AddressChange(address: any) {
     console.log(address);
     this.lng = 0;

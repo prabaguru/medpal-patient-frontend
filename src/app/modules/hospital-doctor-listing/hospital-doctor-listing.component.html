@@ -73,19 +73,45 @@
       <span *ngIf="doctorsListing?.length > 1 || doctorsListing?.length == 0"
         >Doctors</span
       >
-      available
+      available For
+      <span *ngIf="params?.hospital">{{ params?.hospital }} </span>
     </h3>
     <div class="aon-searchInfo-text">
       <i class="fa fa-check"></i> Book appointments with minimum wait-time &amp;
-      verified doctor details
+      verified Doctor details
     </div>
-    <div class="col-lg-6" *ngIf="params?.hospital">
-      <h3 class="aon-searchInfo-title mt-3">
-        {{ params?.hospital }}
-      </h3>
-    </div>
+    <form [formGroup]="firstFormGroup">
+      <div class="row d-flex mt-4" *ngIf="maindoctorsArr?.length > 0">
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline">
+            <mat-label><i class="fa fa-filter"></i> Gender</mat-label>
+            <mat-select
+              (selectionChange)="applyFilter($event.value)"
+              formControlName="genderFltr"
+            >
+              <mat-option *ngFor="let gen of gender" [value]="gen">
+                {{ gen }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+          <mat-form-field appearance="outline">
+            <mat-label><i class="fa fa-filter"></i> Specialisation</mat-label>
+            <mat-select
+              (selectionChange)="applySpecialisationFilter($event.value)"
+              formControlName="splFilter"
+            >
+              <mat-option *ngFor="let spl of docSpl" [value]="spl.name">
+                {{ spl.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
   </div>
-  <div class="aon-page-jobs-wrap">
+  <div class="aon-page-jobs-wrap pt-0">
     <div class="container">
       <div class="row">
         <!-- Left part start -->
