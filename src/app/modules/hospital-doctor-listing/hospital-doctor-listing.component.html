@@ -108,6 +108,19 @@
             </mat-select>
           </mat-form-field>
         </div>
+        <div class="col-md-3 py-3">
+          <mat-chip-list aria-label="Reset">
+            <mat-chip
+              color="primary"
+              selected
+              class="chiplist"
+              (click)="applyFilter('Show All')"
+            >
+              <mat-icon class="maticoCloor">close</mat-icon>
+              Reset Filters</mat-chip
+            >
+          </mat-chip-list>
+        </div>
       </div>
     </form>
   </div>

@@ -134,6 +134,7 @@ export class HospitalDoctorsListingComponent
       }
     }
   }
+
   public AddressChange(address: any) {
     console.log(address);
     this.lng = 0;
