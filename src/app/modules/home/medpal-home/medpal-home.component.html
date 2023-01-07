@@ -84,7 +84,7 @@
                   <a
                     href="javascript:void(0)"
                     *ngIf="!hos.image.imageUrl"
-                    [routerLink]="['/doctors-listing/doctors']"
+                    [routerLink]="['/hospital-listing/doctors']"
                     [queryParams]="{ hospital: hos.firstName, hid: hos._id }"
                   >
                     <img
@@ -94,7 +94,7 @@
                   <a
                     href="javascript:void(0)"
                     *ngIf="hos.image.imageUrl"
-                    [routerLink]="['/doctors-listing/doctors']"
+                    [routerLink]="['/hospital-listing/doctors']"
                     [queryParams]="{ hospital: hos.firstName, hid: hos._id }"
                     ><img src="{{ hos.image.imageUrl }}" alt="Medpal"
                   /></a>
@@ -104,7 +104,7 @@
                 <h4>
                   <a
                     href="javascript:void(0)"
-                    [routerLink]="['/doctors-listing/doctors']"
+                    [routerLink]="['/hospital-listing/doctors']"
                     [queryParams]="{ hospital: hos.firstName, hid: hos._id }"
                     >{{ hos.firstName }}</a
                   >

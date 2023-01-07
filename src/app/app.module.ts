@@ -24,6 +24,7 @@ import { PatientProfileComponent } from './modules/patient/patient-profile/patie
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
 import { MedpalAboutUsComponent } from './modules/home/aboutus/aboutus.component';
 import { DoctorsListingComponent } from './modules/doctors-listing/doctors-listing.component';
+import { HospitalDoctorsListingComponent } from './modules/hospital-doctor-listing/hospital-doctor-listing.component';
 import { DoctorsProfileComponent } from './modules/doctors-profile/doctors-profile.component';
 import { AppointmentsComponent } from './modules/appointments/appointments.component';
 import { PatientProfileResetPasswordComponent } from './modules/patient/patient-reset-password/patient-reset-password.component';
@@ -52,6 +53,7 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     MedpalAboutUsComponent,
     PatientProfileResetPasswordComponent,
     DoctorsListingComponent,
+    HospitalDoctorsListingComponent,
     DoctorsProfileComponent,
     AppointmentsComponent,
     PatientAppointmentsComponent,

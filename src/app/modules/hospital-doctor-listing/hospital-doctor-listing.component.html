@@ -79,6 +79,11 @@
       <i class="fa fa-check"></i> Book appointments with minimum wait-time &amp;
       verified doctor details
     </div>
+    <div class="col-lg-6" *ngIf="params?.hospital">
+      <h3 class="aon-searchInfo-title mt-3">
+        {{ params?.hospital }}
+      </h3>
+    </div>
   </div>
   <div class="aon-page-jobs-wrap">
     <div class="container">

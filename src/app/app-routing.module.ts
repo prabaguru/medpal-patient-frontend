@@ -10,6 +10,7 @@ import { ResetPasswordEmailComponent } from './modules/login/reset-password-emai
 import { PatientProfileResetPasswordComponent } from './modules/patient/patient-reset-password/patient-reset-password.component';
 import { PatientProfileComponent } from './modules/patient/patient-profile/patient-profile.component';
 import { DoctorsListingComponent } from './modules/doctors-listing/doctors-listing.component';
+import { HospitalDoctorsListingComponent } from './modules/hospital-doctor-listing/hospital-doctor-listing.component';
 import { DoctorsProfileComponent } from './modules/doctors-profile/doctors-profile.component';
 import { AppointmentsComponent } from './modules/appointments/appointments.component';
 import { PatientAppointmentsComponent } from './modules/patient/patient-appointments/patient-appointments.component';
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: 'doctors-listing/doctors',
         component: DoctorsListingComponent,
+      },
+      {
+        path: 'hospital-listing/doctors',
+        component: HospitalDoctorsListingComponent,
       },
       {
         path: 'doctors-profile',

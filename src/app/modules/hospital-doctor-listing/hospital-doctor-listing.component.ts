@@ -5,11 +5,11 @@ import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroy
 import { Router, ActivatedRoute } from '@angular/router';
 declare var $: any;
 @Component({
-  selector: 'doctors-listing',
-  templateUrl: './doctors-listing.component.html',
-  styleUrls: ['./doctors-listing.component.scss'],
+  selector: 'hospital-doctor-listing',
+  templateUrl: './hospital-doctor-listing.component.html',
+  styleUrls: ['./hospital-doctor-listing.component.scss'],
 })
-export class DoctorsListingComponent
+export class HospitalDoctorsListingComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit
 {
@@ -42,11 +42,16 @@ export class DoctorsListingComponent
       types: [],
       componentRestrictions: { country: 'in' },
     };
+    this.subs.sink = this.route.queryParams.subscribe((p) => {
+      this.params = p ? p : null;
+    });
   }
 
   ngOnInit(): void {
     //this.getLocation();
-    this.getdocListing();
+    this.params?.hid
+      ? this.getHospitalDoctorsLIsting(this.params?.hid)
+      : this.router.navigate(['/home']);
   }
   getdocListing() {
     this.subs.sink = this.medpalService.getDoctorsLIsting().subscribe({
@@ -59,6 +64,20 @@ export class DoctorsListingComponent
         this.commonService.showNotification(err);
       },
     });
+  }
+  getHospitalDoctorsLIsting(hid: any) {
+    this.subs.sink = this.medpalService
+      .getHospitalDoctorsLIsting(hid)
+      .subscribe({
+        next: (data: any) => {
+          this.doctorsListing = [];
+          this.doctorsListing = data;
+          //console.log(this.doctorsListing);
+        },
+        error: (err) => {
+          this.commonService.showNotification(err);
+        },
+      });
   }
 
   public AddressChange(address: any) {
