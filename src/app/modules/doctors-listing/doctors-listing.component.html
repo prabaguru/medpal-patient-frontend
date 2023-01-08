@@ -1,70 +1,56 @@
-<!-- <div class="container-fluid bg">
+<div class="container-fluid bg">
   <div class="row">
     <div class="aon-search2-bar-wrap">
       <div class="container">
-        <div class="aon-search2-row">
-          <form class="aon-search2-form no-p-lr row justify-content-center">
-            <div class="col-md-8">
-              <mat-form-field
-                appearance="outline"
-                class="full-width-field border-red"
+        <form
+          class="row justify-content-center mt-3"
+          [formGroup]="firstFormGroup"
+        >
+          <div class="col-md-8">
+            <mat-form-field
+              appearance="outline"
+              class="full-width-field border-red"
+            >
+              <mat-label class="matlabel"
+                >Search Doctors By Your Location</mat-label
               >
-                <mat-label class="matlabel"
-                  >Search Doctors By Location</mat-label
-                >
-                <input
-                  type="text"
-                  matInput
-                  ngx-google-places-autocomplete
-                  [options]="options"
-                  class="searchmain"
-                  (onAddressChange)="AddressChange($event)"
-                />
-                <mat-icon
-                  matPrefix
-                  class="my-icon"
-                  (click)="getLocation()"
-                  matTooltipPosition="above"
-                  ><span class="material-symbols-outlined">
-                    travel_explore
-                  </span></mat-icon
-                >
-                <mat-icon
-                  matSuffix
-                  matTooltip="You are searching locations in India"
-                  matTooltipPosition="above"
-                  (click)="getLocation()"
-                  class="infomargin"
-                  >info</mat-icon
-                >
-              </mat-form-field>
-            </div>
-            <div class="col-md-2 getcLocation pt-4">
-              <a href="javascript:void(0)" (click)="getLocation()"
-                ><mat-icon
-                  matTooltip="Get Current Location"
-                  matTooltipPosition="above"
-                  >my_location</mat-icon
-                >Get Current Location</a
+              <input
+                type="text"
+                formControlName="addSearch"
+                matInput
+                ngx-google-places-autocomplete
+                [options]="options"
+                class="searchmain"
+                (onAddressChange)="AddressChange($event)"
+              />
+              <mat-icon matPrefix class="my-icon" matTooltipPosition="above"
+                ><span class="material-symbols-outlined">
+                  travel_explore
+                </span></mat-icon
               >
-            </div>
-
-            <div class="col-md-2">
-              <button
-                mat-raised-button
-                color="primary"
-                type="submit"
-                class="site-button"
+              <mat-icon
+                matSuffix
+                matTooltip="You are searching locations in India"
+                matTooltipPosition="above"
+                class="infomargin"
+                >info</mat-icon
               >
-                Search
-              </button>
-            </div> 
-          </form>
-        </div>
+            </mat-form-field>
+          </div>
+          <!-- <div class="col-md-2 getcLocation">
+            <a href="javascript:void(0)" (click)="getLocation()"
+              ><mat-icon
+                matTooltip="Get Current Location"
+                matTooltipPosition="above"
+                >my_location</mat-icon
+              >Get Current Location</a
+            >
+          </div> -->
+        </form>
       </div>
     </div>
   </div>
-</div> -->
+</div>
 <div class="aon-search-info-wrap">
   <div class="container">
     <h3 class="aon-searchInfo-title">
@@ -140,14 +126,14 @@
                       {{ doc.graduation.DoctorType.name }}
                     </p>
                     <div
-                      class="sf-doct-info"
+                      class="sf-doct-infoedited"
                       *ngIf="doc.graduation.Graduation === 'UG'"
                     >
                       <span> {{ doc.graduation.qualificationUG.sName }}</span>
                       (General)
                     </div>
                     <div
-                      class="sf-doct-info"
+                      class="sf-doct-infoedited"
                       *ngIf="doc.graduation.Graduation === 'PG'"
                     >
                       <span>{{ doc.graduation.qualificationPG.sName }} - </span>

@@ -3,12 +3,7 @@ import { CommonService, MedpalService } from 'src/app/services';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Router, ActivatedRoute } from '@angular/router';
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { SPECIALISATION } from '../../dropdwndata';
 declare var $: any;
 @Component({
@@ -38,21 +33,7 @@ export class HospitalDoctorsListingComponent
     private _formBuilder: FormBuilder
   ) {
     super();
-    const center = { lat: 12.972442, lng: 77.580643 };
-    // Create a bounding box with sides ~10km away from the center point
-    const defaultBounds = {
-      north: center.lat + 0.1,
-      south: center.lat - 0.1,
-      east: center.lng + 0.1,
-      west: center.lng - 0.1,
-    };
-    this.options = {
-      bounds: undefined,
-      fields: ['place_id', 'name', 'formatted_address', 'geometry'],
-      strictBounds: false,
-      types: [],
-      componentRestrictions: { country: 'in' },
-    };
+
     this.subs.sink = this.route.queryParams.subscribe((p) => {
       this.params = p ? p : null;
     });

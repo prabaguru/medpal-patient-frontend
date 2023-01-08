@@ -3,6 +3,7 @@ import { CommonService, MedpalService } from 'src/app/services';
 import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder } from '@angular/forms';
 declare var $: any;
 @Component({
   selector: 'doctors-listing',
@@ -13,7 +14,7 @@ export class DoctorsListingComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit
 {
-  //public enableLoader = false;
+  firstFormGroup: FormGroup;
   public inputToChild: any;
   doctorsListing = [];
   options: any = {};
@@ -24,17 +25,11 @@ export class DoctorsListingComponent
     public commonService: CommonService,
     public medpalService: MedpalService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private _formBuilder: FormBuilder
   ) {
     super();
-    const center = { lat: 12.972442, lng: 77.580643 };
-    // Create a bounding box with sides ~10km away from the center point
-    const defaultBounds = {
-      north: center.lat + 0.1,
-      south: center.lat - 0.1,
-      east: center.lng + 0.1,
-      west: center.lng - 0.1,
-    };
+
     this.options = {
       bounds: undefined,
       fields: ['place_id', 'name', 'formatted_address', 'geometry'],
@@ -42,11 +37,17 @@ export class DoctorsListingComponent
       types: [],
       componentRestrictions: { country: 'in' },
     };
+    this.firstFormGroup = this._formBuilder.group({
+      addSearch: [],
+    });
   }
 
   ngOnInit(): void {
     //this.getLocation();
     this.getdocListing();
+  }
+  get f() {
+    return this.firstFormGroup.controls;
   }
   getdocListing() {
     this.subs.sink = this.medpalService.getDoctorsLIsting().subscribe({
@@ -73,13 +74,19 @@ export class DoctorsListingComponent
       lng: this.lng,
       lat: this.lat,
     };
-    //this.geoQueryDoctors(obj);
+    this.geoQueryDoctors(obj);
   }
   getLocation() {
+    let options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: any) => {
           if (position) {
+            //console.log(position);
             console.log(
               'Latitude: ' +
                 position.coords.latitude +
@@ -90,18 +97,20 @@ export class DoctorsListingComponent
             this.lng = position.coords.longitude;
             let obj = {};
             obj = {
-              lat: this.lat,
               lng: this.lng,
+              lat: this.lat,
             };
             this.geoQueryDoctors(obj);
           }
         },
-        (error: any) => console.log(error)
+        (error: any) => console.log(error),
+        { enableHighAccuracy: true }
       );
     } else {
       this.lat = 0;
       this.lng = 0;
     }
+    this.firstFormGroup.reset();
   }
 
   geoQueryDoctors(obj: any) {
