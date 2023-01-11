@@ -84,7 +84,7 @@
       <div class="row d-flex mt-4" *ngIf="maindoctorsArr?.length > 0">
         <div class="col-lg-3">
           <mat-form-field appearance="outline">
-            <mat-label><i class="fa fa-filter"></i> Gender</mat-label>
+            <mat-label><i class="fa fa-users"></i> Gender</mat-label>
             <mat-select
               (selectionChange)="applyFilter($event.value)"
               formControlName="genderFltr"
@@ -97,7 +97,7 @@
         </div>
         <div class="col-lg-3">
           <mat-form-field appearance="outline">
-            <mat-label><i class="fa fa-filter"></i> Specialisation</mat-label>
+            <mat-label><i class="fa fa-user-md"></i> Specialisation</mat-label>
             <mat-select
               (selectionChange)="applySpecialisationFilter($event.value)"
               formControlName="splFilter"

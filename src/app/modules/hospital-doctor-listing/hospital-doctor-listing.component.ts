@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService, MedpalService } from 'src/app/services';
-import { Options } from 'ngx-google-places-autocomplete/objects/options/options';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { SPECIALISATION } from '../../dropdwndata';
+
 declare var $: any;
 @Component({
   selector: 'hospital-doctor-listing',
@@ -28,10 +27,6 @@ export class HospitalDoctorsListingComponent
     {
       id: '0',
       name: 'MBBS - General',
-    },
-    {
-      id: '3',
-      name: 'Anesthesiology',
     },
   ];
   constructor(
@@ -68,13 +63,13 @@ export class HospitalDoctorsListingComponent
         next: (data: any) => {
           this.doctorsListing = [];
           this.maindoctorsArr = [];
-          this.maindoctorsArr = data;
-
-          this.doctorsListing = data.sort(
+          this.maindoctorsArr = data.sort(
             (a: any, b: any) =>
               Number(b.graduation.overallExperience) -
               Number(a.graduation.overallExperience)
           );
+
+          this.doctorsListing = this.maindoctorsArr;
           //console.log(this.doctorsListing);
           let len = this.doctorsListing.length;
           for (let i = 0; i < len; i++) {
