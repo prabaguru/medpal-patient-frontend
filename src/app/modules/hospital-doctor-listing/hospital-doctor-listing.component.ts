@@ -24,7 +24,16 @@ export class HospitalDoctorsListingComponent
   public lng: number = 0;
   params: any = null;
   gender = ['Male', 'Female', 'Show All'];
-  docSpl = SPECIALISATION;
+  docSpl: any = [
+    {
+      id: '0',
+      name: 'MBBS - General',
+    },
+    {
+      id: '3',
+      name: 'Anesthesiology',
+    },
+  ];
   constructor(
     public commonService: CommonService,
     public medpalService: MedpalService,
@@ -60,8 +69,27 @@ export class HospitalDoctorsListingComponent
           this.doctorsListing = [];
           this.maindoctorsArr = [];
           this.maindoctorsArr = data;
-          this.doctorsListing = data;
+
+          this.doctorsListing = data.sort(
+            (a: any, b: any) =>
+              Number(b.graduation.overallExperience) -
+              Number(a.graduation.overallExperience)
+          );
           //console.log(this.doctorsListing);
+          let len = this.doctorsListing.length;
+          for (let i = 0; i < len; i++) {
+            if (data[i].graduation.specialisationPG) {
+              this.docSpl.push(data[i].graduation.specialisationPG);
+            }
+          }
+          this.docSpl = this.docSpl.reduce((acc: any, current: any) => {
+            let x = acc.find((item: any) => item.id === current.id);
+            if (!x) {
+              return acc.concat([current]);
+            } else {
+              return acc;
+            }
+          }, []);
         },
         error: (err) => {
           this.commonService.showNotification(err);

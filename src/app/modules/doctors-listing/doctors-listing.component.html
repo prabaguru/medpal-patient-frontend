@@ -1,12 +1,12 @@
 <div class="container-fluid bg">
   <div class="row">
     <div class="aon-search2-bar-wrap">
-      <div class="container">
+      <div class="container mb-2">
         <form
-          class="row justify-content-center mt-3"
+          class="row justify-content-center my-3"
           [formGroup]="firstFormGroup"
         >
-          <div class="col-md-8">
+          <div class="col-md-8 matformfield">
             <mat-form-field
               appearance="outline"
               class="full-width-field border-red"
@@ -36,6 +36,13 @@
                 >info</mat-icon
               >
             </mat-form-field>
+            <a
+              *ngIf="f['addSearch'].value"
+              href="javascript:void(0)"
+              class="sf-doct-infoedited font-monospace text-decoration-underline"
+              (click)="clearSearch()"
+              >Clear Search <i class="fa fa-remove"></i
+            ></a>
           </div>
           <!-- <div class="col-md-2 getcLocation">
             <a href="javascript:void(0)" (click)="getLocation()"
@@ -143,7 +150,7 @@
                       {{ doc.graduation.overallExperience }} - Years experience
                       overall
                     </div>
-                    <div class="sf-doc-exp m-b20">
+                    <div class="sf-doc-exp m-b20 text-capitalize">
                       {{ doc.ClinicOneTimings.ClinicName }} -
                       {{ doc.ClinicOneTimings.clinicArea }}
                     </div>

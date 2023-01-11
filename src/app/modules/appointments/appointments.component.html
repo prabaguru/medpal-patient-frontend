@@ -120,6 +120,7 @@
             </div>
           </div>
         </div>
+
         <button
           type="button"
           class="btn-close"
@@ -632,6 +633,13 @@
         </mat-stepper>
       </div>
       <div class="modal-footer">
+        <div
+          class="loggedin fw-bold text-capitalize"
+          *ngIf="submitted && loggedIn"
+        >
+          logged in as
+          {{ authService.currentUserValue.firstName | slice : 0 : 20 }}
+        </div>
         <button
           type="button"
           class="btn btn-secondary"
