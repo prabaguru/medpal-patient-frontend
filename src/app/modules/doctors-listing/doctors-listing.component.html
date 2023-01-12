@@ -77,7 +77,21 @@
     </div>
     <form [formGroup]="secondFormGroup">
       <div class="row d-flex mt-4" *ngIf="maindoctorsArr?.length > 0">
-        <div class="col-lg-3">
+        <div class="col-lg-2">
+          <mat-form-field appearance="outline">
+            <mat-label><i class="fa fa-user-plus"></i> Doctor Type</mat-label>
+            <mat-select
+              (selectionChange)="docTypeFilter($event.value)"
+              formControlName="dtFilter"
+            >
+              <mat-option value="Show All"> Show All </mat-option>
+              <mat-option *ngFor="let dt of docType" [value]="dt.name">
+                {{ dt.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-2">
           <mat-form-field appearance="outline">
             <mat-label><i class="fa fa-users"></i> Gender</mat-label>
             <mat-select
@@ -90,7 +104,8 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-lg-3">
+
+        <div class="col-lg-3" *ngIf="g['dtFilter'].value === 'Allopathy'">
           <mat-form-field appearance="outline">
             <mat-label><i class="fa fa-user-md"></i> Specialisation</mat-label>
             <mat-select
@@ -109,7 +124,7 @@
               color="primary"
               selected
               class="chiplist"
-              (click)="applyFilter('Show All')"
+              (click)="mainReset()"
             >
               <mat-icon class="maticoCloor">close</mat-icon>
               Reset Filters</mat-chip
@@ -137,7 +152,9 @@
                     <span class="fa fa-star"></span>
                     <span class="fa fa-star"></span>
 
-                    <span class="sf-rating-lable">3 Feedback</span>
+                    <span class="sf-rating-lable rupee fw-bold"
+                      >₹ {{ doc.ClinicOneTimings.ConsultationFeesC1 }}</span
+                    >
                   </div>
                   <div class="sf-medi-like">
                     <i class="fa fa-thumbs-up"></i>
@@ -200,14 +217,13 @@
                       {{ doc.ClinicOneTimings.ClinicName }} -
                       {{ doc.ClinicOneTimings.clinicArea }}
                     </div>
-                    <a
-                      href="javascript:void(0)"
+                    <button
                       (click)="openModal(doc, 'clinic1')"
                       *ngIf="doc.ClinicOneTimings.active"
                       class="site-button"
                     >
                       <i class="fa fa-calendar"></i> Book Appointment
-                    </a>
+                    </button>
                     <!-- Example single danger button -->
                     <!-- <div
                     class="btn-group"

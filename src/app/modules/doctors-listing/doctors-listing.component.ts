@@ -26,11 +26,17 @@ export class DoctorsListingComponent
   public lng: number = 0;
   params: any = null;
   locationText: boolean = false;
-  gender = ['Male', 'Female', 'Show All'];
+  gender = ['Show All', 'Male', 'Female'];
   docSpl: any = [
     {
       id: '0',
       name: 'MBBS - General',
+    },
+  ];
+  docType: any = [
+    {
+      id: '1',
+      name: 'Allopathy',
     },
   ];
   constructor(
@@ -55,6 +61,7 @@ export class DoctorsListingComponent
     this.secondFormGroup = this._formBuilder.group({
       genderFltr: [],
       splFilter: [''],
+      dtFilter: [''],
     });
   }
 
@@ -159,15 +166,12 @@ export class DoctorsListingComponent
             if (data[i].graduation.specialisationPG) {
               this.docSpl.push(data[i].graduation.specialisationPG);
             }
-          }
-          this.docSpl = this.docSpl.reduce((acc: any, current: any) => {
-            let x = acc.find((item: any) => item.id === current.id);
-            if (!x) {
-              return acc.concat([current]);
-            } else {
-              return acc;
+            if (data[i].graduation.DoctorType) {
+              this.docType.push(data[i].graduation.DoctorType);
             }
-          }, []);
+          }
+          this.docSpl = this.filterDuplicates(this.docSpl, false);
+          this.docType = this.filterDuplicates(this.docType, true);
         } else {
           this.doctorsListing = [];
         }
@@ -182,17 +186,56 @@ export class DoctorsListingComponent
   clearSearch() {
     this.firstFormGroup.reset();
   }
-
-  //Doc Filters
-
-  applyFilter(filter: String) {
-    if (filter === 'Show All') {
-      this.g['genderFltr'].setValue(null);
-      this.doctorsListing = this.maindoctorsArr;
+  filterDuplicates(arr: any, sort: boolean) {
+    let data = arr.reduce((acc: any, current: any) => {
+      let x = acc.find((item: any) => item.id === current.id);
+      if (!x) {
+        return acc.concat([current]);
+      } else {
+        return acc;
+      }
+    }, []);
+    if (!sort) {
+      return data;
     } else {
+      return data.sort(function (a: any, b: any) {
+        return a.name.localeCompare(b.name);
+      });
+    }
+  }
+  //Doc Filters
+  docTypeFilter(filter: String) {
+    if (filter !== 'Show All') {
       this.doctorsListing = this.maindoctorsArr.filter(
-        (obj: any) => obj.gender == filter
+        (obj: any) => obj.graduation.DoctorType.name == filter
       );
+    } else {
+      this.doctorsListing = this.maindoctorsArr;
+    }
+    this.g['genderFltr'].setValue('');
+    this.g['splFilter'].setValue('');
+  }
+  applyFilter(filter: String) {
+    let docType = this.g['dtFilter'].value;
+    if (filter === 'Show All') {
+      if (docType) {
+        this.doctorsListing = this.maindoctorsArr.filter(
+          (obj: any) => obj.graduation.DoctorType.name == docType
+        );
+      } else {
+        this.doctorsListing = this.maindoctorsArr;
+      }
+    } else {
+      if (docType) {
+        this.doctorsListing = this.maindoctorsArr.filter(
+          (obj: any) =>
+            obj.gender == filter && obj.graduation.DoctorType.name == docType
+        );
+      } else {
+        this.doctorsListing = this.maindoctorsArr.filter(
+          (obj: any) => obj.gender == filter
+        );
+      }
     }
     this.g['splFilter'].setValue('');
   }
@@ -206,7 +249,8 @@ export class DoctorsListingComponent
         this.doctorsListing = this.maindoctorsArr.filter(
           (obj: any) =>
             obj.graduation.qualificationUG.sName == 'MBBS' &&
-            obj.graduation.Graduation === 'UG'
+            obj.graduation.Graduation === 'UG' &&
+            obj.graduation.DoctorType.name === 'Allopathy'
         );
       }
       if (filter && gender) {
@@ -214,25 +258,32 @@ export class DoctorsListingComponent
           (obj: any) =>
             obj.graduation.qualificationUG.sName == 'MBBS' &&
             obj.graduation.Graduation === 'UG' &&
-            obj.gender === gender
+            obj.gender === gender &&
+            obj.graduation.DoctorType.name === 'Allopathy'
         );
       }
     } else {
       if (filter && !gender) {
         this.doctorsListing = this.maindoctorsArr.filter(
-          (obj: any) => obj.graduation.specialisationPG.name === filter
+          (obj: any) =>
+            obj.graduation.specialisationPG.name === filter &&
+            obj.graduation.DoctorType.name === 'Allopathy'
         );
       }
       if (filter && gender) {
         this.doctorsListing = this.maindoctorsArr.filter(
           (obj: any) =>
             obj.graduation.specialisationPG.name === filter &&
-            obj.gender === gender
+            obj.gender === gender &&
+            obj.graduation.DoctorType.name === 'Allopathy'
         );
       }
     }
   }
-
+  mainReset() {
+    this.secondFormGroup.reset();
+    this.doctorsListing = this.maindoctorsArr;
+  }
   randomIntFromInterval(min: number, max: number) {
     // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min);
