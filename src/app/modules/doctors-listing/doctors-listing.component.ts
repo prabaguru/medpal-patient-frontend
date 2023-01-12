@@ -97,12 +97,12 @@ export class DoctorsListingComponent
   }
 
   public AddressChange(address: any) {
-    console.log(address);
+    //console.log(address);
     this.lng = 0;
     this.lat = 0;
     this.lng = address.geometry.location.lng();
     this.lat = address.geometry.location.lat();
-    console.log('Latitude: ' + this.lat + 'Longitude: ' + this.lng);
+    //console.log('Latitude: ' + this.lat + 'Longitude: ' + this.lng);
     let obj = {};
     obj = {
       lng: this.lng,
@@ -111,24 +111,19 @@ export class DoctorsListingComponent
     this.geoQueryDoctors(obj);
   }
   getLocation() {
-    let options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0,
-    };
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: any) => {
           if (position) {
-            //console.log(position);
-            console.log(
-              'Latitude: ' +
-                position.coords.latitude +
-                'Longitude: ' +
-                position.coords.longitude
-            );
-            this.lat = position.coords.latitude;
-            this.lng = position.coords.longitude;
+            // console.log(position);
+            // console.log(
+            //   'Latitude: ' +
+            //     position.coords.latitude +
+            //     'Longitude: ' +
+            //     position.coords.longitude
+            // );
+            this.lat = position.coords.latitude - 1.1676886;
+            this.lng = position.coords.longitude - 0.4022846;
             let obj = {};
             obj = {
               lng: this.lng,
@@ -137,8 +132,13 @@ export class DoctorsListingComponent
             this.geoQueryDoctors(obj);
           }
         },
-        (error: any) => console.log(error),
-        { enableHighAccuracy: true }
+        (error: any) => {
+          //console.log(error);
+          this.commonService.showNotification(
+            "We can't detect Your Location. Search Your location in the search section."
+          );
+        },
+        { enableHighAccuracy: true, timeout: 10 * 1000, maximumAge: 0 }
       );
     } else {
       this.lat = 0;
