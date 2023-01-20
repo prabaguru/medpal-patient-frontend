@@ -18,6 +18,7 @@ export class DoctorsListingComponent
 {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  firstFormGroupModal: FormGroup;
   public inputToChild: any;
   doctorsListing = [];
   maindoctorsArr = [];
@@ -58,6 +59,9 @@ export class DoctorsListingComponent
     this.firstFormGroup = this._formBuilder.group({
       addSearch: [],
     });
+    this.firstFormGroupModal = this._formBuilder.group({
+      addSearch: [],
+    });
     this.secondFormGroup = this._formBuilder.group({
       genderFltr: [],
       splFilter: [''],
@@ -67,10 +71,17 @@ export class DoctorsListingComponent
 
   ngOnInit(): void {
     //this.getLocation();
-    this.getdocListing();
+    setTimeout(function () {
+      $('#staticBackdropGmap').modal('show');
+    }, 500);
+
+    //this.getdocListing();
   }
   get f() {
     return this.firstFormGroup.controls;
+  }
+  get f1() {
+    return this.firstFormGroupModal.controls;
   }
   get g() {
     return this.secondFormGroup.controls;
@@ -110,6 +121,24 @@ export class DoctorsListingComponent
     };
     this.geoQueryDoctors(obj);
   }
+  public AddressChangeModal(address: any) {
+    //console.log(address);
+    this.lng = 0;
+    this.lat = 0;
+    this.lng = address.geometry.location.lng();
+    this.lat = address.geometry.location.lat();
+    //console.log('Latitude: ' + this.lat + 'Longitude: ' + this.lng);
+    let obj = {};
+    obj = {
+      lng: this.lng,
+      lat: this.lat,
+    };
+    this.geoQueryDoctors(obj);
+    setTimeout(function () {
+      $('#staticBackdropGmap').modal('hide');
+    }, 0);
+    this.f['addSearch'].setValue(address.formatted_address);
+  }
   getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -138,7 +167,7 @@ export class DoctorsListingComponent
             "We can't detect Your Location. Search Your location in the search section."
           );
         },
-        { enableHighAccuracy: true, timeout: 10 * 1000, maximumAge: 0 }
+        { enableHighAccuracy: true }
       );
     } else {
       this.lat = 0;

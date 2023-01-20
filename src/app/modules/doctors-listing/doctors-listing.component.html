@@ -45,13 +45,13 @@
             ></a>
           </div>
           <div class="col-md-3">
-            <button (click)="getLocation()" class="btn pt-3">
+            <!-- <button (click)="getLocation()" class="btn pt-3">
               <mat-icon
                 matTooltip="Get Current Location"
                 matTooltipPosition="above"
                 >my_location</mat-icon
               >Get Current Location
-            </button>
+            </button> -->
           </div>
         </form>
       </div>
@@ -363,4 +363,83 @@
     </div>
   </div>
   <appointments [data]="inputToChild"></appointments>
+</div>
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="staticBackdropGmap"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabelgmap"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabelgmap">
+          Enter Your Location <i class="fa fa-map"></i>
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          class="row justify-content-center my-3"
+          [formGroup]="firstFormGroupModal"
+        >
+          <div class="col-md-12 matformfield">
+            <mat-form-field
+              appearance="outline"
+              class="full-width-field border-red"
+            >
+              <mat-label class="matlabel"
+                >Search Doctors By Your Location</mat-label
+              >
+              <input
+                type="text"
+                formControlName="addSearch"
+                matInput
+                ngx-google-places-autocomplete
+                [options]="options"
+                class="searchmain"
+                (onAddressChange)="AddressChangeModal($event)"
+              />
+              <mat-icon matPrefix class="my-icon" matTooltipPosition="above"
+                ><span class="material-symbols-outlined">
+                  travel_explore
+                </span></mat-icon
+              >
+              <mat-icon
+                matSuffix
+                matTooltip="You are searching locations in India"
+                matTooltipPosition="above"
+                class="infomargin"
+                >info</mat-icon
+              >
+            </mat-form-field>
+            <a
+              *ngIf="f['addSearch'].value"
+              href="javascript:void(0)"
+              class="sf-doct-infoedited font-monospace text-decoration-underline"
+              (click)="clearSearch()"
+              >Clear Search <i class="fa fa-location-arrow"></i
+            ></a>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="site-button">
+          Search <i class="fa fa-user-md" aria-hidden="true"></i> Doctors By
+          Your Area Name/Location
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
