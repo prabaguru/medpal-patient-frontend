@@ -75,7 +75,7 @@ export class DoctorsListingComponent
       $('#staticBackdropGmap').modal('show');
     }, 500);
 
-    //this.getdocListing();
+    this.getdocListing();
   }
   get f() {
     return this.firstFormGroup.controls;
