@@ -110,6 +110,7 @@ export class AppointmentsComponent
   bookedppointments: any = [];
   bookedTimeslot: any = [];
   serverTime: any;
+  smsHelpLine: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -817,7 +818,25 @@ export class AppointmentsComponent
               this.momweekday[d] ? this.momweekday[d] : this.weekday
             );
           }
+          this.getHopitalById();
           //console.log(this.bookedTimeslot);
+        },
+        (error) => {
+          this.commonService.showNotification(error);
+        }
+      );
+  }
+  getHopitalById(d?: any) {
+    this.subs.sink = this.medpalService
+      .getHopitalById(this.doc.hId)
+      .pipe(first())
+      .subscribe(
+        (data: any) => {
+          //console.log(data);
+          this.smsHelpLine = null;
+          this.smsHelpLine = data.smsHelpLineNo
+            ? data.smsHelpLineNo
+            : this.doc.mobile.number;
         },
         (error) => {
           this.commonService.showNotification(error);
@@ -856,16 +875,19 @@ export class AppointmentsComponent
   confirmBookingSms() {
     let mobileNo = this.g['primaryMobile'].value;
     let docName = this.doc.firstName;
-    let mob = `93531 05105`;
-    let bookedfor = `${this.g['firstName'].value} on ${this.f['bookedDate'].value} - ${this.f['bookedDay'].value} at ${this.f['slot'].value}`;
+    let mob = this.smsHelpLine;
+    let bookedfor = `${this.g['firstName'].value.toUpperCase()} on ${
+      this.f['bookedDate'].value
+    } - ${this.f['bookedDay'].value} at ${this.f['slot'].value}`;
+    let th = 'Link';
     let msgString = '';
-    msgString = `The consult with Dr. ${docName} is booked for ${bookedfor} . Our Helpline no is ${mob} . Plz carry your case no. Thank you. Medpal - Weisermanner`;
+    msgString = `The consult at ${this.doc.ClinicOneTimings.ClinicName.toUpperCase()} with Dr. ${docName.toUpperCase()} is booked for ${bookedfor} . Our Helpline no is ${mob} . ${th}. Thank you. Medpal - Weisermanner`;
     let payload = {
       From: 'WEISER',
       To: mobileNo,
       Body: msgString,
       dltentityid: '1601335161674716856',
-      dlttemplateid: '1607100000000226781',
+      dlttemplateid: '1607100000000248206',
     };
     return payload;
   }

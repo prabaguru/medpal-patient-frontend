@@ -133,7 +133,11 @@ export class MedpalService {
       .put(`${this.baseUrl}/doctors/update`, payload)
       .pipe(catchError(this.handleError));
   }
-
+  getHopitalById(id: any) {
+    return this.http
+      .get(`${environment.apiUrl}/hospitals/getById/${id}`)
+      .pipe(catchError(this.handleError));
+  }
   private handleError(err: any) {
     //console.log("error caught in service");
     //console.error(err);
