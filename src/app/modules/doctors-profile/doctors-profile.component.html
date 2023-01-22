@@ -105,59 +105,17 @@
                       <i class="fa fa-calendar icons"></i> Book Appointment
                     </button>
                   </li>
-                  <!-- <li
-                    class="btn-group"
-                    *ngIf="
-                      doc.ClinicOneTimings.active && doc.ClinicTwoTimings.active
-                    "
-                  >
-                    <button
-                      type="button"
-                      class="site-button dropdown-toggle"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i class="fa fa-calendar"></i>
-                      Book Appointment
-                      <span class="badge bg-light text-dark"
-                        >2 Clinics found</span
-                      >
-                    </button>
-                    <ul class="dropdown-menu px-3">
-                      <li>
-                        <a
-                          class="dropdown-item capitalize"
-                          href="javascript:void(0)"
-                          (click)="openModal(doc, 'clinic1')"
-                          >{{ doc.ClinicOneTimings.ClinicName }}
-                          <span
-                            class="capitalize"
-                            *ngIf="doc.ClinicOneTimings.ClinicLocation.name"
-                          >
-                            -
-                            {{ doc.ClinicOneTimings.clinicArea }}</span
-                          ></a
-                        >
-                      </li>
-                      <li><hr class="dropdown-divider" /></li>
-                      <li>
-                        <a
-                          class="dropdown-item capitalize"
-                          href="javascript:void(0)"
-                          (click)="openModal(doc, 'clinic2')"
-                          >{{ doc.ClinicTwoTimings.ClinicName }}
-                          <span
-                            class="capitalize"
-                            *ngIf="doc.ClinicTwoTimings.ClinicLocation.name"
-                          >
-                            -
-                            {{ doc.ClinicTwoTimings.clinicArea }}</span
-                          ></a
-                        >
-                      </li>
-                    </ul>
-                  </li> -->
                 </ul>
+                <a
+                  class="mb-2 text-decoration-underline"
+                  href="https://maps.google.com/maps?q={{
+                    doc.ClinicOneTimings.ClinicLocation.address
+                  }}&z=20"
+                  target="_blank"
+                >
+                  Location: {{ doc.ClinicOneTimings.ClinicLocation.address }}
+                  <i class="fa fa-map icosize"></i>
+                </a>
                 <div class="aon-doctorAbout-label text-center">
                   <span *ngIf="doc.graduation.DoctorType.name" class="">
                     <i class="fa fa-user-plus icosize"></i>
@@ -791,18 +749,16 @@
                     </li>
                   </ul>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 mt-3">
                   <i class="fa fa-map-marker fs-2 icocolor"></i> &nbsp;&nbsp;
                   <a
-                    mat-button
-                    color="primary"
-                    class="fw-bold text-decoration-underline"
+                    class="site-button"
                     href="https://maps.google.com/maps?q={{
-                      doc.ClinicOneTimings.ClinicLocation.loc.y
-                    }},{{ doc.ClinicOneTimings.ClinicLocation.loc.x }}"
+                      doc.ClinicOneTimings.ClinicLocation.address
+                    }},{{ doc.ClinicOneTimings.ClinicLocation.address }}&z=20"
                     target="_blank"
                   >
-                    View Clinic map location
+                    View Clinic map location <i class="fa fa-map icosize"></i>
                   </a>
                 </div>
               </div>

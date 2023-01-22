@@ -14,6 +14,7 @@ import { HospitalDoctorsListingComponent } from './modules/hospital-doctor-listi
 import { DoctorsProfileComponent } from './modules/doctors-profile/doctors-profile.component';
 import { AppointmentsComponent } from './modules/appointments/appointments.component';
 import { PatientAppointmentsComponent } from './modules/patient/patient-appointments/patient-appointments.component';
+import { AppointmentViewComponent } from './modules/appointment-view/appointment-view.component';
 import { AuthGuard } from './services';
 
 const routes: Routes = [
@@ -82,6 +83,10 @@ const routes: Routes = [
         path: 'patient/Appointments',
         component: PatientAppointmentsComponent,
         canActivate: [AuthGuard],
+      },
+      {
+        path: 'appointment',
+        component: AppointmentViewComponent,
       },
       { path: '**', component: MedpalHomeComponent },
     ],

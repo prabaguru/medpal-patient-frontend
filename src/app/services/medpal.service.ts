@@ -138,6 +138,12 @@ export class MedpalService {
       .get(`${environment.apiUrl}/hospitals/getById/${id}`)
       .pipe(catchError(this.handleError));
   }
+
+  getAppById(id: any) {
+    return this.http
+      .get(`${environment.apiUrl}/patient_appointments/getAppById/${id}`)
+      .pipe(catchError(this.handleError));
+  }
   private handleError(err: any) {
     //console.log("error caught in service");
     //console.error(err);

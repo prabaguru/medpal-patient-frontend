@@ -111,6 +111,7 @@ export class AppointmentsComponent
   bookedTimeslot: any = [];
   serverTime: any;
   smsHelpLine: any;
+  appId: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -445,7 +446,6 @@ export class AppointmentsComponent
     dateeObj = moment(this.f['appointmentDate'].value).format('DD/MM/YYYY');
     concot = dateeObj + ' ' + this.f['slot'].value;
     formatDate = moment(concot, 'DD/MM/YYYY hh:mm a').unix();
-    let smsdata = this.confirmBookingSms();
     let apiobj = {
       p_id: this.userInfo._id,
       slot: this.f['slot'].value,
@@ -471,12 +471,13 @@ export class AppointmentsComponent
       clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
       ClinicAddress: clinicloc,
       cord: cord,
-      smsdata,
     };
 
     this.subs.sink = this.medpalService.bookAppointment(apiobj).subscribe({
       next: (data: any) => {
         this.stepper.next();
+        this.appId = null;
+        this.appId = data.data.id;
         this.commonService.showNotification(data.message);
         this.updateAppointments(apiobj);
       },
@@ -531,6 +532,7 @@ export class AppointmentsComponent
       .updateDoctorAppointments(obj)
       .subscribe({
         next: (data: any) => {
+          this.confirmBookingSms();
           //this.confirmBookingSms();
           //this.commonService.showNotification(data.message);
         },
@@ -621,7 +623,7 @@ export class AppointmentsComponent
     }
   }
 
-  resetForm() {
+  resetForm(r?: string) {
     if (this.updateUser) {
       this.updateUserFNE();
     }
@@ -638,6 +640,9 @@ export class AppointmentsComponent
     this.thirdFormGroup.reset();
     this.setUserInfo();
     this.editable = true;
+    if (r === 're') {
+      this.router.navigate(['/home']);
+    }
   }
   generateOtp() {
     return Math.floor(100000 + Math.random() * 900000);
@@ -879,7 +884,7 @@ export class AppointmentsComponent
     let bookedfor = `${this.g['firstName'].value.toUpperCase()} on ${
       this.f['bookedDate'].value
     } - ${this.f['bookedDay'].value} at ${this.f['slot'].value}`;
-    let th = 'Link';
+    let th = `https://medpal.live/sms.html?dep,${this.appId}`;
     let msgString = '';
     msgString = `The consult at ${this.doc.ClinicOneTimings.ClinicName.toUpperCase()} with Dr. ${docName.toUpperCase()} is booked for ${bookedfor} . Our Helpline no is ${mob} . ${th}. Thank you. Medpal - Weisermanner`;
     let payload = {
@@ -889,7 +894,7 @@ export class AppointmentsComponent
       dltentityid: '1601335161674716856',
       dlttemplateid: '1607100000000248206',
     };
-    return payload;
+    this.sendSMSafterBooking(payload);
   }
 
   sendSMSafterBooking(payload: any) {

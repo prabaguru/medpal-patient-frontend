@@ -29,6 +29,7 @@ import { DoctorsProfileComponent } from './modules/doctors-profile/doctors-profi
 import { AppointmentsComponent } from './modules/appointments/appointments.component';
 import { PatientProfileResetPasswordComponent } from './modules/patient/patient-reset-password/patient-reset-password.component';
 import { PatientAppointmentsComponent } from './modules/patient/patient-appointments/patient-appointments.component';
+import { AppointmentViewComponent } from './modules/appointment-view/appointment-view.component';
 import {
   MedPalHttpInterceptor,
   ErrorInterceptor,
@@ -57,6 +58,7 @@ import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
     DoctorsProfileComponent,
     AppointmentsComponent,
     PatientAppointmentsComponent,
+    AppointmentViewComponent,
   ],
   imports: [
     BrowserModule,

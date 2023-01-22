@@ -1,0 +1,86 @@
+<div class="cus-top-nav">
+  <div class="container">
+    <div class="row d-flex justify-content-center mt-3">
+      <div class="col-md-8">
+        <p class="alert alert-success text-center">
+          <mat-icon class="material-symbols-outlined"> add_task </mat-icon>
+          Appointment Details
+        </p>
+        <div class="table-responsive">
+          <table class="table table-hover" *ngIf="appoinmentDetails">
+            <tbody>
+              <tr>
+                <td><i class="fa fa-user-plus icosize"></i> Doctor Name</td>
+                <td>
+                  Dr. {{ appoinmentDetails.doctorName }}
+                  <span class="fst-italic font-monospace">
+                    ({{ appoinmentDetails.doctorQualification }})
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-calendar icosize"></i> Date/Time</td>
+                <td>
+                  {{ appoinmentDetails.bookedDate }} -
+                  {{ appoinmentDetails.bookedDay }} at
+                  <strong>{{ appoinmentDetails.slot }}</strong>
+                  <strong> - {{ appoinmentDetails.appointmentType }}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-user icosize"></i> Patient Details</td>
+                <td>
+                  <u>Name:</u> {{ appoinmentDetails.firstName }} ,
+                  <u>Mobile:</u>
+                  {{ appoinmentDetails.primaryMobile }}
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-inr icosize"></i> Consultation Fees</td>
+                <td>
+                  <i class="fa fa-inr icosize"></i>
+                  {{ appoinmentDetails.consultingFees }}
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-cab icosize"></i> Clinic Address</td>
+                <td>
+                  {{ appoinmentDetails.ClinicAddress }}
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-bell icosize"></i> Appointment Status</td>
+                <td>
+                  {{ appoinmentDetails.AppointmentStatus }}
+                </td>
+              </tr>
+              <tr>
+                <td><i class="fa fa-book icosize"></i> Booked Date</td>
+                <td>
+                  {{
+                    appoinmentDetails.createdDate | date : "dd/MM/YYYY h:mm a"
+                  }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <i class="fa fa-map-marker icosize"></i>&nbsp;&nbsp;
+                  <a
+                    mat-button
+                    color="primary"
+                    class="clinicloc"
+                    href="https://maps.google.com/maps?q={{
+                      appoinmentDetails.ClinicAddress
+                    }}&z=25"
+                    target="_blank"
+                    >View Clinic map location <i class="fa fa-map icosize"></i
+                  ></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
