@@ -840,8 +840,8 @@ export class AppointmentsComponent
         (data: any) => {
           //console.log(data);
           this.smsHelpLine = null;
-          this.smsHelpLine = data.smsHelpLineNo
-            ? data.smsHelpLineNo
+          this.smsHelpLine = data[0].smsHelpLineNo
+            ? data[0].smsHelpLineNo
             : this.doc.mobile.number;
         },
         (error) => {

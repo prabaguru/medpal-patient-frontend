@@ -135,7 +135,7 @@ export class MedpalService {
   }
   getHopitalById(id: any) {
     return this.http
-      .get(`${environment.apiUrl}/hospitals/getById/${id}`)
+      .get(`${environment.apiUrl}/hospitals/gethosSMSMobno/${id}`)
       .pipe(catchError(this.handleError));
   }
 
