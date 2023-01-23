@@ -471,6 +471,7 @@ export class AppointmentsComponent
       clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
       ClinicAddress: clinicloc,
       cord: cord,
+      clinicName: this.doc.ClinicOneTimings.ClinicName,
     };
 
     this.subs.sink = this.medpalService.bookAppointment(apiobj).subscribe({
