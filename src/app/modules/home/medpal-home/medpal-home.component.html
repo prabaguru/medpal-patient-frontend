@@ -109,7 +109,14 @@
                     >{{ hos.firstName }}</a
                   >
                 </h4>
-                <p>{{ hos.address | slice : 0 : 100 }}</p>
+                <p>
+                  <a
+                    href="javascript:void(0)"
+                    [routerLink]="['/hospital-listing/doctors']"
+                    [queryParams]="{ hospital: hos.firstName, hid: hos._id }"
+                    >{{ hos.address | slice : 0 : 100 }}</a
+                  >
+                </p>
               </div>
             </div>
           </li>

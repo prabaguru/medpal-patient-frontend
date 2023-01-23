@@ -133,6 +133,12 @@
                     </td>
                   </tr>
                   <tr>
+                    <th scope="row">Booked Date</th>
+                    <td>
+                      {{ element.createdDate | date : "dd/MM/yyyy hh:mm a" }}
+                    </td>
+                  </tr>
+                  <tr>
                     <th scope="row">Book again</th>
                     <td>
                       <a
