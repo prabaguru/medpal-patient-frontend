@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonService, MedpalService } from 'src/app/services';
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Router, ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
 import * as moment from 'moment';
 (moment as any).suppressDeprecationWarnings = true;
 @Component({
@@ -15,6 +16,7 @@ export class AppointmentViewComponent
 {
   appoinmentDetails: any;
   appId: any;
+  cancel: boolean = true;
 
   constructor(
     public commonService: CommonService,
@@ -25,6 +27,7 @@ export class AppointmentViewComponent
     super();
     this.subs.sink = this.route.queryParams.subscribe((p) => {
       this.appId = p['id'];
+      this.cancel = p['cancel'] ? p['cancel'] : true;
     });
   }
 
@@ -53,5 +56,43 @@ export class AppointmentViewComponent
         //this.commonService.showNotification(err);
       },
     });
+  }
+
+  cancelAppointment(aId: any) {
+    let obj = {};
+    obj = {
+      id: aId._id,
+      AppointmentStatus: 'Cancelled',
+      closedBy: 'Doctor',
+      slot: `${aId.slot}-Cancelled`,
+      appointmentDate: aId.appointmentDate,
+      updateType: 'Cancel',
+    };
+    let curTime = moment().unix();
+    if (aId.appointmentDate < curTime) {
+      this.commonService.showNotification(
+        'Slot time has expired.This appointment cannot be cancelled.'
+      );
+      this.cancel = false;
+      return;
+    }
+    this.subs.sink = this.medpalService
+      .closeDoctorappointment(obj)
+      .pipe(first())
+      .subscribe({
+        next: () => {
+          this.commonService.showNotification(
+            'Appointment cancelled sucessfully.'
+          );
+        },
+        error: (error: any) => {
+          this.commonService.showNotification(error);
+          this.cancel = false;
+          this.router.navigate(['/appointment'], {
+            queryParams: { id: this.appId, cancel: this.cancel },
+          });
+        },
+        complete: () => {},
+      });
   }
 }
