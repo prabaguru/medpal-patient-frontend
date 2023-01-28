@@ -95,6 +95,20 @@
                   </button>
                 </td>
               </tr>
+              <tr *ngIf="appoinmentDetails.AppointmentStatus == 'Cancelled'">
+                <td colspan="3">
+                  <button
+                    mat-raised-button
+                    color="accent"
+                    class="text-white"
+                    type="button"
+                    [routerLink]="['/doctors-listing/doctors']"
+                  >
+                    <i class="fa fa-calendar icosize"></i>&nbsp; Book
+                    Appointment
+                  </button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
