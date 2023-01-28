@@ -63,7 +63,7 @@ export class AppointmentViewComponent
     obj = {
       id: aId._id,
       AppointmentStatus: 'Cancelled',
-      closedBy: 'Doctor',
+      closedBy: 'User',
       slot: `${aId.slot}-Cancelled`,
       appointmentDate: aId.appointmentDate,
       updateType: 'Cancel',
