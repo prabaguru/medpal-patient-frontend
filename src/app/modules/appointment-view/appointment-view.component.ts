@@ -84,6 +84,7 @@ export class AppointmentViewComponent
           this.commonService.showNotification(
             'Appointment cancelled sucessfully.'
           );
+          this.updateCancelAppointments(aId);
         },
         error: (error: any) => {
           this.commonService.showNotification(error);
@@ -92,6 +93,18 @@ export class AppointmentViewComponent
             queryParams: { id: this.appId, cancel: this.cancel },
           });
         },
+        complete: () => {},
+      });
+  }
+  updateCancelAppointments(obj: any) {
+    this.subs.sink = this.medpalService
+      .updateCancelAppointments(obj)
+      .pipe(first())
+      .subscribe({
+        next: (data) => {
+          //console.log(data);
+        },
+        error: (error) => {},
         complete: () => {},
       });
   }

@@ -149,6 +149,11 @@ export class MedpalService {
       .put(`${environment.apiUrl}/patient_appointments/update`, user)
       .pipe(catchError(this.handleError));
   }
+  updateCancelAppointments(user: any): Observable<any> {
+    return this.http
+      .put(`${environment.apiUrl}/doctors/updateCancelAppointments`, user)
+      .pipe(catchError(this.handleError));
+  }
   private handleError(err: any) {
     //console.log("error caught in service");
     //console.error(err);
