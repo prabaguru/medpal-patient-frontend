@@ -84,6 +84,10 @@ export class AppointmentViewComponent
           this.commonService.showNotification(
             'Appointment cancelled sucessfully.'
           );
+          this.cancel = false;
+          this.router.navigate(['/appointment'], {
+            queryParams: { id: this.appId, cancel: this.cancel },
+          });
           this.updateCancelAppointments(aId);
         },
         error: (error: any) => {

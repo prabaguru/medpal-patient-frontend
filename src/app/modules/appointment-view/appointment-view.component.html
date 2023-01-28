@@ -78,7 +78,12 @@
                 </td>
               </tr>
               <tr>
-                <td colspan="3" *ngIf="cancel">
+                <td
+                  colspan="3"
+                  *ngIf="
+                    cancel && appoinmentDetails.AppointmentStatus == 'Booked'
+                  "
+                >
                   <button
                     mat-raised-button
                     color="accent"
