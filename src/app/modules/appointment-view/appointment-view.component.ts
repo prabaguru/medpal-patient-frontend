@@ -85,17 +85,12 @@ export class AppointmentViewComponent
             'Appointment cancelled sucessfully.'
           );
           this.cancel = false;
-          this.router.navigate(['/appointment'], {
-            queryParams: { id: this.appId, cancel: this.cancel },
-          });
+          this.appoinmentDetails.AppointmentStatus = 'Cancelled';
           this.updateCancelAppointments(aId);
         },
         error: (error: any) => {
           this.commonService.showNotification(error);
           this.cancel = false;
-          this.router.navigate(['/appointment'], {
-            queryParams: { id: this.appId, cancel: this.cancel },
-          });
         },
         complete: () => {},
       });

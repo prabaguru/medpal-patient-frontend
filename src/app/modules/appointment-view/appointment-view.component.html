@@ -77,13 +77,12 @@
                   ></a>
                 </td>
               </tr>
-              <tr>
-                <td
-                  colspan="3"
-                  *ngIf="
-                    cancel && appoinmentDetails.AppointmentStatus == 'Booked'
-                  "
-                >
+              <tr
+                *ngIf="
+                  cancel && appoinmentDetails.AppointmentStatus == 'Booked'
+                "
+              >
+                <td colspan="3">
                   <button
                     mat-raised-button
                     color="accent"
