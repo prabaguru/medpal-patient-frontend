@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './modules/home/header/header.component';
 import { MedpalHomeComponent } from './modules/home/medpal-home/medpal-home.component';
 import { MedpalAboutUsComponent } from './modules/home/aboutus/aboutus.component';
+import { TermsnConditionsComponent } from './modules/home/termsnconditions/termsnconditions.component';
+import { ContactComponent } from './modules/home/contact/contact.component';
 import { PatientLoginComponent } from './modules/login/patient-login/patient-login.component';
 import { PatientSignupComponent } from './modules/login/patient-signup/patient-signup.component';
 import { ResetPasswordComponent } from './modules/login/reset-password/reset-password.component';
@@ -36,6 +38,14 @@ const routes: Routes = [
       {
         path: 'aboutus',
         component: MedpalAboutUsComponent,
+      },
+      {
+        path: 'terms&conditions',
+        component: TermsnConditionsComponent,
+      },
+      {
+        path: 'contact',
+        component: ContactComponent,
       },
       {
         path: 'doctors-listing/doctors',
