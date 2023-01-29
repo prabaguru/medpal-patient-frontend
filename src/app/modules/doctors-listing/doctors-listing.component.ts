@@ -4,7 +4,7 @@ import { Options } from 'ngx-google-places-autocomplete/objects/options/options'
 import { UnsubscribeOnDestroyAdapter } from 'src/app/shared/UnsubscribeOnDestroyAdapter';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
+import { PlatformLocation } from '@angular/common';
 
 declare var $: any;
 @Component({
@@ -45,10 +45,13 @@ export class DoctorsListingComponent
     public medpalService: MedpalService,
     private route: ActivatedRoute,
     private router: Router,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    location: PlatformLocation
   ) {
     super();
-
+    location.onPopState(() => {
+      $('#staticBackdropGmap').modal('hide');
+    });
     this.options = {
       bounds: undefined,
       fields: ['place_id', 'name', 'formatted_address', 'geometry'],

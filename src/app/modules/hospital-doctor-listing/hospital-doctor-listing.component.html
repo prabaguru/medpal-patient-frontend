@@ -74,7 +74,9 @@
         >Doctors</span
       >
       available For
-      <span *ngIf="params?.hospital">{{ params?.hospital }} </span>
+      <span
+        >{{ params.hospital ? params.hospital : hospitalData.firstName }}
+      </span>
     </h3>
     <div class="aon-searchInfo-text">
       <i class="fa fa-check"></i> Book appointments with minimum wait-time &amp;
@@ -156,7 +158,10 @@
                     <a
                       href="javascript:void(0)"
                       [routerLink]="['/doctors-profile']"
-                      [queryParams]="{ doctor: doc.firstName }"
+                      [queryParams]="{
+                        doctor: doc.firstName,
+                        appType: 'Hospital'
+                      }"
                       ><img
                         *ngIf="doc.image.imageUrl"
                         src="{{ doc.image.imageUrl }}"
@@ -174,7 +179,10 @@
                     <a
                       href="javascript:void(0)"
                       [routerLink]="['/doctors-profile']"
-                      [queryParams]="{ doctor: doc.firstName }"
+                      [queryParams]="{
+                        doctor: doc.firstName,
+                        appType: 'Hospital'
+                      }"
                       class="sf-doc-profile-view"
                       >View Profile</a
                     >
@@ -276,79 +284,26 @@
         <!-- Left part END -->
 
         <!-- Side bar start -->
-        <!-- <div class="col-lg-4 col-md-12">
-        <aside class="side-bar">
-          <div class="sf-siderbar-map">
-            <div class="search-filter-wrap">
-              <div class="search-filter-box">
-                <h4 class="search-filter-title">Video Consult</h4>
-                <div class="search-filter-content">
-                  <div class="checkbox sf-radio-checkbox sf-radio-input">
-                    <input id="lau1" name="abc" value="five" type="checkbox" />
-                    <label for="lau1">Yes</label>
-                  </div>
-                </div>
-              </div>
-              <div class="search-filter-box">
-                <h4 class="search-filter-title">Availability</h4>
-                <div class="search-filter-content">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option>Select Doctors</option>
-                    <option>Available Today</option>
-                    <option>Available Tommorow</option>
-                    <option>Available in next 7 days</option>
-                  </select>
-                </div>
-              </div>
-              <div class="search-filter-box">
-                <h4 class="search-filter-title">Gender</h4>
-                <div class="search-filter-content">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option>Male Doctor</option>
-                    <option>Female Doctor</option>
-                  </select>
-                </div>
-              </div>
-              <div class="search-filter-box">
-                <h4 class="search-filter-title">Consultation Fee</h4>
-                <div class="search-filter-content">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option>Free</option>
-                    <option>100-200</option>
-                    <option>200-500</option>
-                    <option>500+</option>
-                  </select>
-                </div>
-              </div>
-              <div class="search-filter-box">
-                <h4 class="search-filter-title">Availability</h4>
-                <div class="search-filter-content">
-                  <select
-                    class="form-select"
-                    aria-label="Default select example"
-                  >
-                    <option>Sort By</option>
-                    <option>Earliest Available</option>
-                    <option>Price - Low to High</option>
-                    <option>Price - High to Low</option>
-                    <option>Years of Experience</option>
-                    <option>Recommendation</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
-      </div> -->
+        <div class="col-lg-4 col-md-12">
+          <aside class="side-bar">
+            <h4 class="search-filter-title">
+              About Hospital <i class="fa fa-info-circle"></i>&nbsp;&nbsp;
+            </h4>
+            <p>{{ hospitalData.about }}</p>
+            <p>
+              <i class="fa fa-map"></i>&nbsp;&nbsp;{{ hospitalData.address
+              }}<br /><br />
+              <i class="fa fa-envelope"></i>&nbsp;&nbsp;<a
+                href="maiilto:hospitalData.email"
+                >{{ hospitalData.email }}</a
+              ><br />
+              <i class="fa fa-phone"></i>&nbsp;&nbsp;<a
+                href="maiilto:hospitalData.smsHelpLineNo"
+                >{{ hospitalData.smsHelpLineNo }}</a
+              >
+            </p>
+          </aside>
+        </div>
         <!-- Side bar END -->
       </div>
     </div>

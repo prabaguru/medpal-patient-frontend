@@ -23,6 +23,7 @@ export class DoctorsProfileComponent
   scroll(el: HTMLElement) {
     el.scrollIntoView({ behavior: 'smooth' });
   }
+  apptype: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -47,6 +48,7 @@ export class DoctorsProfileComponent
         getBy: doctype,
         getdoctor: doc,
       };
+      this.apptype = p['appType'] ? p['appType'] : 'Clinic';
     });
     this.subs.sink = this.medpalService.getDoctorData(this.obj).subscribe({
       next: (data: any) => {

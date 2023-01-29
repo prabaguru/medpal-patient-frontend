@@ -29,6 +29,7 @@ export class HospitalDoctorsListingComponent
       name: 'MBBS - General',
     },
   ];
+  hospitalData: any;
   constructor(
     public commonService: CommonService,
     public medpalService: MedpalService,
@@ -85,12 +86,25 @@ export class HospitalDoctorsListingComponent
               return acc;
             }
           }, []);
+          this.getHospitalData(hid);
         },
         error: (err) => {
           this.commonService.showNotification(err);
         },
       });
   }
+
+  getHospitalData(hid: any) {
+    this.subs.sink = this.medpalService.getHospitalData(hid).subscribe({
+      next: (data: any) => {
+        this.hospitalData = data[0] ? data[0] : null;
+      },
+      error: (err) => {
+        this.commonService.showNotification(err);
+      },
+    });
+  }
+
   applyFilter(filter: String) {
     if (filter === 'Show All') {
       this.f['genderFltr'].setValue(null);

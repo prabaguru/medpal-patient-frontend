@@ -6,7 +6,10 @@
         <!-- Left part start -->
         <div class="col-lg-8">
           <!-- Doctor about -->
-          <div class="aon-doctorAbout-wrap d-flex" id="aon-about-area">
+          <div
+            class="aon-doctorAbout-wrap d-flex mb-3 pb-4"
+            id="aon-about-area"
+          >
             <div class="aon-doctorAbout-left">
               <div class="aon-doctorAbout-pic">
                 <img
@@ -36,14 +39,26 @@
                   </span>
                 </span>
               </div>
-              <!-- <div class="aon-doctorAbout-location">
-                <i class="feather-map-pin"></i>
-                <span
-                  class="capitalize"
-                  *ngIf="doc.ClinicOneTimings.ClinicLocation.name"
-                  >{{ doc.ClinicOneTimings.ClinicLocation.name }} dfgdfh</span
-                >
-              </div> -->
+              <div class="mt-4">
+                <div *ngIf="apptype === 'Hospital'">
+                  <a
+                    href="javascript:void(0)"
+                    [routerLink]="['/hospital-listing/doctors']"
+                    [queryParams]="{
+                      hospital: '',
+                      hid: doc.hId
+                    }"
+                    ><i class="fa fa-reply icosize"></i> Back to Listings</a
+                  >
+                </div>
+                <div *ngIf="apptype === 'Clinic'">
+                  <a
+                    href="javascript:void(0)"
+                    [routerLink]="['/doctors-listing/doctors']"
+                    ><i class="fa fa-reply icosize"></i> Back to Listings</a
+                  >
+                </div>
+              </div>
             </div>
 
             <div class="aon-doctorAbout-right">
@@ -125,6 +140,7 @@
               </div>
             </div>
           </div>
+
           <!-- Doctor about Endf-->
 
           <!--Doctor Education-->
@@ -320,289 +336,7 @@
                           </tr>
                         </tbody>
                       </table>
-                      <!-- <ul
-                        class="timeslot m-0"
-                        *ngIf="doc.ClinicOneTimings.active"
-                      >
-                        <li class="lsstyle">
-                          <h3>
-                            {{ doc.ClinicOneTimings.ClinicName }}
-                          </h3>
-                          <p>
-                            <strong>Address:</strong>
-                            {{ doc.ClinicOneTimings.ClinicLocation.address }}
-                          </p>
-                        </li>
-                        <li>
-                          <h4>
-                            Monday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicOneTimings.Monday"
-                            >
-                              {{ doc.ClinicOneTimings.MonStarttime }} -
-                              {{ doc.ClinicOneTimings.MonEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicOneTimings.Monday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Tuesday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicOneTimings.Tuesday"
-                            >
-                              {{ doc.ClinicOneTimings.TueStarttime }} -
-                              {{ doc.ClinicOneTimings.TueEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicOneTimings.Tuesday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Wednesday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicOneTimings.Wednesday"
-                            >
-                              {{ doc.ClinicOneTimings.WedStarttime }} -
-                              {{ doc.ClinicOneTimings.WedEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicOneTimings.Wednesday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Thursday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicOneTimings.Thursday"
-                            >
-                              {{ doc.ClinicOneTimings.ThuStarttime }} -
-                              {{ doc.ClinicOneTimings.ThuEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicOneTimings.Thursday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Friday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicOneTimings.Friday"
-                            >
-                              {{ doc.ClinicOneTimings.FriStarttime }} -
-                              {{ doc.ClinicOneTimings.FriEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicOneTimings.Friday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Saturday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicOneTimings.Saturday"
-                            >
-                              {{ doc.ClinicOneTimings.SatStarttime }} -
-                              {{ doc.ClinicOneTimings.SatEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicOneTimings.Saturday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Sunday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicOneTimings.Sunday"
-                            >
-                              {{ doc.ClinicOneTimings.SunStarttime }} -
-                              {{ doc.ClinicOneTimings.SunEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicOneTimings.Sunday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                      </ul> -->
                     </div>
-                    <!-- <div class="col-sm-6">
-                      <ul
-                        class="timeslot m-0"
-                        *ngIf="doc.ClinicTwoTimings.active"
-                      >
-                        <li class="lsstyle">
-                          <h3>
-                            {{ doc.ClinicTwoTimings.ClinicName }}
-                          </h3>
-                          <p>
-                            <strong>Address:</strong>
-                            {{ doc.ClinicTwoTimings.ClinicLocation.address }}
-                          </p>
-                        </li>
-                        <li>
-                          <h4>
-                            Monday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicTwoTimings.Monday"
-                            >
-                              {{ doc.ClinicTwoTimings.MonStarttime }} -
-                              {{ doc.ClinicTwoTimings.MonEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicTwoTimings.Monday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Tuesday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicTwoTimings.Tuesday"
-                            >
-                              {{ doc.ClinicTwoTimings.TueStarttime }} -
-                              {{ doc.ClinicTwoTimings.TueEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicTwoTimings.Tuesday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Wednesday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicTwoTimings.Wednesday"
-                            >
-                              {{ doc.ClinicTwoTimings.WedStarttime }} -
-                              {{ doc.ClinicTwoTimings.WedEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicTwoTimings.Wednesday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Thursday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicTwoTimings.Thursday"
-                            >
-                              {{ doc.ClinicTwoTimings.ThuStarttime }} -
-                              {{ doc.ClinicTwoTimings.ThuEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicTwoTimings.Thursday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Friday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicTwoTimings.Friday"
-                            >
-                              {{ doc.ClinicTwoTimings.FriStarttime }} -
-                              {{ doc.ClinicTwoTimings.FriEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicTwoTimings.Friday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Saturday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicTwoTimings.Saturday"
-                            >
-                              {{ doc.ClinicTwoTimings.SatStarttime }} -
-                              {{ doc.ClinicTwoTimings.SatEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicTwoTimings.Saturday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                        <li>
-                          <h4>
-                            Sunday:
-                            <span
-                              class="timings"
-                              *ngIf="doc.ClinicTwoTimings.Sunday"
-                            >
-                              {{ doc.ClinicTwoTimings.SunStarttime }} -
-                              {{ doc.ClinicTwoTimings.SunEndtime }}
-                            </span>
-                            <span
-                              class="timings2"
-                              *ngIf="!doc.ClinicTwoTimings.Sunday"
-                            >
-                              Holiday
-                            </span>
-                          </h4>
-                        </li>
-                      </ul>
-                    </div> -->
                   </div>
                 </div>
               </div>
@@ -1162,6 +896,7 @@
                           </a>
                         </div>
                       </div>
+
                       <!-- <div
                         class="btn-group"
                         *ngIf="
@@ -1214,6 +949,28 @@
                           </li>
                         </ul>
                       </div> -->
+                    </div>
+                    <div class="mt-4">
+                      <div *ngIf="apptype === 'Hospital'">
+                        <a
+                          href="javascript:void(0)"
+                          [routerLink]="['/hospital-listing/doctors']"
+                          [queryParams]="{
+                            hospital: '',
+                            hid: doc.hId
+                          }"
+                          ><i class="fa fa-reply icosize"></i> Back to
+                          Listings</a
+                        >
+                      </div>
+                      <div *ngIf="apptype === 'Clinic'">
+                        <a
+                          href="javascript:void(0)"
+                          [routerLink]="['/doctors-listing/doctors']"
+                          ><i class="fa fa-reply icosize"></i> Back to
+                          Listings</a
+                        >
+                      </div>
                     </div>
                   </div>
                 </div>

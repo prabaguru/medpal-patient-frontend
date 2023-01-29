@@ -139,6 +139,12 @@ export class MedpalService {
       .pipe(catchError(this.handleError));
   }
 
+  getHospitalData(id: any) {
+    return this.http
+      .get(`${environment.apiUrl}/hospitals/getById/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
   getAppById(id: any) {
     return this.http
       .get(`${environment.apiUrl}/patient_appointments/getAppById/${id}`)
