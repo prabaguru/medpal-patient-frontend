@@ -289,17 +289,17 @@
             <h4 class="search-filter-title">
               About Hospital <i class="fa fa-info-circle"></i>&nbsp;&nbsp;
             </h4>
-            <p>{{ hospitalData.about }}</p>
+            <p>{{ hospitalData?.about }}</p>
             <p>
-              <i class="fa fa-map"></i>&nbsp;&nbsp;{{ hospitalData.address
+              <i class="fa fa-map"></i>&nbsp;&nbsp;{{ hospitalData?.address
               }}<br /><br />
               <i class="fa fa-envelope"></i>&nbsp;&nbsp;<a
-                href="maiilto:hospitalData.email"
-                >{{ hospitalData.email }}</a
+                href="maiilto:hospitalData?.email"
+                >{{ hospitalData?.email }}</a
               ><br />
               <i class="fa fa-phone"></i>&nbsp;&nbsp;<a
-                href="maiilto:hospitalData.smsHelpLineNo"
-                >{{ hospitalData.smsHelpLineNo }}</a
+                href="maiilto:hospitalData?.smsHelpLineNo"
+                >{{ hospitalData?.smsHelpLineNo }}</a
               >
             </p>
           </aside>

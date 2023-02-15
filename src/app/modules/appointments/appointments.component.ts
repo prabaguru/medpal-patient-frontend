@@ -183,7 +183,21 @@ export class AppointmentsComponent
     this.setUserInfo();
     if (changes.data.currentValue !== undefined) {
       this.doc = changes.data.currentValue.mainObj;
-      this.getAppointmentsById();
+      let checkLeavearr = this.doc.leaveDates;
+      let checkLeave: boolean = false;
+      let calDate = moment(this.minDate).format('DD/MM/YYYY');
+      for (let i = 0; i < checkLeavearr.length; i++) {
+        if (checkLeavearr[i].date === calDate) {
+          checkLeave = true;
+        }
+      }
+      if (!checkLeave) {
+        this.getAppointmentsById();
+      } else {
+        this.finalTimeslot = [];
+        this.timingSlotsFlag = true;
+        this.showtemplate = true;
+      }
     }
   }
   ngOnInit(): void {
@@ -243,13 +257,32 @@ export class AppointmentsComponent
     let date;
     date = moment(e.value._d).day();
     let checkSlot = this.slotCheck(this.momweekday[date]);
-    if (checkSlot) {
+    let checkLeavearr = this.doc.leaveDates;
+    let checkLeave: boolean = false;
+    let calDate = moment(e.value._d).format('DD/MM/YYYY');
+    for (let i = 0; i < checkLeavearr.length; i++) {
+      if (checkLeavearr[i].date === calDate) {
+        checkLeave = true;
+      }
+    }
+    if (checkSlot && !checkLeave) {
       this.getAppointmentsById(date);
       this.timingSlotsFlag = false;
     } else {
       this.finalTimeslot = [];
       this.timingSlotsFlag = true;
     }
+    // this.timingSlots = [];
+    // let date;
+    // date = moment(e.value._d).day();
+    // let checkSlot = this.slotCheck(this.momweekday[date]);
+    // if (checkSlot) {
+    //   this.getAppointmentsById(date);
+    //   this.timingSlotsFlag = false;
+    // } else {
+    //   this.finalTimeslot = [];
+    //   this.timingSlotsFlag = true;
+    // }
     //this.generateSlots(this.momweekday[date]);
   }
   get f() {
