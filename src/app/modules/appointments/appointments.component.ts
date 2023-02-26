@@ -838,17 +838,20 @@ export class AppointmentsComponent
     let obj: any = {
       id: this.doc._id,
       clinic: this.doc.clinic1 ? 'Clinic1' : 'Clinic2',
+      date: moment(this.f['appointmentDate'].value).format('DD/MM/YYYY'),
     };
     this.subs.sink = this.medpalService
       .getDoctorAppointments(obj)
       .pipe(first())
       .subscribe(
         (data: any) => {
+          if (data?.checkLeave) {
+            this.finalTimeslot = [];
+            this.timingSlotsFlag = true;
+            return;
+          }
           let clinic = data.clinic;
-          let app =
-            clinic === 'Clinic1'
-              ? data.data.clinic1appointments
-              : data.data.clinic2appointments;
+          let app = data.data.clinic1appointments;
           this.bookedTimeslot = app;
           this.serverTime = data.currentTime;
           if (Object.getOwnPropertyNames(this.doc).length > 0) {
